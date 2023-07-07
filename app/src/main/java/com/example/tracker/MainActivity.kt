@@ -2,7 +2,7 @@ package com.example.tracker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+//Start recreate project with MVI
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
