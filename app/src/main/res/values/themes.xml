@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Tracker" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/main</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="bt_collections">
+        <item name="cornerRadius">10dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Theme.Tracker" parent="Base.Theme.Tracker" />

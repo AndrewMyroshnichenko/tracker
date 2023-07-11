@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Tracker</string>
+
+    <!--    Tracker Strings-->
+    <string name="tracker_off">TRACKER IS OFF</string>
+    <string name="collects_locations">COLLECTS LOCATIONS</string>
+    <string name="gps_off">GPS IS OFF</string>
+    <string name="tracker_cant_collect_locations">Tracker can\'t collect locations</string>
+    <string name="tracker">Tracker</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>\
+
+    <!--    Login Strings-->
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="hint_user_name">User name</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sing_in">Sing in</string>
+    <string name="sing_up">Sing Up</string>
+    <string name="don_t_have_an_account">Don`t have an account?</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="str_error_password">Error password</string>
+    <string name="send_new_password">Send new password</string>
+    <string name="msg_fill_all_fields">Fill all fields</string>
+    <string name="msg_email_pass_isn_t_correctly">Email or password isn\'t correctly</string>
+    <string name="msg_pass_must_be_same">Both password must be the same</string>
+    <string name="msg_registration_is_successful">Registration is successful</string>
 </resources>
