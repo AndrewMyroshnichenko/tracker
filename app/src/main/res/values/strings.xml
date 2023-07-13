@@ -22,6 +22,7 @@
     <string name="str_error_password">Error password</string>
     <string name="send_new_password">Send new password</string>
     <string name="msg_fill_all_fields">Fill all fields</string>
+    <string name="msg_fill_email">Fill email</string>
     <string name="msg_email_pass_isn_t_correctly">Email or password isn\'t correctly</string>
     <string name="msg_pass_must_be_same">Both password must be the same</string>
     <string name="msg_registration_is_successful">Registration is successful</string>

@@ -5,20 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
+import com.example.tracker.TrackerViewModel
 import com.example.tracker.databinding.FragmentLoginBinding
+import com.example.tracker.mvi.TrackerEvent
+import com.example.tracker.mvi.TrackerState
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment(), View.OnClickListener {
 
-    lateinit var mAuth: FirebaseAuth
-
-    //private var viewModel: LoginViewModel? = vm
+    private var viewModel: TrackerViewModel? = null
     private var bind: FragmentLoginBinding? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[TrackerViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +35,25 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mAuth = FirebaseAuth.getInstance()
+
         bind?.btSingInUp?.setOnClickListener(this)
         bind?.tvForgotPassword?.setOnClickListener(this)
         bind?.widgetSingInUp?.setOnClickListener(this)
         bind?.ibBack?.setOnClickListener(this)
+
+        viewModel?.state?.observe(viewLifecycleOwner) {
+            when (it) {
+
+                is TrackerState.SuccessSignIn, TrackerState.SuccessSignUp -> findNavController().navigate(
+                    R.id.action_loginFragment_to_trackerFragment
+                )
+
+                is TrackerState.SuccessResetPassword -> backToLoginViews()
+                is TrackerState.SuccessSignOutState -> {}
+                is TrackerState.ShowError -> showMessage(it.message, view)
+
+            }
+        }
     }
 
     override fun onClick(v: View?) {
@@ -57,15 +75,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
             if (userEmail.isEmpty() || userPassword.isEmpty()) {
                 showMessage(getString(R.string.msg_fill_all_fields), v)
             } else {
-                //viewModel?.send(SingInEvent(userEmail, userPassword))
-                mAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            findNavController().navigate(R.id.action_loginFragment_to_trackerFragment)
-                        } else {
-                            Toast.makeText(requireContext(), "failed!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                viewModel?.dispatchEvent(TrackerEvent.SingInEvent(userEmail, userPassword))
             }
         } else if (buttonText == resources.getString(R.string.sing_up)) {
             if (userEmail.isEmpty() || userPassword.isEmpty() || confirmPassword.isEmpty()) {
@@ -73,10 +83,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
             } else if (userPassword != confirmPassword) {
                 showMessage(getString(R.string.msg_pass_must_be_same), v)
             } else {
-                //viewModel?.send(SingUpEvent(userEmail, userPassword))
+                viewModel?.dispatchEvent(TrackerEvent.SingUpEvent(userEmail, userPassword))
             }
         } else {
-            //viewModel?.send(ForgotPasswordEvent(userEmail))
+            if (userEmail.isEmpty()) {
+                showMessage(getString(R.string.msg_fill_email), v)
+            } else {
+                viewModel?.dispatchEvent(TrackerEvent.ForgotPasswordEvent(userEmail))
+            }
+
         }
     }
 
