@@ -1,9 +1,9 @@
-package com.example.tracker
+package com.example.tracker.ui.login
 
 import com.example.tracker.mvi.MviViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class TrackerViewModel : MviViewModel<TrackerState, TrackerEvent, TrackerAction>() {
+class LoginViewModel : MviViewModel<TrackerState, TrackerEvent, TrackerAction>() {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 

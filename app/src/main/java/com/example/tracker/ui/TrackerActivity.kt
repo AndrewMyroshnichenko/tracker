@@ -1,4 +1,4 @@
-package com.example.tracker
+package com.example.tracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

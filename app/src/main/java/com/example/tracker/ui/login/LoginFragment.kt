@@ -1,4 +1,4 @@
-package com.example.tracker.ui
+package com.example.tracker.ui.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,20 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
-import com.example.tracker.TrackerViewModel
 import com.example.tracker.databinding.FragmentLoginBinding
-import com.example.tracker.TrackerEvent
-import com.example.tracker.TrackerState
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment(), View.OnClickListener {
 
-    private var viewModel: TrackerViewModel? = null
+    private var viewModel: LoginViewModel? = null
     private var bind: FragmentLoginBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[TrackerViewModel::class.java]
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
     }
 
     override fun onCreateView(

@@ -1,4 +1,4 @@
-package com.example.tracker.ui
+package com.example.tracker.ui.splash
 
 import android.os.Bundle
 import android.os.Handler

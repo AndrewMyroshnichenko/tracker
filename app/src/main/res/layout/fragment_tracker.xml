@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.tracker.ui.TrackerFragment">
+    tools:context="com.example.tracker.ui.tracker.TrackerFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_activity_main"
