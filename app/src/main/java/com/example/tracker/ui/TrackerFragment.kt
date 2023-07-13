@@ -35,7 +35,7 @@ class TrackerFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
 
-            R.id.bt_start_stop -> mAuth?.signOut()
+            //R.id.bt_start_stop -> mAuth?.signOut()
             R.id.ib_signout -> mAuth?.signOut()
         }
     }
