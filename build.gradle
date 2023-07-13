@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.cotoutines_version = "1.7.1"
     ext.nav_version = "2.6.0"
     ext.firebase_bom = "32.1.1"
     ext.firestore_ktx = "24.6.1"

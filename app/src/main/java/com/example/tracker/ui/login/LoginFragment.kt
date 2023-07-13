@@ -18,7 +18,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        val factory = LoginViewModelFactory()
+        viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -41,13 +42,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
         viewModel?.state?.observe(viewLifecycleOwner) {
             when (it) {
 
-                is TrackerState.SuccessSignIn, TrackerState.SuccessSignUp -> findNavController().navigate(
+                is LoginState.SuccessSignIn, LoginState.SuccessSignUp -> findNavController().navigate(
                     R.id.action_loginFragment_to_trackerFragment
                 )
 
-                is TrackerState.SuccessResetPassword -> backToLoginViews()
-                is TrackerState.SuccessSignOutState -> {}
-                is TrackerState.ShowError -> showMessage(it.message, view)
+                is LoginState.SuccessResetPassword -> backToLoginViews()
+                is LoginState.SuccessSignOutState -> {}
+                is LoginState.ShowError -> showMessage(it.message, view)
 
             }
         }
@@ -72,7 +73,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
             if (userEmail.isEmpty() || userPassword.isEmpty()) {
                 showMessage(getString(R.string.msg_fill_all_fields), v)
             } else {
-                viewModel?.dispatchEvent(TrackerEvent.SingInEvent(userEmail, userPassword))
+                viewModel?.dispatchEvent(LoginEvent.SingInEvent(userEmail, userPassword))
             }
         } else if (buttonText == resources.getString(R.string.sing_up)) {
             if (userEmail.isEmpty() || userPassword.isEmpty() || confirmPassword.isEmpty()) {
@@ -80,13 +81,13 @@ class LoginFragment : Fragment(), View.OnClickListener {
             } else if (userPassword != confirmPassword) {
                 showMessage(getString(R.string.msg_pass_must_be_same), v)
             } else {
-                viewModel?.dispatchEvent(TrackerEvent.SingUpEvent(userEmail, userPassword))
+                viewModel?.dispatchEvent(LoginEvent.SingUpEvent(userEmail, userPassword))
             }
         } else {
             if (userEmail.isEmpty()) {
                 showMessage(getString(R.string.msg_fill_email), v)
             } else {
-                viewModel?.dispatchEvent(TrackerEvent.ForgotPasswordEvent(userEmail))
+                viewModel?.dispatchEvent(LoginEvent.ForgotPasswordEvent(userEmail))
             }
 
         }
