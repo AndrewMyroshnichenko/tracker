@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
 import com.example.tracker.TrackerViewModel
 import com.example.tracker.databinding.FragmentLoginBinding
-import com.example.tracker.mvi.TrackerEvent
-import com.example.tracker.mvi.TrackerState
+import com.example.tracker.TrackerEvent
+import com.example.tracker.TrackerState
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment(), View.OnClickListener {

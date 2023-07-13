@@ -1,4 +1,4 @@
-package com.example.tracker.mvi
+package com.example.tracker
 
 interface State
 

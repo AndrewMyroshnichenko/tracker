@@ -1,9 +1,6 @@
 package com.example.tracker
 
 import com.example.tracker.mvi.MviViewModel
-import com.example.tracker.mvi.TrackerAction
-import com.example.tracker.mvi.TrackerEvent
-import com.example.tracker.mvi.TrackerState
 import com.google.firebase.auth.FirebaseAuth
 
 class TrackerViewModel : MviViewModel<TrackerState, TrackerEvent, TrackerAction>() {
