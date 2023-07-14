@@ -1,7 +1,7 @@
 package com.example.tracker.ui.login
 
 import androidx.lifecycle.viewModelScope
-import com.example.tracker.FirebaseInterface
+import com.example.tracker.firebase.FirebaseInterface
 import com.example.tracker.mvi.MviViewModel
 import kotlinx.coroutines.launch
 

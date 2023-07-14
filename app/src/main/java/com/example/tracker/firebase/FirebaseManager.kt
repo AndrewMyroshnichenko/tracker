@@ -1,6 +1,5 @@
-package com.example.tracker
+package com.example.tracker.firebase
 
-import com.example.tracker.ui.login.LoginState
 import com.google.firebase.auth.FirebaseAuth
 
 class FirebaseManager : FirebaseInterface {
