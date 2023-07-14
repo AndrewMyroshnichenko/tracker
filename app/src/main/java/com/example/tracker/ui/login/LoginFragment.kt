@@ -142,8 +142,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
     }
 
-    private fun showMessage(message: String, view: View) {
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
+    private fun showMessage(message: String?, view: View) {
+        message?.let { Snackbar.make(view, it, Snackbar.LENGTH_SHORT).show() }
     }
 
     private fun backToLoginViews() {

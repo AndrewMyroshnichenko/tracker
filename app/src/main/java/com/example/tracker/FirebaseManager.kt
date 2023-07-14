@@ -1,83 +1,70 @@
 package com.example.tracker
 
-import android.util.Log
 import com.example.tracker.ui.login.LoginState
 import com.google.firebase.auth.FirebaseAuth
 
-
 class FirebaseManager : FirebaseInterface {
 
+    //When I add DI, I'll move this to the constructor
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    //I know why it doesn't work, but I haven't found a solution yet
-    override fun signIn(userEmail: String, userPassword: String): LoginState? {
-
-        var state: LoginState? = null
-
-        Log.d("MIROSH", "INIT S: ${state.toString()}")
-
+    override fun signIn(
+        userEmail: String,
+        userPassword: String,
+        callback: (Boolean, String?) -> Unit
+    ) {
         mAuth.signInWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener { task ->
-                state = if (task.isSuccessful) {
-                    LoginState.SuccessSignIn(userEmail)
+                if (task.isSuccessful) {
+                    callback(true, null)
                 } else {
-                    LoginState.ShowError("Login failed!")
+                    callback(false, "Login failed!")
                 }
             }
-        Log.d("MIROSH", "S: ${state.toString()}")
-        return state
-
     }
-    //I know why it doesn't work, but I haven't found a solution yet
-    override fun signUp(userEmail: String, userPassword: String): LoginState? {
 
-        var state: LoginState? = null
-
+    override fun signUp(
+        userEmail: String,
+        userPassword: String,
+        callback: (Boolean, String?) -> Unit
+    ) {
         mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener {
-                state = if (it.isSuccessful) {
-                    LoginState.SuccessSignUp
+                if (it.isSuccessful) {
+                    callback(true, null)
                 } else {
-                    LoginState.ShowError("Registration failed!")
+                    callback(false, "Registration failed!")
                 }
             }
-
-        return state
-
     }
-    //I know why it doesn't work, but I haven't found a solution yet
-    override fun forgotPassword(userEmail: String): LoginState? {
 
-        var state: LoginState? = null
-
+    override fun forgotPassword(userEmail: String, callback: (Boolean, String?) -> Unit) {
         mAuth.fetchSignInMethodsForEmail(userEmail)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     if (it.result.signInMethods.isNullOrEmpty()) {
-                        state = LoginState.ShowError("This email doesn't exist")
+                        callback(false, "This email doesn't exist")
                     } else {
                         mAuth.sendPasswordResetEmail(userEmail)
                             .addOnCompleteListener { sendTask ->
-                                state = if (sendTask.isSuccessful) {
-                                    LoginState.SuccessResetPassword
+                                if (sendTask.isSuccessful) {
+                                    callback(true, null)
                                 } else {
-                                    LoginState.ShowError("Something went wrong, password wasn't reset")
+                                    callback(false, "Something went wrong, password wasn't reset")
                                 }
                             }
                     }
                 } else {
-                    state = LoginState.ShowError("Can't send request")
+                    callback(false, "Can't send request")
                 }
             }
-
-        return state
-
     }
+
     //I know why it doesn't work, but I haven't found a solution yet
-    override fun signOut(): LoginState {
+    override fun signOut() {
         mAuth.signOut()
-        return LoginState.SuccessSignOutState
     }
+
     //I know why it doesn't work, but I haven't found a solution yet
     override fun isSignedIn(): Boolean {
         return mAuth.currentUser != null

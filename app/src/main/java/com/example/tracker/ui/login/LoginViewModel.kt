@@ -5,7 +5,7 @@ import com.example.tracker.FirebaseInterface
 import com.example.tracker.mvi.MviViewModel
 import kotlinx.coroutines.launch
 
-class LoginViewModel(val mAuth: FirebaseInterface) :
+class LoginViewModel(val firebaseManager: FirebaseInterface) :
     MviViewModel<LoginState, LoginEvent, LoginAction>() {
 
     fun dispatchEvent(event: LoginEvent) {
@@ -24,13 +24,48 @@ class LoginViewModel(val mAuth: FirebaseInterface) :
     override fun handleAction(action: LoginAction) {
         viewModelScope.launch {
             when (action) {
-                is LoginAction.DoSingInEvent -> mState.postValue(mAuth.signIn(action.email, action.password))
-                is LoginAction.DoSingUpEvent -> mState.postValue(mAuth.signUp(action.email, action.password))
-                is LoginAction.DoSingOutEvent -> mState.postValue(mAuth.signOut())
-                is LoginAction.DoForgotPasswordEvent -> mState.postValue(mAuth.forgotPassword(action.email))
+                is LoginAction.DoSingInEvent -> signIn(action.email, action.password)
+                is LoginAction.DoSingUpEvent -> signUp(action.email, action.password)
+                is LoginAction.DoSingOutEvent -> signOut()
+                is LoginAction.DoForgotPasswordEvent -> forgotPassword(action.email)
             }
 
         }
+    }
+
+    private fun signIn(email: String, password: String) {
+        firebaseManager.signIn(email, password) { success, errorMessage ->
+            if (success) {
+                mState.postValue(LoginState.SuccessSignIn(email))
+            } else {
+                mState.postValue(LoginState.ShowError(errorMessage))
+            }
+        }
+    }
+
+    private fun signUp(email: String, password: String) {
+        firebaseManager.signUp(email, password) { success, errorMessage ->
+            if (success) {
+                mState.postValue(LoginState.SuccessSignUp)
+            } else {
+                mState.postValue(LoginState.ShowError(errorMessage))
+            }
+        }
+    }
+
+    private fun forgotPassword(email: String) {
+        firebaseManager.forgotPassword(email) { success, errorMessage ->
+            if (success) {
+                mState.postValue(LoginState.SuccessSignUp)
+            } else {
+                mState.postValue(LoginState.ShowError(errorMessage))
+            }
+        }
+    }
+
+    private fun signOut() {
+        firebaseManager.signOut()
+        mState.postValue(LoginState.SuccessSignOutState)
     }
 
 

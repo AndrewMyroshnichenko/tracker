@@ -12,7 +12,7 @@ sealed class LoginState : State {
     object SuccessSignUp : LoginState()
     object SuccessResetPassword : LoginState()
     object SuccessSignOutState : LoginState()
-    data class ShowError(val message: String) : LoginState()
+    data class ShowError(val message: String?) : LoginState()
 
 }
 
