@@ -60,12 +60,10 @@ class FirebaseManager : FirebaseInterface {
             }
     }
 
-    //I know why it doesn't work, but I haven't found a solution yet
     override fun signOut() {
         mAuth.signOut()
     }
 
-    //I know why it doesn't work, but I haven't found a solution yet
     override fun isSignedIn(): Boolean {
         return mAuth.currentUser != null
     }
