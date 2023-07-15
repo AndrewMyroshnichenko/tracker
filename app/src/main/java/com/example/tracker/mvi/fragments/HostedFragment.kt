@@ -64,6 +64,11 @@ abstract class HostedFragment<
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    override fun onChanged(value: ScreenState<VIEW>) {
+        value.visit(this@HostedFragment as VIEW)
+    }
+
     protected abstract fun createModel(): VIEW_MODEL
 
     protected fun setModel(model: VIEW_MODEL) {

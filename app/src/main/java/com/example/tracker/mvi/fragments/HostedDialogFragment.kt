@@ -74,5 +74,4 @@ abstract class HostedDialogFragment<
         this.model = model
     }
 
-
 }
