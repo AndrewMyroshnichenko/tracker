@@ -1,21 +1,40 @@
 package com.example.tracker.mvi
 
-import androidx.lifecycle.LiveData
+
+import androidx.annotation.CallSuper
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tracker.ui.login.Action
-import com.example.tracker.ui.login.Event
-import com.example.tracker.ui.login.State
+import com.example.tracker.mvi.fragments.FragmentContract
+import com.example.tracker.mvi.states.AbstractState
+import com.example.tracker.mvi.states.ScreenState
 
-abstract class MviViewModel<STATE : State, EVENT : Event, ACTION : Action> : ViewModel() {
+abstract class MviViewModel<V, STATE : AbstractState<V, STATE>> : ViewModel(),
+    FragmentContract.ViewModel<V> {
+    private val stateHolder = MutableLiveData<ScreenState<V>>()
+    private val effectHolder = MutableLiveData<ScreenState<V>>()
 
-    protected val mState = MutableLiveData<STATE>()
+    override fun getStateObservable() = stateHolder
 
-    val state: LiveData<STATE> get() = mState
+    override fun getEffectObservable() = effectHolder
 
+    @Suppress("UNCHECKED_CAST")
+    protected fun setState(state: STATE) {
+        stateHolder.value = stateHolder.value?.let {
+            state.merge(it as STATE)
+        } ?: state
+    }
 
-    abstract fun eventToAction(event: EVENT): ACTION
+    @Suppress("UNCHECKED_CAST")
+    protected fun getState() = stateHolder.value as STATE?
 
-    abstract fun handleAction(action: ACTION)
+    protected fun setEffect(action: ScreenState<V>){
+        effectHolder.value = action
+    }
+
+    //TODO: If it is redundant - remove
+    @CallSuper
+    override fun onStateChanged(event: Lifecycle.Event) {
+    }
 
 }
