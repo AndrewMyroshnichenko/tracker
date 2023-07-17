@@ -1,34 +1,30 @@
 package com.example.tracker.ui.login
 
-interface State
+import com.example.tracker.mvi.fragments.FragmentContract
 
-interface Event
+class LoginContract {
 
-interface Action
+    interface ViewModel : FragmentContract.ViewModel<View> {
+        fun signIn(userEmail: String, userPassword: String)
 
-sealed class LoginState : State {
+        fun signUp(userEmail: String, userPassword: String)
 
-    data class SuccessSignIn(val email: String) : LoginState()
-    object SuccessSignUp : LoginState()
-    object SuccessResetPassword : LoginState()
-    object SuccessSignOutState : LoginState()
-    data class ShowError(val message: String?) : LoginState()
+        fun forgotPassword(userEmail: String)
 
-}
+        fun signOut()
+    }
 
-sealed class LoginEvent: Event {
+    interface View : FragmentContract.View {
 
-    data class SingInEvent(val email: String, val password: String) : LoginEvent()
-    data class SingUpEvent(val email: String, val password: String) : LoginEvent()
-    object SingOutEvent : LoginEvent()
-    class ForgotPasswordEvent(val email: String) : LoginEvent()
-}
+        fun showMessage(message: String)
 
-sealed class LoginAction: Action {
+        fun proceedToNextScreen(actionId: Int?)
 
-    data class DoSingInEvent(val email: String, val password: String) : LoginAction()
-    data class DoSingUpEvent(val email: String, val password: String) : LoginAction()
-    object DoSingOutEvent : LoginAction()
-    class DoForgotPasswordEvent(val email: String) : LoginAction()
+    }
 
+    interface Host : FragmentContract.Host {
+
+        fun proceedToNextScreen(actionId: Int?)
+
+    }
 }

@@ -1,7 +1,5 @@
 package com.example.tracker.firebase
 
-import com.example.tracker.ui.login.LoginState
-
 interface FirebaseInterface {
 
     fun signIn(userEmail: String, userPassword: String, callback: (Boolean, String?) -> Unit)
