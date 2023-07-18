@@ -9,7 +9,39 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
+import com.example.tracker.firebase.FirebaseManager
+import com.example.tracker.mvi.fragments.FragmentContract
+import com.example.tracker.mvi.fragments.HostedFragment
 import com.google.android.material.snackbar.Snackbar
+
+class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, FragmentContract.Host>(),
+    LoginContract.View {
+
+    override fun createModel(): LoginViewModel {
+        val firebaseManager = FirebaseManager()
+        return LoginViewModel(firebaseManager)
+    }
+
+    override fun showLoading() {
+        // Show loading state
+        // For example, show a progress bar
+    }
+
+    override fun showLoginSuccess(userId: String?) {
+        // Handle successful login
+    }
+
+    override fun showLoginError(errorMessage: String?) {
+        // Handle login error
+    }
+
+    override fun showForgotPasswordSuccess() {
+        // Handle forgot password success
+    }
+}
+
+
+/*
 
 class LoginFragment : Fragment(), View.OnClickListener {
 
@@ -160,4 +192,4 @@ class LoginFragment : Fragment(), View.OnClickListener {
     }
 
 
-}
+}*/

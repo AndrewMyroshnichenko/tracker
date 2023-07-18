@@ -16,9 +16,13 @@ class LoginContract {
 
     interface View : FragmentContract.View {
 
-        fun showMessage(message: String)
+        fun showLoading()
 
-        fun proceedToNextScreen(actionId: Int?)
+        fun showLoginSuccess(userId: String?)
+
+        fun showLoginError(errorMessage: String?)
+
+        fun showForgotPasswordSuccess()
 
     }
 
