@@ -5,10 +5,10 @@ import com.example.tracker.ui.login.LoginContract
 
 open class LoginState : AbstractState<LoginContract.View, LoginState>(){
 
-    data class LoginSuccessState(val userId: String?) : LoginState() {
+    data class LoginSuccessState(val email: String?) : LoginState() {
         override fun merge(prevState: LoginState): LoginState {
             if (prevState is LoginLoadingState) {
-                return LoginSuccessState(userId)
+                return LoginSuccessState(email)
             }
             return this
         }

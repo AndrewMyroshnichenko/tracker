@@ -12,31 +12,42 @@ import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.firebase.FirebaseManager
 import com.example.tracker.mvi.fragments.FragmentContract
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.tracker.ui.login.state.LoginState
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, FragmentContract.Host>(),
     LoginContract.View {
+
+    private var bind: FragmentLoginBinding? = null
 
     override fun createModel(): LoginViewModel {
         val firebaseManager = FirebaseManager()
         return LoginViewModel(firebaseManager)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bind = FragmentLoginBinding.bind(view)
+    }
+
     override fun showLoading() {
-        // Show loading state
-        // For example, show a progress bar
+        if (model?.getStateObservable()?.value is LoginState.LoginLoadingState) {
+            bind?.pbLogin?.visibility = View.VISIBLE
+        } else {
+            bind?.pbLogin?.visibility = View.GONE
+        }
     }
 
     override fun showLoginSuccess(userId: String?) {
-        // Handle successful login
+
     }
 
     override fun showLoginError(errorMessage: String?) {
-        // Handle login error
+
     }
 
     override fun showForgotPasswordSuccess() {
-        // Handle forgot password success
+
     }
 }
 
