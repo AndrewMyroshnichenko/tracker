@@ -38,17 +38,10 @@ class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, Fragmen
         }
     }
 
-    override fun showLoginSuccess(userId: String?) {
-
-    }
-
     override fun showLoginError(errorMessage: String?) {
 
     }
 
-    override fun showForgotPasswordSuccess() {
-
-    }
 }
 
 
