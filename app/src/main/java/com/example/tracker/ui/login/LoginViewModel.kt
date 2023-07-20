@@ -10,29 +10,31 @@ class LoginViewModel(val firebaseManager: FirebaseInterface) :
     MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     override fun signIn(userEmail: String, userPass: String) {
-        setEffect(LoginEffect.Loading)
-        firebaseManager.signIn(userEmail, userPass) { success, message ->
-            if (success) {
-                setState(LoginState.LoginSuccessState(message))
-            } else {
-                setState(LoginState.LoginErrorState(message))
+        if (isEmailValid(userEmail)) {
+            firebaseManager.signIn(userEmail, userPass) { success, message ->
+                if (success) {
+                    setEffect(LoginEffect.NavigateAfterSignIn)
+                } else {
+                    setState(LoginState.LoginErrorState(message))
+                }
             }
+        } else {
+            setState(LoginState.LoginErrorState("Write correct email!"))
         }
     }
 
     override fun signUp(userEmail: String, userPassFirst: String, userPassSecond: String) {
-        setEffect(LoginEffect.Loading)
 
         if (!isEmailValid(userEmail)){
-            setEffect(LoginEffect.Error("Write correct email"))
+            setState(LoginState.LoginErrorState("Write correct email!"))
         } else if (!isPasswordValid(userPassFirst)) {
-            setEffect(LoginEffect.Error("To short password!"))
+            setState(LoginState.LoginErrorState("To short password!"))
         } else if (!arePasswordsMatch(userPassFirst, userPassSecond)) {
-            setEffect(LoginEffect.Error("Passwords mismatch!"))
+            setState(LoginState.LoginErrorState("Passwords mismatch!"))
         } else {
             firebaseManager.signUp(userEmail, userPassFirst) { success, message ->
                 if (success) {
-                    setState(LoginState.LoginSuccessState(message))
+                    setEffect(LoginEffect.ShowSuccessMessage(message))
                 } else {
                     setState(LoginState.LoginErrorState(message))
                 }
@@ -41,17 +43,16 @@ class LoginViewModel(val firebaseManager: FirebaseInterface) :
     }
 
     override fun forgotPassword(userEmail: String) {
-        setEffect(LoginEffect.Loading)
         if (isEmailValid(userEmail)){
             firebaseManager.forgotPassword(userEmail) { success, message ->
                 if (success) {
-                    setState(LoginState.LoginForgotPasswordState)
+                    setEffect(LoginEffect.ShowSuccessMessage(message))
                 } else {
                     setState(LoginState.LoginErrorState(message))
                 }
             }
         } else {
-            setEffect(LoginEffect.Error("Invalid email!"))
+            setState(LoginState.LoginErrorState("Write correct email!"))
         }
     }
 

@@ -30,7 +30,7 @@ class FirebaseManager : FirebaseInterface {
         mAuth.createUserWithEmailAndPassword(userEmail, userPassword)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    callback(true, null)
+                    callback(true, "Registration completed!")
                 } else {
                     callback(false, "Registration failed!")
                 }
@@ -47,7 +47,7 @@ class FirebaseManager : FirebaseInterface {
                         mAuth.sendPasswordResetEmail(userEmail)
                             .addOnCompleteListener { sendTask ->
                                 if (sendTask.isSuccessful) {
-                                    callback(true, null)
+                                    callback(true, "Check your email!")
                                 } else {
                                     callback(false, "Something went wrong, password wasn't reset")
                                 }

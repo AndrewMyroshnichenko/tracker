@@ -30,13 +30,6 @@ class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, Fragmen
         bind = FragmentLoginBinding.bind(view)
     }
 
-    override fun showLoading() {
-        if (model?.getStateObservable()?.value is LoginState.LoginLoadingState) {
-            bind?.pbLogin?.visibility = View.VISIBLE
-        } else {
-            bind?.pbLogin?.visibility = View.GONE
-        }
-    }
 
     override fun showLoginError(errorMessage: String?) {
 

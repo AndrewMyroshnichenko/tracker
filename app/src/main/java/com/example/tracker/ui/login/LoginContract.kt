@@ -16,8 +16,6 @@ class LoginContract {
 
     interface View : FragmentContract.View {
 
-        fun showLoading()
-
         fun showLoginError(errorMessage: String?)
 
 
