@@ -2,7 +2,7 @@ package com.example.tracker.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.tracker.firebase.FirebaseManager
+import com.example.tracker.models.FirebaseManager
 
 class LoginViewModelFactory : ViewModelProvider.Factory {
 
@@ -10,5 +10,4 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LoginViewModel(FirebaseManager()) as T
     }
-
 }

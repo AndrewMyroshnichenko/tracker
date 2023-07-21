@@ -5,7 +5,4 @@ import com.example.tracker.ui.login.LoginContract
 
 open class LoginState : AbstractState<LoginContract.View, LoginState>(){
     data class LoginErrorState(val errorMessage: String?) : LoginState()
-
-    object DefaultState : LoginState()
-
 }

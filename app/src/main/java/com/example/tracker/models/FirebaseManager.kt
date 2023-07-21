@@ -1,4 +1,4 @@
-package com.example.tracker.firebase
+package com.example.tracker.models
 
 import com.google.firebase.auth.FirebaseAuth
 

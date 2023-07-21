@@ -1,10 +1,9 @@
 package com.example.tracker.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tracker.databinding.ActivityTrackerBinding
 
-//Start recreate project with MVI
 class TrackerActivity : AppCompatActivity() {
 
     private var bind: ActivityTrackerBinding? = null

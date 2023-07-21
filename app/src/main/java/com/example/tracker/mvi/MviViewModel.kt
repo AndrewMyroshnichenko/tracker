@@ -32,9 +32,7 @@ abstract class MviViewModel<V, STATE : AbstractState<V, STATE>> : ViewModel(),
         effectHolder.value = action
     }
 
-    //TODO: If it is redundant - remove
     @CallSuper
     override fun onStateChanged(event: Lifecycle.Event) {
     }
-
 }

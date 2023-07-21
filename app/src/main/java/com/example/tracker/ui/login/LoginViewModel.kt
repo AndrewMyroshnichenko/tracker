@@ -1,13 +1,14 @@
 package com.example.tracker.ui.login
 
 import android.util.Patterns
-import com.example.tracker.firebase.FirebaseInterface
+import com.example.tracker.models.FirebaseInterface
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
 import com.example.tracker.ui.login.state.LoginState
 
-class LoginViewModel(val firebaseManager: FirebaseInterface) :
-    MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
+class LoginViewModel(
+    private val firebaseManager: FirebaseInterface
+) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     override fun signIn(userEmail: String, userPass: String) {
         if (isEmailValid(userEmail)) {
@@ -24,8 +25,7 @@ class LoginViewModel(val firebaseManager: FirebaseInterface) :
     }
 
     override fun signUp(userEmail: String, userPassFirst: String, userPassSecond: String) {
-
-        if (!isEmailValid(userEmail)){
+        if (!isEmailValid(userEmail)) {
             setState(LoginState.LoginErrorState("Write correct email!"))
         } else if (!isPasswordValid(userPassFirst)) {
             setState(LoginState.LoginErrorState("To short password!"))
@@ -80,6 +80,4 @@ class LoginViewModel(val firebaseManager: FirebaseInterface) :
             checkUserSignedIn()
         }
     }*/
-
-
 }

@@ -9,7 +9,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.example.tracker.mvi.states.ScreenState
-import java.lang.RuntimeException
 import java.lang.reflect.ParameterizedType
 
 abstract class HostedFragment<

@@ -1,4 +1,4 @@
-package com.example.tracker.firebase
+package com.example.tracker.models
 
 interface FirebaseInterface {
 

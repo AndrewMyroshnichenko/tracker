@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
-import com.example.tracker.firebase.FirebaseManager
+import com.example.tracker.models.FirebaseManager
 import com.example.tracker.mvi.fragments.FragmentContract
 import com.example.tracker.mvi.fragments.HostedFragment
 
@@ -104,6 +104,7 @@ class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, Fragmen
         bind?.tvQuestion?.text = resources.getString(R.string.don_t_have_an_account)
         bind?.tvSignTitle?.text = resources.getString(R.string.sing_up)
     }
+
     private fun doInvisibleNonForgotPasswordFields() {
         bind?.inputFieldPassword?.visibility = View.GONE
         bind?.tvForgotPassword?.visibility = View.GONE
