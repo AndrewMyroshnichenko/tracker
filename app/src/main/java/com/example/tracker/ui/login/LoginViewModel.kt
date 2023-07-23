@@ -1,6 +1,7 @@
 package com.example.tracker.ui.login
 
 import android.util.Patterns
+import com.example.tracker.R
 import com.example.tracker.models.FirebaseInterface
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
@@ -11,30 +12,36 @@ class LoginViewModel(
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     override fun signIn(userEmail: String, userPass: String) {
-        if (isEmailValid(userEmail)) {
+        if (userEmail.isEmpty() || userPass.isEmpty()) {
+            setState(LoginState.LoginErrorState(R.string.email_or_password_is_empty))
+        } else if (!isEmailValid(userEmail)) {
+            setState(LoginState.LoginErrorState(R.string.write_correct_email))
+        } else {
             firebaseManager.signIn(userEmail, userPass) { success, message ->
                 if (success) {
                     setEffect(LoginEffect.NavigateAfterSignIn)
+                    setState(LoginState.LoginErrorState(-1))
                 } else {
                     setState(LoginState.LoginErrorState(message))
                 }
             }
-        } else {
-            setState(LoginState.LoginErrorState("Write correct email!"))
         }
     }
 
     override fun signUp(userEmail: String, userPassFirst: String, userPassSecond: String) {
-        if (!isEmailValid(userEmail)) {
-            setState(LoginState.LoginErrorState("Write correct email!"))
+        if (userEmail.isEmpty() || userPassFirst.isEmpty() || userPassSecond.isEmpty()) {
+            setState(LoginState.LoginErrorState(R.string.email_or_password_is_empty))
+        } else if (!isEmailValid(userEmail)) {
+            setState(LoginState.LoginErrorState(R.string.write_correct_email))
         } else if (!isPasswordValid(userPassFirst)) {
-            setState(LoginState.LoginErrorState("To short password!"))
+            setState(LoginState.LoginErrorState(R.string.to_short_password))
         } else if (!arePasswordsMatch(userPassFirst, userPassSecond)) {
-            setState(LoginState.LoginErrorState("Passwords mismatch!"))
+            setState(LoginState.LoginErrorState(R.string.passwords_mismatch))
         } else {
             firebaseManager.signUp(userEmail, userPassFirst) { success, message ->
                 if (success) {
                     setEffect(LoginEffect.ShowSuccessMessage(message))
+                    setState(LoginState.LoginErrorState(-1))
                 } else {
                     setState(LoginState.LoginErrorState(message))
                 }
@@ -43,16 +50,19 @@ class LoginViewModel(
     }
 
     override fun forgotPassword(userEmail: String) {
-        if (isEmailValid(userEmail)){
+        if (userEmail.isEmpty()) {
+            setState(LoginState.LoginErrorState(R.string.email_is_empty))
+        } else if (!isEmailValid(userEmail)){
+            setState(LoginState.LoginErrorState(R.string.write_correct_email))
+        } else {
             firebaseManager.forgotPassword(userEmail) { success, message ->
                 if (success) {
                     setEffect(LoginEffect.ShowSuccessMessage(message))
+                    setState(LoginState.LoginErrorState(-1))
                 } else {
                     setState(LoginState.LoginErrorState(message))
                 }
             }
-        } else {
-            setState(LoginState.LoginErrorState("Write correct email!"))
         }
     }
 

@@ -16,14 +16,15 @@ class LoginContract {
 
     interface View : FragmentContract.View {
 
-        fun showLoginError(errorMessage: String?)
+        fun showLoginError(errorMessageId: Int?)
 
+        fun nextScreen()
 
     }
 
     interface Host : FragmentContract.Host {
 
-        fun proceedToNextScreen(actionId: Int?)
+        fun proceedLoginToTrackerScreen()
 
     }
 }

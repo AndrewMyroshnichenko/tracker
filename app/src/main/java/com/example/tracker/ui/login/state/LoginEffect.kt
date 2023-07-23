@@ -4,8 +4,14 @@ import com.example.tracker.mvi.states.AbstractEffect
 import com.example.tracker.ui.login.LoginContract
 
 open class LoginEffect : AbstractEffect<LoginContract.View>() {
-    class ShowSuccessMessage(val message: String?) : LoginEffect()
+    //TODO: Realize this
+    class ShowSuccessMessage(val messageId: Int?) : LoginEffect()
 
-    object NavigateAfterSignIn : LoginEffect()
+    object NavigateAfterSignIn : LoginEffect() {
+        override fun visit(screen: LoginContract.View) {
+            super.visit(screen)
+            screen.nextScreen()
+        }
+    }
 
 }

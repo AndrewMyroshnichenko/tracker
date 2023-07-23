@@ -19,12 +19,18 @@
     <string name="sing_up">Sing Up</string>
     <string name="don_t_have_an_account">Don`t have an account?</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name="str_error_password">Error password</string>
     <string name="send_new_password">Send new password</string>
-    <string name="msg_fill_all_fields">Fill all fields</string>
-    <string name="msg_fill_email">Fill email</string>
-    <string name="msg_email_pass_isn_t_correctly">Email or password isn\'t correctly</string>
-    <string name="msg_pass_must_be_same">Both password must be the same</string>
-    <string name="msg_registration_is_successful">Registration is successful</string>
+    <string name="login_failed">Login failed!</string>
+    <string name="registration_completed">Registration completed!</string>
+    <string name="registration_failed">Registration failed!</string>
+    <string name="this_email_doesnt_exist">This email doesn\'t exist</string>
+    <string name="check_your_email">Check your email!</string>
+    <string name="something_went_wrong_password_wasnt_reset">Something went wrong, password wasn\'t reset</string>
+    <string name="cant_send_request">Can\'t send request</string>
+    <string name="write_correct_email">Write correct email!</string>
+    <string name="to_short_password">To short password!</string>
+    <string name="passwords_mismatch">Passwords mismatch!</string>
+    <string name="email_or_password_is_empty">Email or password is empty!</string>
+    <string name="email_is_empty">Email is empty!</string>
 
 </resources>

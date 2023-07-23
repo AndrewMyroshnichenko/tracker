@@ -1,14 +1,18 @@
 package com.example.tracker.ui.login
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.models.FirebaseManager
-import com.example.tracker.mvi.fragments.FragmentContract
 import com.example.tracker.mvi.fragments.HostedFragment
 
-class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, FragmentContract.Host>(),
+class LoginFragment :
+    HostedFragment<LoginContract.View, LoginContract.ViewModel, LoginContract.Host>(),
     LoginContract.View, View.OnClickListener {
 
     private var bind: FragmentLoginBinding? = null
@@ -18,13 +22,45 @@ class LoginFragment : HostedFragment<LoginContract.View, LoginViewModel, Fragmen
         return LoginViewModel(firebaseManager)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        bind = FragmentLoginBinding.bind(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        bind = FragmentLoginBinding.inflate(inflater, container, false)
+        return bind?.root
     }
 
-    override fun showLoginError(errorMessage: String?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        bind?.btSingInUp?.setOnClickListener(this)
+        bind?.tvForgotPassword?.setOnClickListener(this)
+        bind?.widgetSingInUp?.setOnClickListener(this)
+        bind?.ibBack?.setOnClickListener(this)
+
+    }
+
+    override fun showLoginError(errorMessageId: Int?) {
+        when (errorMessageId) {
+            R.string.passwords_mismatch, R.string.to_short_password -> {
+                bind?.inputFieldPassword?.error = getString(errorMessageId)
+            }
+
+            -1 -> {
+                bind?.inputFieldPassword?.error = ""
+                bind?.inputFieldUserName?.error = ""
+            }
+
+            else -> {
+                bind?.inputFieldUserName?.error = errorMessageId?.let { getString(it) }
+            }
+        }
+    }
+
+    override fun nextScreen() {
+        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+        navController.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
 
     override fun onClick(v: View?) {
