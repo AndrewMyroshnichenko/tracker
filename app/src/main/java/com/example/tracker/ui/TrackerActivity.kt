@@ -27,6 +27,4 @@ class TrackerActivity : AppCompatActivity(), LoginContract.Host{
     override fun proceedLoginToTrackerScreen() {
         navController?.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
-
-
 }

@@ -52,7 +52,7 @@ class LoginViewModel(
     override fun forgotPassword(userEmail: String) {
         if (userEmail.isEmpty()) {
             setState(LoginState.LoginErrorState(R.string.email_is_empty))
-        } else if (!isEmailValid(userEmail)){
+        } else if (!isEmailValid(userEmail)) {
             setState(LoginState.LoginErrorState(R.string.write_correct_email))
         } else {
             firebaseManager.forgotPassword(userEmail) { success, message ->
@@ -77,17 +77,4 @@ class LoginViewModel(
     private fun arePasswordsMatch(firstPass: String, secondPass: String): Boolean {
         return firstPass == secondPass
     }
-
-/*    fun checkUserSignedIn() {
-        if (firebaseManager.isSignedIn()) {
-            setState(LoginState.LoginSuccessState(null))
-        }
-    }
-
-    override fun onStateChanged(event: Lifecycle.Event) {
-        super.onStateChanged(event)
-        if (event == Lifecycle.Event.ON_CREATE) {
-            checkUserSignedIn()
-        }
-    }*/
 }

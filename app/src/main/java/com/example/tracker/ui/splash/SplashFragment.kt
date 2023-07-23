@@ -21,7 +21,6 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // mAuth = FirebaseAuth.getInstance()
 
         view.postDelayed({
             if (mAuth?.currentUser == null) {

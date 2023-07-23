@@ -1,4 +1,4 @@
-package com.example.tracker.mvi.util
+package com.example.tracker.models.dispatchers
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
