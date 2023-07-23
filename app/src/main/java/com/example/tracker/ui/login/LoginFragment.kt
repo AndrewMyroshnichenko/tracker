@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.models.FirebaseManager
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment :
     HostedFragment<LoginContract.View, LoginContract.ViewModel, LoginContract.Host>(),
@@ -41,10 +42,10 @@ class LoginFragment :
 
     }
 
-    override fun showLoginError(errorMessageId: Int?) {
-        when (errorMessageId) {
+    override fun showLoginError(messageId: Int?) {
+        when (messageId) {
             R.string.passwords_mismatch, R.string.to_short_password -> {
-                bind?.inputFieldPassword?.error = getString(errorMessageId)
+                bind?.inputFieldPassword?.error = getString(messageId)
             }
 
             -1 -> {
@@ -52,8 +53,12 @@ class LoginFragment :
                 bind?.inputFieldUserName?.error = ""
             }
 
+            R.string.registration_completed, R.string.check_your_email -> {
+                view?.let { Snackbar.make(it, getString(messageId), Snackbar.LENGTH_LONG).show() }
+            }
+
             else -> {
-                bind?.inputFieldUserName?.error = errorMessageId?.let { getString(it) }
+                bind?.inputFieldUserName?.error = messageId?.let { getString(it) }
             }
         }
     }
