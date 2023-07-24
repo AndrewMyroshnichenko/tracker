@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.models.FirebaseManager
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.tracker.ui.splash.SplashViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment :
@@ -18,8 +21,9 @@ class LoginFragment :
     private var bind: FragmentLoginBinding? = null
 
     override fun createModel(): LoginViewModel {
-        val firebaseManager = FirebaseManager()
-        return LoginViewModel(firebaseManager)
+        return ViewModelProvider(
+            this, LoginViewModelFactory()
+        )[LoginViewModel::class.java]
     }
 
     override fun onCreateView(
