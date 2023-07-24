@@ -58,4 +58,7 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Gps
+    implementation "com.google.android.gms:play-services-location:$service_location"
 }

@@ -3,7 +3,7 @@ package com.example.tracker.models
 import com.example.tracker.R
 import com.google.firebase.auth.FirebaseAuth
 
-class FirebaseManager : FirebaseInterface {
+class FirebaseManager : Authentication {
 
     //TODO: When I add DI, I'll move this to the constructor
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()

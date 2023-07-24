@@ -5,6 +5,7 @@ buildscript {
     ext.firebase_bom = "32.1.1"
     ext.firestore_ktx = "24.6.1"
     ext.firebase_auth_ktx = "22.0.0"
+    ext.service_location = "21.0.1"
 }
 
 plugins {
