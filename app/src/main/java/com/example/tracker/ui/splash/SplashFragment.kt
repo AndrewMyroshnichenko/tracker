@@ -26,11 +26,6 @@ class SplashFragment :
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        nextScreen()
-    }
-
     override fun nextScreen() {
         val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         if (model?.isSignedIn() == true) {
