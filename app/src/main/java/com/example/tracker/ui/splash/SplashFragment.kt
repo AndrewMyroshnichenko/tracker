@@ -4,16 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.example.tracker.R
-import com.example.tracker.models.FirebaseManager
 import com.example.tracker.mvi.fragments.HostedFragment
-import com.example.tracker.ui.login.LoginContract
-import com.example.tracker.ui.login.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
+
 
 class SplashFragment :
     HostedFragment<SplashContract.View, SplashContract.ViewModel, SplashContract.Host>(),
