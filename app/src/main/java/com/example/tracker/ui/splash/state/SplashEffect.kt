@@ -15,7 +15,7 @@ open class SplashEffect : AbstractEffect<SplashContract.View>() {
     object ProceedToTrackerScreen : SplashEffect() {
         override fun visit(screen: SplashContract.View) {
             super.visit(screen)
-            screen.proceedToLoginScreen()
+            screen.proceedToTrackerScreen()
         }
     }
 
