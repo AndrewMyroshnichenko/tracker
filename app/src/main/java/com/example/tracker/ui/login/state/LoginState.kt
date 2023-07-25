@@ -5,10 +5,17 @@ import com.example.tracker.ui.login.LoginContract
 
 open class LoginState : AbstractState<LoginContract.View, LoginState>(){
 
-    data class LoginErrorState(val messageId: Int?) : LoginState() {
+    data class UserNameErrorState(val messageId: Int?) : LoginState() {
         override fun visit(screen: LoginContract.View) {
             super.visit(screen)
-            screen.showLoginError(messageId)
+            screen.showUserNameError(messageId)
+        }
+    }
+
+    data class PasswordErrorState(val messageId: Int?) : LoginState() {
+        override fun visit(screen: LoginContract.View) {
+            super.visit(screen)
+            screen.showPasswordError(messageId)
         }
     }
 

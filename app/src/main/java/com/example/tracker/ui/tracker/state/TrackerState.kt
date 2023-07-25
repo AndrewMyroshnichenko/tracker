@@ -3,31 +3,22 @@ package com.example.tracker.ui.tracker.state
 import com.example.tracker.mvi.states.AbstractState
 import com.example.tracker.ui.tracker.TrackerContract
 
-open class TrackerState : AbstractState<TrackerContract.View, TrackerState>() {
+open class TrackerState(private val serviceRunning: Boolean, private val gpsEnabled: Boolean) :
+    AbstractState<TrackerContract.View, TrackerState>() {
 
-    data class TrackerIsOffState(val action: String) : TrackerState() {
 
-        override fun visit(screen: TrackerContract.View) {
-            super.visit(screen)
-            screen.showTrackerIsOff()
-            screen.startStopService(action)
-        }
+    override fun visit(screen: TrackerContract.View) {
+        screen.showTrackerState(serviceRunning, gpsEnabled)
     }
 
-    data class TrackerCollectsLocationState(val action: String) : TrackerState() {
+    data class TrackerIsOffState(val isServiceWorking: Boolean, val isGpsAvailable: Boolean) :
+        TrackerState(isServiceWorking, isGpsAvailable)
 
-        override fun visit(screen: TrackerContract.View) {
-            super.visit(screen)
-            screen.showTrackerCollectsLocation()
-            screen.startStopService(action)
-        }
-    }
+    data class TrackerCollectsLocationState(
+        val isServiceWorking: Boolean,
+        val isGpsAvailable: Boolean
+    ) : TrackerState(isServiceWorking, isGpsAvailable)
 
-    object GpsIsOffState : TrackerState() {
-
-        override fun visit(screen: TrackerContract.View) {
-            super.visit(screen)
-            screen.showGpsIsOff()
-        }
-    }
+    data class GpsIsOffState(val isServiceWorking: Boolean, val isGpsAvailable: Boolean) :
+        TrackerState(isServiceWorking, isGpsAvailable)
 }

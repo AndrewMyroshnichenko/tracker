@@ -6,21 +6,18 @@ import com.example.tracker.mvi.fragments.FragmentContract
 class TrackerContract {
 
     interface ViewModel : FragmentContract.ViewModel<View>{
+
         fun singOut()
 
-        fun startTrack(locationManager: LocationManager)
+        fun startTrack(isProviderEnabled : Boolean)
 
-        fun stopTrack()
+        fun stopTrack(isProviderEnabled : Boolean)
 
     }
 
     interface View : FragmentContract.View{
 
-        fun showTrackerIsOff()
-
-        fun showTrackerCollectsLocation()
-
-        fun showGpsIsOff()
+        fun showTrackerState(serviceRunning: Boolean, gpsEnabled: Boolean)
 
         fun startStopService(act: String)
 

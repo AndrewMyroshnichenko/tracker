@@ -2,11 +2,11 @@ package com.example.tracker.models.auth
 
 interface Auth {
 
-    fun signIn(userEmail: String, userPassword: String, callback: (Boolean, Int?) -> Unit)
+    suspend fun signIn(userEmail: String, userPassword: String): Pair<Boolean, Int?>
 
-    fun signUp(userEmail: String, userPassword: String, callback: (Boolean, Int?) -> Unit)
+    suspend fun signUp(userEmail: String, userPassword: String): Pair<Boolean, Int?>
 
-    fun forgotPassword(userEmail: String, callback: (Boolean, Int?) -> Unit)
+    suspend fun forgotPassword(userEmail: String): Pair<Boolean, Int?>
 
     fun signOut()
 

@@ -30,7 +30,8 @@
     <string name="write_correct_email">Write correct email!</string>
     <string name="to_short_password">To short password!</string>
     <string name="passwords_mismatch">Passwords mismatch!</string>
-    <string name="email_or_password_is_empty">Email or password is empty!</string>
     <string name="email_is_empty">Email is empty!</string>
+    <string name="password_is_empty">Password is empty!</string>
+    <string name="empty_error_message"/>
 
 </resources>

@@ -16,7 +16,11 @@ class LoginContract {
 
     interface View : FragmentContract.View {
 
-        fun showLoginError(messageId: Int?)
+        fun showUserNameError(messageId: Int?)
+
+        fun showPasswordError(messageId: Int?)
+
+        fun showPopUpError(messageId: Int?)
 
         fun nextScreen()
 

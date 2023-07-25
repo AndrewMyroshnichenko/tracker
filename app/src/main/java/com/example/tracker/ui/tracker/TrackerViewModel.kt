@@ -1,8 +1,6 @@
 package com.example.tracker.ui.tracker
 
-import android.location.LocationManager
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.gps.LocationService
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect
 import com.example.tracker.ui.tracker.state.TrackerState
@@ -11,20 +9,24 @@ class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
+    init {
+        setState(TrackerState.TrackerIsOffState(false, true))
+    }
+
     override fun singOut() {
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 
-    override fun startTrack(locationManager: LocationManager) {
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            setState(TrackerState.TrackerCollectsLocationState(LocationService.ACTION_START))
+    override fun startTrack(isProviderEnabled: Boolean) {
+        if (isProviderEnabled) {
+            setState(TrackerState.TrackerCollectsLocationState(true, isProviderEnabled))
         } else {
-            setState(TrackerState.GpsIsOffState)
+            setState(TrackerState.GpsIsOffState(false, isProviderEnabled))
         }
     }
 
-    override fun stopTrack() {
-        setState(TrackerState.TrackerIsOffState(LocationService.ACTION_STOP))
+    override fun stopTrack(isProviderEnabled: Boolean) {
+        setState(TrackerState.TrackerIsOffState(false, isProviderEnabled))
     }
 }

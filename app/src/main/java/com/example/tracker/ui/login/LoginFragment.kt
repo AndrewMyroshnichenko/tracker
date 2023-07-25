@@ -39,24 +39,17 @@ class LoginFragment :
         bind?.ibBack?.setOnClickListener(this)
     }
 
-    override fun showLoginError(messageId: Int?) {
-        when (messageId) {
-            R.string.passwords_mismatch, R.string.to_short_password -> {
-                bind?.inputFieldPassword?.error = getString(messageId)
-            }
+    override fun showUserNameError(messageId: Int?) {
+        bind?.inputFieldUserName?.error = messageId?.let { getString(it) }
+    }
 
-            -1 -> {
-                bind?.inputFieldPassword?.error = ""
-                bind?.inputFieldUserName?.error = ""
-            }
+    override fun showPasswordError(messageId: Int?) {
+        bind?.inputFieldPassword?.error = messageId?.let { getString(it) }
+    }
 
-            R.string.registration_completed, R.string.check_your_email -> {
-                view?.let { Snackbar.make(it, getString(messageId), Snackbar.LENGTH_LONG).show() }
-            }
-
-            else -> {
-                bind?.inputFieldUserName?.error = messageId?.let { getString(it) }
-            }
+    override fun showPopUpError(messageId: Int?) {
+        if (messageId != null) {
+            view?.let { Snackbar.make(it, getString(messageId), Snackbar.LENGTH_LONG).show() }
         }
     }
 

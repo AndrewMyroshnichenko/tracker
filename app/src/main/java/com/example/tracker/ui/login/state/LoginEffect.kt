@@ -6,15 +6,13 @@ import com.example.tracker.ui.login.LoginContract
 open class LoginEffect : AbstractEffect<LoginContract.View>() {
 
     class ShowSuccessMessage(private val messageId: Int?) : LoginEffect() {
-        override fun visit(screen: LoginContract.View) {
-            super.visit(screen)
-            screen.showLoginError(messageId)
+        override fun handle(screen: LoginContract.View) {
+            screen.showPopUpError(messageId)
         }
     }
 
     object NavigateAfterSignIn : LoginEffect() {
-        override fun visit(screen: LoginContract.View) {
-            super.visit(screen)
+        override fun handle(screen: LoginContract.View) {
             screen.nextScreen()
         }
     }
