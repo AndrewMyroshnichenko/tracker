@@ -1,13 +1,10 @@
-package com.example.tracker.domain
+package com.example.tracker.models.gps
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
-import androidx.core.content.ContextCompat
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose

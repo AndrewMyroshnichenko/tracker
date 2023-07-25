@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentTrackerBinding
-import com.example.tracker.domain.LocationService
+import com.example.tracker.models.gps.LocationService
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 
@@ -31,9 +31,7 @@ class TrackerFragment :
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         bind = FragmentTrackerBinding.inflate(layoutInflater)
         return (bind?.root)
@@ -122,14 +120,11 @@ class TrackerFragment :
             btTextColor = ContextCompat.getColor(requireContext(), R.color.white),
             btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.main),
             pbGradient = ContextCompat.getDrawable(
-                requireActivity(),
-                R.drawable.pb_error_gradient
+                requireActivity(), R.drawable.pb_error_gradient
             ),
             tvStateTracker = resources.getString(R.string.gps_off),
             tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
             imgTrackerIndicator = R.drawable.img_gps_is_off
         )
     }
-
-
 }

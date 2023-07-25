@@ -2,13 +2,13 @@ package com.example.tracker.ui.login
 
 import android.util.Patterns
 import com.example.tracker.R
-import com.example.tracker.models.Authentication
+import com.example.tracker.models.auth.Auth
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
 import com.example.tracker.ui.login.state.LoginState
 
 class LoginViewModel(
-    private val firebaseManager: Authentication
+    private val firebaseManager: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     override fun signIn(userEmail: String, userPass: String) {

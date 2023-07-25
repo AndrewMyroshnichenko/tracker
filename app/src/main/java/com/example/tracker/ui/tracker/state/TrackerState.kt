@@ -5,7 +5,6 @@ import com.example.tracker.ui.tracker.TrackerContract
 
 open class TrackerState : AbstractState<TrackerContract.View, TrackerState>() {
 
-
     data class TrackerIsOffState(val action: String) : TrackerState() {
 
         override fun visit(screen: TrackerContract.View) {
@@ -13,9 +12,7 @@ open class TrackerState : AbstractState<TrackerContract.View, TrackerState>() {
             screen.showTrackerIsOff()
             screen.startStopService(action)
         }
-
     }
-
 
     data class TrackerCollectsLocationState(val action: String) : TrackerState() {
 
@@ -24,7 +21,6 @@ open class TrackerState : AbstractState<TrackerContract.View, TrackerState>() {
             screen.showTrackerCollectsLocation()
             screen.startStopService(action)
         }
-
     }
 
     object GpsIsOffState : TrackerState() {
@@ -33,6 +29,5 @@ open class TrackerState : AbstractState<TrackerContract.View, TrackerState>() {
             super.visit(screen)
             screen.showGpsIsOff()
         }
-
     }
 }

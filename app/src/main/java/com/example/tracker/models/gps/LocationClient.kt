@@ -1,4 +1,4 @@
-package com.example.tracker.domain
+package com.example.tracker.models.gps
 
 import android.location.Location
 import kotlinx.coroutines.flow.Flow

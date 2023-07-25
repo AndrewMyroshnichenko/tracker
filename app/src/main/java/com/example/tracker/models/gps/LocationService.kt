@@ -1,4 +1,4 @@
-package com.example.tracker.domain
+package com.example.tracker.models.gps
 
 import android.app.Service
 import android.content.Context
@@ -14,19 +14,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-
 class LocationService : Service() {
 
-
-    private var locationClient: LocationClient? = null
+    private lateinit var locationClient: LocationClient
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onCreate() {
         super.onCreate()
-        locationClient = DefaultLocationClient(
-            applicationContext
-        )
+        locationClient = DefaultLocationClient(applicationContext)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -46,18 +42,14 @@ class LocationService : Service() {
 
     private fun start() {
         Log.d("GET_MARKS", "START SERVICE")
-        locationClient
-            ?.getLocationUpdates()
-            ?.catch { e -> e.printStackTrace() }
-            ?.onEach { location ->
-
+        locationClient.getLocationUpdates()
+            .catch { e -> e.printStackTrace() }
+            .onEach { location ->
                 Log.d(
                     "GET_MARKS",
                     "MARK: ${location.time}, ${location.longitude}, ${location.latitude}"
                 )
-
-
-            }?.launchIn(serviceScope)
+            }.launchIn(serviceScope)
     }
 
     private fun stop() {
@@ -78,6 +70,4 @@ class LocationService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
-
-
 }

@@ -1,6 +1,6 @@
-package com.example.tracker.models
+package com.example.tracker.models.auth
 
-interface Authentication {
+interface Auth {
 
     fun signIn(userEmail: String, userPassword: String, callback: (Boolean, Int?) -> Unit)
 

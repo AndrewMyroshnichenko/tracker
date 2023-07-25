@@ -18,5 +18,4 @@ open class SplashEffect : AbstractEffect<SplashContract.View>() {
             screen.proceedToTrackerScreen()
         }
     }
-
 }
