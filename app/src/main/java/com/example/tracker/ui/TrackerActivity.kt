@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.example.tracker.R
 import com.example.tracker.databinding.ActivityTrackerBinding
 import com.example.tracker.ui.login.LoginContract
 import com.example.tracker.ui.splash.SplashContract
+import com.example.tracker.ui.tracker.TrackerContract
 
-class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host {
+class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host, TrackerContract.Host {
 
     private var navController: NavController? = null
     private var bind: ActivityTrackerBinding? = null
@@ -40,11 +40,17 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
         navController?.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
 
-    override fun proceedToLoginScreen() {
+    override fun proceedSplashToLoginScreen() {
         navController?.navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
-    override fun proceedToTrackerScreen() {
+    override fun proceedSplashToTrackerScreen() {
         navController?.navigate(R.id.action_splashFragment_to_trackerFragment)
     }
+
+    override fun proceedTrackerToLoginScreen() {
+        navController?.navigate(R.id.action_trackerFragment_to_loginFragment)
+    }
+
+
 }

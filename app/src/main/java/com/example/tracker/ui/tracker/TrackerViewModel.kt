@@ -9,10 +9,6 @@ class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
-    init {
-        setState(TrackerState.TrackerIsOffState(false, true))
-    }
-
     override fun singOut() {
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
@@ -20,13 +16,13 @@ class TrackerViewModel(
 
     override fun startTrack(isProviderEnabled: Boolean) {
         if (isProviderEnabled) {
-            setState(TrackerState.TrackerCollectsLocationState(true, isProviderEnabled))
+            setState(TrackerState(true, isProviderEnabled))
         } else {
-            setState(TrackerState.GpsIsOffState(false, isProviderEnabled))
+            setState(TrackerState(false, isProviderEnabled))
         }
     }
 
     override fun stopTrack(isProviderEnabled: Boolean) {
-        setState(TrackerState.TrackerIsOffState(false, isProviderEnabled))
+        setState(TrackerState(false, isProviderEnabled))
     }
 }

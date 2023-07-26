@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
@@ -55,7 +54,9 @@ class TrackerFragment :
 
         val isProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 
-        if (model?.getStateObservable()?.value is TrackerState.TrackerIsOffState || model?.getStateObservable()?.value is TrackerState.TrackerIsOffState) {
+        val state = model?.getStateObservable()?.value as TrackerState
+
+        if (state.serviceRunning || state.gpsEnabled) {
             model?.startTrack(isProviderEnabled)
         } else {
             model?.stopTrack(isProviderEnabled)
@@ -69,9 +70,8 @@ class TrackerFragment :
         }
     }
 
-    override fun nextScreen() {
-        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-        navController.navigate(R.id.action_trackerFragment_to_loginFragment)
+    override fun proceedToLoginScreen() {
+        fragmentHost?.proceedTrackerToLoginScreen()
     }
 
     private fun setViewsProperties(

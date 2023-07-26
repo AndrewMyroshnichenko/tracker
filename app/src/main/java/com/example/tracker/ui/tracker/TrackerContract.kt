@@ -20,10 +20,10 @@ class TrackerContract {
 
         fun startStopService(act: String)
 
-        fun nextScreen()
+        fun proceedToLoginScreen()
     }
 
     interface Host : FragmentContract.Host {
-
+        fun proceedTrackerToLoginScreen()
     }
 }

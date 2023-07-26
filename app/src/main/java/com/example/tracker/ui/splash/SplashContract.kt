@@ -12,7 +12,7 @@ class SplashContract {
     }
 
     interface Host : FragmentContract.Host {
-        fun proceedToLoginScreen()
-        fun proceedToTrackerScreen()
+        fun proceedSplashToLoginScreen()
+        fun proceedSplashToTrackerScreen()
     }
 }

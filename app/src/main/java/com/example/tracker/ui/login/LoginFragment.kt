@@ -35,7 +35,7 @@ class LoginFragment :
 
         bind?.btSingInUp?.setOnClickListener(this)
         bind?.tvForgotPassword?.setOnClickListener(this)
-        bind?.widgetSingInUp?.setOnClickListener(this)
+        bind?.tvSingInUp?.setOnClickListener(this)
         bind?.ibBack?.setOnClickListener(this)
     }
 
@@ -60,25 +60,31 @@ class LoginFragment :
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.bt_sing_in_up -> buttonToggle(v)
+            R.id.bt_sing_in_up -> buttonToggle()
             R.id.tv_forgot_password -> clickOnForgotPassword()
-            R.id.widget_sing_in_up -> clickOnSingInUp()
+            R.id.tv_sing_in_up -> clickOnSingInUp()
             R.id.ib_back -> backToLoginViews()
         }
     }
 
-    private fun buttonToggle(v: View) {
+    private fun buttonToggle() {
         val userEmail = bind?.edUserEmail?.text.toString()
         val userPassword = bind?.edPassword?.text.toString()
         val confirmPassword = bind?.edConfirmPassword?.text.toString()
         val buttonText = bind?.btSingInUp?.text.toString()
 
-        if (buttonText == resources.getString(R.string.sing_in)) {
-            model?.signIn(userEmail, userPassword)
-        } else if (buttonText == resources.getString(R.string.sing_up)) {
-            model?.signUp(userEmail, userPassword, confirmPassword)
-        } else {
-            model?.forgotPassword(userEmail)
+        when (buttonText) {
+            resources.getString(R.string.sing_in) -> {
+                model?.signIn(userEmail, userPassword)
+            }
+
+            resources.getString(R.string.sing_up) -> {
+                model?.signUp(userEmail, userPassword, confirmPassword)
+            }
+
+            else -> {
+                model?.forgotPassword(userEmail)
+            }
         }
     }
 
@@ -90,19 +96,17 @@ class LoginFragment :
     }
 
     private fun clickOnSingInUp() {
-        if (bind?.tvSingInUp?.text == (resources.getString(R.string.sing_up))) {
+        if (bind?.tvSingInUp?.text == (resources.getString(R.string.question_sing_up))) {
             setUpLogInUpViewsProperties(
                 View.GONE, View.VISIBLE,
                 resources.getString(R.string.sing_up),
-                resources.getString(R.string.sing_in),
-                resources.getString(R.string.already_have_an_account)
+                resources.getString(R.string.question_sing_in),
             )
         } else {
             setUpLogInUpViewsProperties(
                 View.VISIBLE, View.GONE,
                 resources.getString(R.string.sing_in),
-                resources.getString(R.string.sing_up),
-                resources.getString(R.string.don_t_have_an_account)
+                resources.getString(R.string.question_sing_up),
             )
         }
     }
@@ -112,34 +116,29 @@ class LoginFragment :
         visibilityConfirmPassword: Int,
         titleOfToolbarAndButton: String,
         bottomTextMenu: String,
-        bottomTextQuestion: String,
     ) {
         bind?.tvForgotPassword?.visibility = visibilityForgotPassword
         bind?.inputFieldConfirmPassword?.visibility = visibilityConfirmPassword
         bind?.ibBack?.visibility = View.GONE
         bind?.btSingInUp?.text = titleOfToolbarAndButton
         bind?.tvSingInUp?.text = bottomTextMenu
-        bind?.tvQuestion?.text = bottomTextQuestion
         bind?.tvSignTitle?.text = titleOfToolbarAndButton
     }
 
     private fun backToLoginViews() {
         bind?.inputFieldPassword?.visibility = View.VISIBLE
         bind?.tvForgotPassword?.visibility = View.VISIBLE
-        bind?.tvQuestion?.visibility = View.VISIBLE
         bind?.tvSingInUp?.visibility = View.VISIBLE
         bind?.inputFieldConfirmPassword?.visibility = View.GONE
         bind?.ibBack?.visibility = View.GONE
-        bind?.btSingInUp?.text = resources.getString(R.string.sing_in)
-        bind?.tvSingInUp?.text = resources.getString(R.string.sing_up)
-        bind?.tvQuestion?.text = resources.getString(R.string.don_t_have_an_account)
+        bind?.btSingInUp?.text = resources.getString(R.string.sing_up)
+        bind?.tvSingInUp?.text = resources.getString(R.string.question_sing_up)
         bind?.tvSignTitle?.text = resources.getString(R.string.sing_up)
     }
 
     private fun doInvisibleNonForgotPasswordFields() {
         bind?.inputFieldPassword?.visibility = View.GONE
         bind?.tvForgotPassword?.visibility = View.GONE
-        bind?.tvQuestion?.visibility = View.GONE
         bind?.tvSingInUp?.visibility = View.GONE
     }
 

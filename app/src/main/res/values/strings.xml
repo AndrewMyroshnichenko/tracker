@@ -17,8 +17,8 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="sing_in">Sing in</string>
     <string name="sing_up">Sing Up</string>
-    <string name="don_t_have_an_account">Don`t have an account?</string>
-    <string name="already_have_an_account">Already have an account?</string>
+    <string name="question_sing_up">Don`t have an account?\nSing Up</string>
+    <string name="question_sing_in">Already have an account?\nSing In</string>
     <string name="send_new_password">Send new password</string>
     <string name="login_failed">Login failed!</string>
     <string name="registration_completed">Registration completed!</string>
@@ -33,5 +33,6 @@
     <string name="email_is_empty">Email is empty!</string>
     <string name="password_is_empty">Password is empty!</string>
     <string name="empty_error_message"/>
+
 
 </resources>

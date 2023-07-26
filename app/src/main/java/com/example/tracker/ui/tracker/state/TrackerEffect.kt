@@ -6,7 +6,7 @@ import com.example.tracker.ui.tracker.TrackerContract
 open class TrackerEffect : AbstractEffect<TrackerContract.View>() {
     class NavigateAfterLogOut : TrackerEffect() {
         override fun handle(screen: TrackerContract.View) {
-            screen.nextScreen()
+            screen.proceedToLoginScreen()
         }
     }
 }

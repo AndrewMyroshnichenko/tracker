@@ -5,17 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.mvi.fragments.HostedFragment
-
 
 class SplashFragment :
     HostedFragment<SplashContract.View, SplashContract.ViewModel, SplashContract.Host>(),
     SplashContract.View {
-
-    var nController: NavController? = null
 
     override fun createModel(): SplashContract.ViewModel {
         return ViewModelProvider(
@@ -29,16 +24,12 @@ class SplashFragment :
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        nController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-    }
 
     override fun proceedToLoginScreen() {
-        nController?.navigate(R.id.action_splashFragment_to_loginFragment)
+        fragmentHost?.proceedSplashToLoginScreen()
     }
 
     override fun proceedToTrackerScreen() {
-        nController?.navigate(R.id.action_splashFragment_to_trackerFragment)
+        fragmentHost?.proceedSplashToTrackerScreen()
     }
 }
