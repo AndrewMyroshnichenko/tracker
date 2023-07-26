@@ -16,5 +16,4 @@ open class LoginEffect : AbstractEffect<LoginContract.View>() {
             screen.nextScreen()
         }
     }
-
 }

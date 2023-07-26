@@ -12,8 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.tracker.R
+import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
-import com.example.tracker.models.gps.LocationService
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 

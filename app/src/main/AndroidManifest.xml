@@ -27,7 +27,7 @@
         </activity>
 
         <service
-            android:name=".models.gps.LocationService"
+            android:name=".bg.LocationService"
             android:foregroundServiceType="location" />
     </application>
 

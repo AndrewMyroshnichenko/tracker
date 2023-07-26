@@ -3,7 +3,6 @@ package com.example.tracker.models.gps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.LocationManager
 import android.os.Looper
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
@@ -12,11 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 
-class DefaultLocationClient(
+class DefaultLocationSource(
     val context: Context,
-) : LocationClient {
+) : LocationSource {
 
-    val client: FusedLocationProviderClient =
+    private val client: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
     @SuppressLint("MissingPermission")
@@ -24,7 +23,7 @@ class DefaultLocationClient(
         return callbackFlow {
 
             if (!CheckPermissions.hasLocationPermission(context)) {
-                throw LocationClient.LocationException("Missing location permission")
+                throw LocationSource.LocationException("Missing location permission")
             }
 
             val request = createRequest()

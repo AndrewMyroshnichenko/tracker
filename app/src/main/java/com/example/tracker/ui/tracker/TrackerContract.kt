@@ -1,6 +1,5 @@
 package com.example.tracker.ui.tracker
 
-import android.location.LocationManager
 import com.example.tracker.mvi.fragments.FragmentContract
 
 class TrackerContract {
@@ -25,7 +24,6 @@ class TrackerContract {
     }
 
     interface Host : FragmentContract.Host {
-
 
     }
 }

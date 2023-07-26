@@ -18,5 +18,4 @@ open class LoginState : AbstractState<LoginContract.View, LoginState>(){
             screen.showPasswordError(messageId)
         }
     }
-
 }

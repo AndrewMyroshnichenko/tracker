@@ -48,7 +48,7 @@ class LoginFragment :
     }
 
     override fun showPopUpError(messageId: Int?) {
-        if (messageId != null) {
+        messageId?.let {
             view?.let { Snackbar.make(it, getString(messageId), Snackbar.LENGTH_LONG).show() }
         }
     }
