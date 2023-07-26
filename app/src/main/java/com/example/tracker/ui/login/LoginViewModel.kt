@@ -10,7 +10,7 @@ import com.example.tracker.ui.login.state.LoginState
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val firebaseManager: Auth
+    private val firebaseAuth: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     override fun signIn(userEmail: String, userPass: String) {
@@ -22,12 +22,12 @@ class LoginViewModel(
             setState(LoginState.UserNameErrorState(R.string.write_correct_email))
         } else {
             viewModelScope.launch {
-                val result = firebaseManager.signIn(userEmail, userPass)
-                if (result.first) {
+                try {
+                    firebaseAuth.signIn(userEmail, userPass)
                     setEffect(LoginEffect.NavigateAfterSignIn)
                     setState(LoginState.UserNameErrorState(R.string.empty_error_message))
-                } else {
-                    setState(LoginState.UserNameErrorState(result.second))
+                } catch (e: Exception) {
+                    setState(LoginState.UserNameErrorState(R.string.login_failed))
                 }
             }
         }
@@ -46,12 +46,12 @@ class LoginViewModel(
             setState(LoginState.PasswordErrorState(R.string.passwords_mismatch))
         } else {
             viewModelScope.launch {
-                val result = firebaseManager.signUp(userEmail, userPassFirst)
-                if (result.first) {
-                    setEffect(LoginEffect.ShowSuccessMessage(result.second))
+                try {
+                    firebaseAuth.signUp(userEmail, userPassFirst)
+                    setEffect(LoginEffect.ShowSuccessMessage(R.string.registration_completed))
                     setState(LoginState.UserNameErrorState(R.string.empty_error_message))
-                } else {
-                    setState(LoginState.UserNameErrorState(result.second))
+                }catch (e: Exception){
+                    setState(LoginState.UserNameErrorState(R.string.registration_failed))
                 }
             }
         }
@@ -64,12 +64,12 @@ class LoginViewModel(
             setState(LoginState.UserNameErrorState(R.string.write_correct_email))
         } else {
             viewModelScope.launch {
-                val result = firebaseManager.forgotPassword(userEmail)
-                if (result.first) {
-                    setEffect(LoginEffect.ShowSuccessMessage(result.second))
+                try {
+                    firebaseAuth.forgotPassword(userEmail)
+                    setEffect(LoginEffect.ShowSuccessMessage(R.string.check_your_email))
                     setState(LoginState.UserNameErrorState(R.string.empty_error_message))
-                } else {
-                    setState(LoginState.UserNameErrorState(result.second))
+                } catch (e: Exception) {
+                    setState(LoginState.UserNameErrorState(R.string.something_went_wrong_password_wasnt_reset))
                 }
             }
         }
