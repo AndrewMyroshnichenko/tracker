@@ -34,7 +34,9 @@ class LoginViewModel(
     }
 
     override fun signUp(userEmail: String, userPassFirst: String, userPassSecond: String) {
-        if (userEmail.isEmpty()) {
+        if (userEmail.isEmpty() && userPassFirst.isEmpty() && userPassSecond.isEmpty()){
+
+        } else if (userEmail.isEmpty()) {
             setState(LoginState.UserNameErrorState(R.string.email_is_empty))
         } else if (userPassFirst.isEmpty() || userPassSecond.isEmpty()) {
             setState(LoginState.PasswordErrorState(R.string.password_is_empty))

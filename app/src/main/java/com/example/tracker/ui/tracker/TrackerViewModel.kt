@@ -9,7 +9,7 @@ class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
-    override fun onCreate(){
+    override fun onCreate() {
         if (getState() == null) {
             setState(TrackerState())
         }
@@ -21,7 +21,7 @@ class TrackerViewModel(
     }
 
     override fun startTrack() {
-            setState(TrackerState(true))
+        setState(TrackerState(true))
     }
 
     override fun stopTrack() {

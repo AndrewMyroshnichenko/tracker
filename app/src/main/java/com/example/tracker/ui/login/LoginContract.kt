@@ -22,7 +22,7 @@ class LoginContract {
 
         fun showPopUpError(messageId: Int?)
 
-        fun nextScreen()
+        fun proceedLoginToTrackerScreen()
 
     }
 

@@ -1,10 +1,8 @@
 package com.example.tracker.ui.tracker
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
-import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 
@@ -55,7 +52,7 @@ class TrackerFragment :
     private fun toggleTrack() {
         requestPermissions()
         val state = model?.getStateObservable()?.value as TrackerState
-        if (!state.serviceRunning && DefaultLocationSource.isGpsOn) {
+        if (!state.serviceRunning) {
             model?.startTrack()
         } else {
             model?.stopTrack()
@@ -93,7 +90,7 @@ class TrackerFragment :
     }
 
     override fun showTrackerState(serviceRunning: Boolean) {
-        if (!DefaultLocationSource.isGpsOn) {
+        if (!LocationService.isGpsOn(requireContext())) {
             setViewsProperties(
                 btText = resources.getString(R.string.start),
                 btTextColor = ContextCompat.getColor(requireContext(), R.color.white),

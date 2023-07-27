@@ -16,10 +16,6 @@ class DefaultLocationSource(
     val context: Context,
 ) : LocationSource {
 
-    companion object {
-        var isGpsOn = true
-    }
-
     private val client: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
@@ -57,12 +53,6 @@ class DefaultLocationSource(
             setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
             setWaitForAccurateLocation(true)
         }.build()
-    }
-
-    private fun isGpsOn(): Boolean {
-        val locationManager =
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 
 }

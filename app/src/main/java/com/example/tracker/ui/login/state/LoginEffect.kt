@@ -13,7 +13,7 @@ open class LoginEffect : AbstractEffect<LoginContract.View>() {
 
     object NavigateAfterSignIn : LoginEffect() {
         override fun handle(screen: LoginContract.View) {
-            screen.nextScreen()
+            screen.proceedLoginToTrackerScreen()
         }
     }
 }

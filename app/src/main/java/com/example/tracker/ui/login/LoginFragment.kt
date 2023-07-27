@@ -53,7 +53,7 @@ class LoginFragment :
         }
     }
 
-    override fun nextScreen() {
+    override fun proceedLoginToTrackerScreen() {
         val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
         navController.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
