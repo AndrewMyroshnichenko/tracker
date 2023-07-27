@@ -24,7 +24,6 @@ class SplashFragment :
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
-
     override fun proceedToLoginScreen() {
         fragmentHost?.proceedSplashToLoginScreen()
     }

@@ -52,10 +52,10 @@ class TrackerFragment :
     private fun toggleTrack() {
         requestPermissions()
         val state = model?.getStateObservable()?.value as TrackerState
-        if (!state.serviceRunning) {
-            model?.startTrack()
-        } else {
+        if (state.serviceRunning) {
             model?.stopTrack()
+        } else {
+            model?.startTrack()
         }
     }
 
@@ -133,7 +133,6 @@ class TrackerFragment :
                 )
             }
         }
-
     }
 
     private fun requestPermissions() {

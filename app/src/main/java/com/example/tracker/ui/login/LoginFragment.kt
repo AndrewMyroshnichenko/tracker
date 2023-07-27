@@ -71,9 +71,8 @@ class LoginFragment :
         val userEmail = bind?.edUserEmail?.text.toString()
         val userPassword = bind?.edPassword?.text.toString()
         val confirmPassword = bind?.edConfirmPassword?.text.toString()
-        val buttonText = bind?.btSingInUp?.text.toString()
 
-        when (buttonText) {
+        when (bind?.btSingInUp?.text.toString()) {
             resources.getString(R.string.sing_in) -> {
                 model?.signIn(userEmail, userPassword)
             }
@@ -82,9 +81,7 @@ class LoginFragment :
                 model?.signUp(userEmail, userPassword, confirmPassword)
             }
 
-            else -> {
-                model?.forgotPassword(userEmail)
-            }
+            else -> model?.forgotPassword(userEmail)
         }
     }
 
