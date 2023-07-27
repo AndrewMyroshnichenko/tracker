@@ -27,8 +27,10 @@ class LocationService : Service() {
         locationSource = DefaultLocationSource(applicationContext)
     }
 
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("GET_MARKS", "onStartCommand")
+
         when (intent?.action) {
             ACTION_START -> start()
             ACTION_STOP -> stop()

@@ -1,9 +1,7 @@
 package com.example.tracker.ui
 
-import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.tracker.R
@@ -19,14 +17,6 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ),
-            0
-        )
         bind = ActivityTrackerBinding.inflate(layoutInflater)
         setContentView(bind?.root)
     }

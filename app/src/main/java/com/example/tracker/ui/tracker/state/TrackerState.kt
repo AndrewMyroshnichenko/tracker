@@ -5,11 +5,10 @@ import com.example.tracker.ui.tracker.TrackerContract
 
 class TrackerState(
     val serviceRunning: Boolean = false,
-    val gpsEnabled: Boolean = true
 ) : AbstractState<TrackerContract.View, TrackerState>() {
 
     override fun visit(screen: TrackerContract.View) {
-        screen.showTrackerState(serviceRunning, gpsEnabled)
+        screen.showTrackerState(serviceRunning)
     }
 
 }

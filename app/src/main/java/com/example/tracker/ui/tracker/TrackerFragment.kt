@@ -1,5 +1,6 @@
 package com.example.tracker.ui.tracker
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -8,11 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
+import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 
@@ -37,6 +40,7 @@ class TrackerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        model?.onCreate()
         bind?.ibSignout?.setOnClickListener(this)
         bind?.btStartStop?.setOnClickListener(this)
     }
@@ -49,17 +53,12 @@ class TrackerFragment :
     }
 
     private fun toggleTrack() {
-        val locationManager =
-            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        val isProviderEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-
+        requestPermissions()
         val state = model?.getStateObservable()?.value as TrackerState
-
-        if (state.serviceRunning || state.gpsEnabled) {
-            model?.startTrack(isProviderEnabled)
+        if (!state.serviceRunning && DefaultLocationSource.isGpsOn) {
+            model?.startTrack()
         } else {
-            model?.stopTrack(isProviderEnabled)
+            model?.stopTrack()
         }
     }
 
@@ -93,8 +92,8 @@ class TrackerFragment :
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 
-    override fun showTrackerState(serviceRunning: Boolean, gpsEnabled: Boolean) {
-        if (!gpsEnabled) {
+    override fun showTrackerState(serviceRunning: Boolean) {
+        if (!DefaultLocationSource.isGpsOn) {
             setViewsProperties(
                 btText = resources.getString(R.string.start),
                 btTextColor = ContextCompat.getColor(requireContext(), R.color.white),
@@ -138,5 +137,16 @@ class TrackerFragment :
             }
         }
 
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+            ),
+            0
+        )
     }
 }

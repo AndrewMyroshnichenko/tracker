@@ -8,15 +8,17 @@ class TrackerContract {
 
         fun singOut()
 
-        fun startTrack(isProviderEnabled : Boolean)
+        fun startTrack()
 
-        fun stopTrack(isProviderEnabled : Boolean)
+        fun stopTrack()
+
+        fun onCreate()
 
     }
 
     interface View : FragmentContract.View{
 
-        fun showTrackerState(serviceRunning: Boolean, gpsEnabled: Boolean)
+        fun showTrackerState(serviceRunning: Boolean)
 
         fun startStopService(act: String)
 

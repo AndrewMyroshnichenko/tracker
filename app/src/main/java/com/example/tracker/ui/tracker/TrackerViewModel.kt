@@ -9,20 +9,22 @@ class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
+    override fun onCreate(){
+        if (getState() == null) {
+            setState(TrackerState())
+        }
+    }
+
     override fun singOut() {
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 
-    override fun startTrack(isProviderEnabled: Boolean) {
-        if (isProviderEnabled) {
-            setState(TrackerState(true, isProviderEnabled))
-        } else {
-            setState(TrackerState(false, isProviderEnabled))
-        }
+    override fun startTrack() {
+            setState(TrackerState(true))
     }
 
-    override fun stopTrack(isProviderEnabled: Boolean) {
-        setState(TrackerState(false, isProviderEnabled))
+    override fun stopTrack() {
+        setState(TrackerState(false))
     }
 }
