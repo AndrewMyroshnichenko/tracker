@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.os.IBinder
 import android.util.Log
 import com.example.tracker.models.gps.DefaultLocationSource
+import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.models.gps.LocationSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +33,15 @@ class LocationService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("GET_MARKS", "onStartCommand")
         when (intent?.action) {
-            ACTION_START -> start()
+            ACTION_START -> {
+                if (isGpsOn(applicationContext)) {
+                    LocationServiceController.setGpsStatus(true)
+                    start()
+                } else {
+                    LocationServiceController.setGpsStatus(false)
+                }
+            }
+
             ACTION_STOP -> stop()
         }
         return START_NOT_STICKY
@@ -67,19 +76,16 @@ class LocationService : Service() {
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
 
-
+    private fun isGpsOn(context: Context): Boolean {
+        val locationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
 
 
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
-
-        fun isGpsOn(context: Context): Boolean {
-            val locationManager =
-                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        }
-
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

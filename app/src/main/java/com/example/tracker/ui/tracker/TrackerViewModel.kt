@@ -1,6 +1,8 @@
 package com.example.tracker.ui.tracker
 
+import androidx.lifecycle.LiveData
 import com.example.tracker.models.auth.Auth
+import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect
 import com.example.tracker.ui.tracker.state.TrackerState
@@ -8,6 +10,8 @@ import com.example.tracker.ui.tracker.state.TrackerState
 class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
+
+    val isGps = LocationServiceController.getGpsStatus()
 
     override fun onCreate() {
         if (getState() == null) {
@@ -36,5 +40,11 @@ class TrackerViewModel(
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
+
+    override fun isGpsAvailable(): LiveData<Boolean> {
+        return LocationServiceController.getGpsStatus()
+    }
+
+
 
 }

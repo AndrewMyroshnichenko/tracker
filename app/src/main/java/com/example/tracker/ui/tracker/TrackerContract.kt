@@ -1,5 +1,6 @@
 package com.example.tracker.ui.tracker
 
+import androidx.lifecycle.LiveData
 import com.example.tracker.mvi.fragments.FragmentContract
 
 class TrackerContract {
@@ -11,6 +12,8 @@ class TrackerContract {
         fun onCreate()
 
         fun buttonToggle()
+
+        fun isGpsAvailable(): LiveData<Boolean>
 
     }
 
