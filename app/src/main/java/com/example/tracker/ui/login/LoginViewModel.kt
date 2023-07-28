@@ -13,7 +13,7 @@ class LoginViewModel(
     private val firebaseAuth: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
-    private val minPathLength = 6
+    private val minPassLength = 6
 
     private fun validateCredentials(
         userEmail: String?, userPass: String? = null, userPass2: String? = null
@@ -95,7 +95,7 @@ class LoginViewModel(
     }
 
     private fun isPassLengthEnough(userPass: String): Boolean {
-        return userPass.length <= minPathLength
+        return userPass.length <= minPassLength
     }
 
     private fun arePasswordsMatch(firstPass: String, secondPass: String): Boolean {
