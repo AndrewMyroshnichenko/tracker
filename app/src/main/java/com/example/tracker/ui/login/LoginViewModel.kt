@@ -4,7 +4,6 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.auth.FirebaseAuth
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
 import com.example.tracker.ui.login.state.LoginState
@@ -13,6 +12,8 @@ import kotlinx.coroutines.launch
 class LoginViewModel(
     private val firebaseAuth: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
+
+    private val minPathLength = 6
 
     private fun validateCredentials(
         userEmail: String?, userPass: String? = null, userPass2: String? = null
@@ -94,7 +95,7 @@ class LoginViewModel(
     }
 
     private fun isPassLengthEnough(userPass: String): Boolean {
-        return userPass.length <= FirebaseAuth.MIN_PASS_LENGTH
+        return userPass.length <= minPathLength
     }
 
     private fun arePasswordsMatch(firstPass: String, secondPass: String): Boolean {

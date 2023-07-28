@@ -7,10 +7,6 @@ class FirebaseAuth : Auth {
 
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    companion object {
-        const val MIN_PASS_LENGTH = 6
-    }
-
     override suspend fun signIn(userEmail: String, userPassword: String) {
         mAuth.signInWithEmailAndPassword(userEmail, userPassword).await()
     }
