@@ -9,8 +9,6 @@ class TrackerContract {
 
         fun singOut()
 
-        fun onCreate()
-
         fun buttonToggle()
 
         fun isGpsAvailable(): LiveData<Boolean>

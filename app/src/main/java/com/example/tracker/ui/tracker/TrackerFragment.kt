@@ -38,7 +38,6 @@ class TrackerFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        model?.onCreate()
         bind?.ibSignout?.setOnClickListener(this)
         bind?.btStartStop?.setOnClickListener(this)
         model?.isGpsAvailable()?.observe(viewLifecycleOwner) {
@@ -125,6 +124,7 @@ class TrackerFragment :
 
     private fun showGpsOnOff(isGpsOn: Boolean) {
         if (!isGpsOn) {
+            startStopService(LocationService.ACTION_STOP)
             setViewsProperties(
                 btText = resources.getString(R.string.start),
                 btTextColor = ContextCompat.getColor(requireContext(), R.color.white),
@@ -136,9 +136,6 @@ class TrackerFragment :
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
                 imgTrackerIndicator = R.drawable.img_gps_is_off
             )
-            startStopService(LocationService.ACTION_STOP)
-        } else {
-
         }
 
     }
