@@ -14,7 +14,8 @@ import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
-import com.example.tracker.ui.tracker.state.TrackerState
+import com.example.tracker.utils.CheckPermissions
+
 
 class TrackerFragment :
     HostedFragment<TrackerContract.View, TrackerContract.ViewModel, TrackerContract.Host>(),
@@ -50,12 +51,10 @@ class TrackerFragment :
     }
 
     private fun toggleTrack() {
-        requestPermissions()
-        val state = model?.getStateObservable()?.value as TrackerState
-        if (state.serviceRunning) {
-            model?.stopTrack()
+        if(CheckPermissions.hasLocationPermission(requireContext())) {
+            model?.buttonToggle()
         } else {
-            model?.startTrack()
+            requestPermissions()
         }
     }
 

@@ -1,19 +1,16 @@
 package com.example.tracker.ui.login.state
 
+import com.example.tracker.R
 import com.example.tracker.mvi.states.AbstractState
 import com.example.tracker.ui.login.LoginContract
 
-open class LoginState : AbstractState<LoginContract.View, LoginState>(){
+open class LoginState(
+    private val loginError: Int = R.string.empty_error_message,
+    private val passError: Int = R.string.empty_error_message
+) : AbstractState<LoginContract.View, LoginState>() {
 
-    data class UserNameErrorState(val messageId: Int?) : LoginState() {
-        override fun visit(screen: LoginContract.View) {
-            screen.showUserNameError(messageId)
-        }
-    }
-
-    data class PasswordErrorState(val messageId: Int?) : LoginState() {
-        override fun visit(screen: LoginContract.View) {
-            screen.showPasswordError(messageId)
-        }
+    override fun visit(screen: LoginContract.View) {
+        screen.showLoginError(loginError)
+        screen.showPasswordError(passError)
     }
 }

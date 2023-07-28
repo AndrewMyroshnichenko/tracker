@@ -8,11 +8,9 @@ class TrackerContract {
 
         fun singOut()
 
-        fun startTrack()
-
-        fun stopTrack()
-
         fun onCreate()
+
+        fun buttonToggle()
 
     }
 

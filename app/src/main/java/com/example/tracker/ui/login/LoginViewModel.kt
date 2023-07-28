@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
 import com.example.tracker.models.auth.Auth
+import com.example.tracker.models.auth.FirebaseAuth
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
 import com.example.tracker.ui.login.state.LoginState
@@ -15,45 +16,53 @@ class LoginViewModel(
 
     override fun signIn(userEmail: String, userPass: String) {
         if (userEmail.isEmpty()) {
-            setState(LoginState.UserNameErrorState(R.string.email_is_empty))
-        } else if (userPass.isEmpty()) {
-            setState(LoginState.PasswordErrorState(R.string.password_is_empty))
+            setState(LoginState(loginError = R.string.email_is_empty))
+            if (isPassLengthEnough(userPass)) {
+                setState(LoginState(R.string.email_is_empty, R.string.to_short_password))
+            }
         } else if (!isEmailValid(userEmail)) {
-            setState(LoginState.UserNameErrorState(R.string.write_correct_email))
+            setState(LoginState(loginError = R.string.write_correct_email))
+            if (isPassLengthEnough(userPass)) {
+                setState(LoginState(R.string.write_correct_email, R.string.to_short_password))
+            }
+        } else if (isPassLengthEnough(userPass)) {
+            setState(LoginState(passError = R.string.to_short_password))
         } else {
             viewModelScope.launch {
                 try {
                     firebaseAuth.signIn(userEmail, userPass)
                     setEffect(LoginEffect.NavigateAfterSignIn)
-                    setState(LoginState.UserNameErrorState(R.string.empty_error_message))
+                    setState(LoginState())
                 } catch (e: Exception) {
-                    setState(LoginState.UserNameErrorState(R.string.login_failed))
+                    setState(LoginState(loginError = R.string.login_failed))
                 }
             }
         }
     }
 
     override fun signUp(userEmail: String, userPassFirst: String, userPassSecond: String) {
-        if (userEmail.isEmpty() && userPassFirst.isEmpty() && userPassSecond.isEmpty()){
-
-        } else if (userEmail.isEmpty()) {
-            setState(LoginState.UserNameErrorState(R.string.email_is_empty))
-        } else if (userPassFirst.isEmpty() || userPassSecond.isEmpty()) {
-            setState(LoginState.PasswordErrorState(R.string.password_is_empty))
+        if (userEmail.isEmpty() && userPassFirst.isEmpty() && userPassSecond.isEmpty()) {
+            setState(LoginState(loginError = R.string.email_is_empty))
+            if (isPassLengthEnough(userPassFirst)) {
+                setState(LoginState(R.string.email_is_empty, R.string.to_short_password))
+            }
         } else if (!isEmailValid(userEmail)) {
-            setState(LoginState.UserNameErrorState(R.string.write_correct_email))
-        } else if (!isPasswordValid(userPassFirst)) {
-            setState(LoginState.PasswordErrorState(R.string.to_short_password))
+            setState(LoginState(loginError = R.string.write_correct_email))
+            if (isPassLengthEnough(userPassFirst)) {
+                setState(LoginState(R.string.write_correct_email, R.string.to_short_password))
+            }
+        } else if (!isPassLengthEnough(userPassFirst)) {
+            setState(LoginState(passError = R.string.to_short_password))
         } else if (!arePasswordsMatch(userPassFirst, userPassSecond)) {
-            setState(LoginState.PasswordErrorState(R.string.passwords_mismatch))
+            setState(LoginState(passError = R.string.passwords_mismatch))
         } else {
             viewModelScope.launch {
                 try {
                     firebaseAuth.signUp(userEmail, userPassFirst)
                     setEffect(LoginEffect.ShowSuccessMessage(R.string.registration_completed))
-                    setState(LoginState.UserNameErrorState(R.string.empty_error_message))
-                }catch (e: Exception){
-                    setState(LoginState.UserNameErrorState(R.string.registration_failed))
+                    setState(LoginState())
+                } catch (e: Exception) {
+                    setState(LoginState(loginError = R.string.registration_failed))
                 }
             }
         }
@@ -61,29 +70,28 @@ class LoginViewModel(
 
     override fun forgotPassword(userEmail: String) {
         if (userEmail.isEmpty()) {
-            setState(LoginState.UserNameErrorState(R.string.email_is_empty))
+            setState(LoginState(loginError = R.string.email_is_empty))
         } else if (!isEmailValid(userEmail)) {
-            setState(LoginState.UserNameErrorState(R.string.write_correct_email))
+            setState(LoginState(loginError = R.string.write_correct_email))
         } else {
             viewModelScope.launch {
                 try {
                     firebaseAuth.forgotPassword(userEmail)
                     setEffect(LoginEffect.ShowSuccessMessage(R.string.check_your_email))
-                    setState(LoginState.UserNameErrorState(R.string.empty_error_message))
+                    setState(LoginState())
                 } catch (e: Exception) {
-                    setState(LoginState.UserNameErrorState(R.string.something_went_wrong_password_wasnt_reset))
+                    setState(LoginState(loginError = R.string.something_went_wrong_password_wasnt_reset))
                 }
             }
         }
     }
 
-
     private fun isEmailValid(userEmail: String): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()
     }
 
-    private fun isPasswordValid(userPass: String): Boolean {
-        return userPass.length > 7
+    private fun isPassLengthEnough(userPass: String): Boolean {
+        return userPass.length <= FirebaseAuth.MIN_PASS_LENGTH
     }
 
     private fun arePasswordsMatch(firstPass: String, secondPass: String): Boolean {

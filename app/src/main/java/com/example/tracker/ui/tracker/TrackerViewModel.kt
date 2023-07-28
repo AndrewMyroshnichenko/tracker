@@ -15,16 +15,26 @@ class TrackerViewModel(
         }
     }
 
+    override fun buttonToggle() {
+        if (getState()?.serviceRunning == true) {
+            stopTrack()
+        } else {
+            startTrack()
+        }
+    }
+
+
+    private fun startTrack() {
+        setState(TrackerState(true))
+    }
+
+    private fun stopTrack() {
+        setState(TrackerState(false))
+    }
+
     override fun singOut() {
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 
-    override fun startTrack() {
-        setState(TrackerState(true))
-    }
-
-    override fun stopTrack() {
-        setState(TrackerState(false))
-    }
 }

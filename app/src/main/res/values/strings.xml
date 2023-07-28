@@ -31,7 +31,7 @@
     <string name="to_short_password">To short password!</string>
     <string name="passwords_mismatch">Passwords mismatch!</string>
     <string name="email_is_empty">Email is empty!</string>
-    <string name="password_is_empty">Password is empty!</string>
+<!--    <string name="password_is_empty">Password is empty!</string>-->
     <string name="empty_error_message"/>
 
 

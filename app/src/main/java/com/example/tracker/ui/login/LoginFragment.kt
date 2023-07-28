@@ -39,12 +39,12 @@ class LoginFragment :
         bind?.ibBack?.setOnClickListener(this)
     }
 
-    override fun showUserNameError(messageId: Int?) {
-        bind?.inputFieldUserName?.error = messageId?.let { getString(it) }
+    override fun showLoginError(messageId: Int) {
+        bind?.inputFieldUserName?.error = getString(messageId)
     }
 
-    override fun showPasswordError(messageId: Int?) {
-        bind?.inputFieldPassword?.error = messageId?.let { getString(it) }
+    override fun showPasswordError(messageId: Int) {
+        bind?.inputFieldPassword?.error = getString(messageId)
     }
 
     override fun showPopUpError(messageId: Int?) {
