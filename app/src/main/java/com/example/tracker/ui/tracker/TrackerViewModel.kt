@@ -1,22 +1,33 @@
 package com.example.tracker.ui.tracker
 
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect
 import com.example.tracker.ui.tracker.state.TrackerState
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class TrackerViewModel(
     private val firebaseManager: Auth
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
+
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
             if (getState() == null) {
-                setState(TrackerState())
+                setState(TrackerState(false, isGpsAvailable().value))
+            }
+
+            viewModelScope.launch {
+                isGpsAvailable().collect {
+                    getState()?.serviceRunning?.let { serviceRunning ->
+                        setState(TrackerState(serviceRunning, it))
+                    }
+                }
             }
         }
     }
@@ -27,14 +38,15 @@ class TrackerViewModel(
         } else {
             startTrack()
         }
+
     }
 
     private fun startTrack() {
-        setState(TrackerState(true))
+        setState(TrackerState(true, isGpsAvailable().value))
     }
 
     private fun stopTrack() {
-        setState(TrackerState(false))
+        setState(TrackerState(false, isGpsAvailable().value))
     }
 
     override fun singOut() {
@@ -42,9 +54,7 @@ class TrackerViewModel(
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 
-    override fun isGpsAvailable(): LiveData<Boolean> {
+    override fun isGpsAvailable(): StateFlow<Boolean> {
         return LocationServiceController.getGpsStatus()
     }
-
-
 }

@@ -40,9 +40,6 @@ class TrackerFragment :
         super.onViewCreated(view, savedInstanceState)
         bind?.ibSignout?.setOnClickListener(this)
         bind?.btStartStop?.setOnClickListener(this)
-        model?.isGpsAvailable()?.observe(viewLifecycleOwner) {
-            showGpsOnOff(it)
-        }
     }
 
     override fun onClick(v: View?) {
@@ -71,14 +68,61 @@ class TrackerFragment :
         fragmentHost?.proceedTrackerToLoginScreen()
     }
 
+    override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
+        if (!isGpsEnable) {
+            setViewsProperties(
+                btText = if (serviceRunning) resources.getString(R.string.stop) else resources.getString(
+                    R.string.start
+                ),
+                btTextColor = ContextCompat.getColor(
+                    requireContext(),
+                    if (serviceRunning) R.color.main else R.color.white
+                ),
+                btBackgroundColor = ContextCompat.getColor(
+                    requireContext(),
+                    if (serviceRunning) R.color.white else R.color.main
+                ),
+                pbGradient = ContextCompat.getDrawable(
+                    requireActivity(), R.drawable.pb_error_gradient
+                ),
+                tvStateTracker = resources.getString(R.string.gps_off),
+                tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
+                imgTrackerIndicator = R.drawable.img_gps_is_off
+            )
+        } else {
+            if (serviceRunning) {
+                startStopService(LocationService.ACTION_START)
+                setViewsProperties(
+                    btText = resources.getString(R.string.stop),
+                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
+                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
+                    pbGradient = ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.pb_gradient
+                    ),
+                    tvStateTracker = resources.getString(R.string.tracker),
+                    tvHelperText = resources.getString(R.string.collects_locations),
+                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
+                )
+            } else {
+                startStopService(LocationService.ACTION_STOP)
+                setViewsProperties()
+            }
+        }
+
+    }
+
     private fun setViewsProperties(
-        btText: String,
-        btTextColor: Int,
-        btBackgroundColor: Int,
-        pbGradient: Drawable?,
-        tvStateTracker: String,
-        tvHelperText: String,
-        imgTrackerIndicator: Int
+        btText: String = resources.getString(R.string.start),
+        btTextColor: Int = ContextCompat.getColor(requireContext(), R.color.white),
+        btBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.main),
+        pbGradient: Drawable? = ContextCompat.getDrawable(
+            requireActivity(),
+            R.drawable.pb_stop_gradient
+        ),
+        tvStateTracker: String = resources.getString(R.string.tracker_off),
+        tvHelperText: String = "",
+        imgTrackerIndicator: Int = R.drawable.img_tracker_is_off
     ) {
         bind?.btStartStop?.text = btText
         bind?.btStartStop?.setTextColor(btTextColor)
@@ -88,56 +132,6 @@ class TrackerFragment :
         bind?.tvStateTracker?.text = tvStateTracker
         bind?.tvHelper?.text = tvHelperText
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
-    }
-
-    override fun showTrackerState(serviceRunning: Boolean) {
-        if (serviceRunning) {
-            startStopService(LocationService.ACTION_START)
-            setViewsProperties(
-                btText = resources.getString(R.string.stop),
-                btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
-                btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
-                pbGradient = ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.pb_gradient
-                ),
-                tvStateTracker = resources.getString(R.string.tracker),
-                tvHelperText = resources.getString(R.string.collects_locations),
-                imgTrackerIndicator = R.drawable.img_tracker_collects_locations
-            )
-        } else {
-            startStopService(LocationService.ACTION_STOP)
-            setViewsProperties(
-                btText = resources.getString(R.string.start),
-                btTextColor = ContextCompat.getColor(requireContext(), R.color.white),
-                btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.main),
-                pbGradient = ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.pb_stop_gradient
-                ),
-                tvStateTracker = resources.getString(R.string.tracker_off),
-                tvHelperText = "",
-                imgTrackerIndicator = R.drawable.img_tracker_is_off
-            )
-        }
-    }
-
-    private fun showGpsOnOff(isGpsOn: Boolean) {
-        if (!isGpsOn) {
-            startStopService(LocationService.ACTION_STOP)
-            setViewsProperties(
-                btText = resources.getString(R.string.start),
-                btTextColor = ContextCompat.getColor(requireContext(), R.color.white),
-                btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.main),
-                pbGradient = ContextCompat.getDrawable(
-                    requireActivity(), R.drawable.pb_error_gradient
-                ),
-                tvStateTracker = resources.getString(R.string.gps_off),
-                tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
-                imgTrackerIndicator = R.drawable.img_gps_is_off
-            )
-        }
-
     }
 
     private fun requestPermissions() {

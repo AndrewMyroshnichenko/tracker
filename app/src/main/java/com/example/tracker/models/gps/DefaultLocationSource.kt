@@ -5,9 +5,12 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
+import android.util.Log
+import com.example.tracker.bg.LocationService
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
@@ -34,6 +37,13 @@ class DefaultLocationSource(
                     super.onLocationResult(result)
                     val location = result.locations.lastOrNull()
                     if (location != null) launch { send(location) }
+                }
+            }
+
+            launch {
+                while (true) {
+                    LocationServiceController.setGpsStatus(LocationService.isGpsOn(context))
+                    delay(1000)
                 }
             }
 

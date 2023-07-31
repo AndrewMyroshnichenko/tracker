@@ -1,14 +1,13 @@
 package com.example.tracker.models.gps
 
-
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 object LocationServiceController {
 
-    private val isGpsEnabled = MutableLiveData<Boolean>()
+    private val isGpsEnabled = MutableStateFlow(true)
 
-    fun getGpsStatus(): LiveData<Boolean> {
+    fun getGpsStatus(): StateFlow<Boolean> {
         return isGpsEnabled
     }
 

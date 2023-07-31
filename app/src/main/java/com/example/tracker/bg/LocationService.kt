@@ -34,14 +34,9 @@ class LocationService : Service() {
         Log.d("GET_MARKS", "onStartCommand")
         when (intent?.action) {
             ACTION_START -> {
-                if (isGpsOn(applicationContext)) {
-                    LocationServiceController.setGpsStatus(true)
-                    start()
-                } else {
-                    LocationServiceController.setGpsStatus(false)
-                }
+                start()
+                LocationServiceController.setGpsStatus(isGpsOn(applicationContext))
             }
-
             ACTION_STOP -> stop()
         }
         return START_NOT_STICKY
@@ -76,16 +71,18 @@ class LocationService : Service() {
         return netInfo != null && netInfo.isConnectedOrConnecting
     }
 
-    private fun isGpsOn(context: Context): Boolean {
-        val locationManager =
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
+
 
 
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+
+        fun isGpsOn(context: Context): Boolean {
+            val locationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        }
     }
 
     override fun onBind(intent: Intent?): IBinder? = null

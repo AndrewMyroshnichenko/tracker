@@ -2,6 +2,7 @@ package com.example.tracker.ui.tracker
 
 import androidx.lifecycle.LiveData
 import com.example.tracker.mvi.fragments.FragmentContract
+import kotlinx.coroutines.flow.StateFlow
 
 class TrackerContract {
 
@@ -11,13 +12,13 @@ class TrackerContract {
 
         fun buttonToggle()
 
-        fun isGpsAvailable(): LiveData<Boolean>
+        fun isGpsAvailable(): StateFlow<Boolean>
 
     }
 
     interface View : FragmentContract.View{
 
-        fun showTrackerState(serviceRunning: Boolean)
+        fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean)
 
         fun startStopService(act: String)
 
