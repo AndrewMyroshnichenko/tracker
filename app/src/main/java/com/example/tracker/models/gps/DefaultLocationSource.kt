@@ -3,9 +3,7 @@ package com.example.tracker.models.gps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.LocationManager
 import android.os.Looper
-import android.util.Log
 import com.example.tracker.bg.LocationService
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
@@ -16,15 +14,13 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
-    val context: Context,
+    private val context: Context,
 ) : LocationSource {
 
-    private val client: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(context)
+    private val client = LocationServices.getFusedLocationProviderClient(context)
 
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(): Flow<Location> {
-
         return callbackFlow {
 
             if (!CheckPermissions.hasLocationPermission(context)) {
@@ -64,5 +60,4 @@ class DefaultLocationSource(
             setWaitForAccurateLocation(true)
         }.build()
     }
-
 }

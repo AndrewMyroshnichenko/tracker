@@ -75,12 +75,10 @@ class TrackerFragment :
                     R.string.start
                 ),
                 btTextColor = ContextCompat.getColor(
-                    requireContext(),
-                    if (serviceRunning) R.color.main else R.color.white
+                    requireContext(), if (serviceRunning) R.color.main else R.color.white
                 ),
                 btBackgroundColor = ContextCompat.getColor(
-                    requireContext(),
-                    if (serviceRunning) R.color.white else R.color.main
+                    requireContext(), if (serviceRunning) R.color.white else R.color.main
                 ),
                 pbGradient = ContextCompat.getDrawable(
                     requireActivity(), R.drawable.pb_error_gradient
@@ -97,8 +95,7 @@ class TrackerFragment :
                     btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
                     btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
                     pbGradient = ContextCompat.getDrawable(
-                        requireActivity(),
-                        R.drawable.pb_gradient
+                        requireActivity(), R.drawable.pb_gradient
                     ),
                     tvStateTracker = resources.getString(R.string.tracker),
                     tvHelperText = resources.getString(R.string.collects_locations),
@@ -109,7 +106,6 @@ class TrackerFragment :
                 setViewsProperties()
             }
         }
-
     }
 
     private fun setViewsProperties(
@@ -117,8 +113,7 @@ class TrackerFragment :
         btTextColor: Int = ContextCompat.getColor(requireContext(), R.color.white),
         btBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.main),
         pbGradient: Drawable? = ContextCompat.getDrawable(
-            requireActivity(),
-            R.drawable.pb_stop_gradient
+            requireActivity(), R.drawable.pb_stop_gradient
         ),
         tvStateTracker: String = resources.getString(R.string.tracker_off),
         tvHelperText: String = "",
