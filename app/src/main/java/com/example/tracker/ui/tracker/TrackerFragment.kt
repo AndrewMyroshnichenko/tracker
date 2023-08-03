@@ -70,19 +70,15 @@ class TrackerFragment :
 
     override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
         if (!isGpsEnable) {
+            startStopService(LocationService.ACTION_START)
             setViewsProperties(
-                btText = if (serviceRunning) resources.getString(R.string.stop) else resources.getString(
-                    R.string.start
-                ),
-                btTextColor = ContextCompat.getColor(
-                    requireContext(), if (serviceRunning) R.color.main else R.color.white
-                ),
-                btBackgroundColor = ContextCompat.getColor(
-                    requireContext(), if (serviceRunning) R.color.white else R.color.main
-                ),
-                pbGradient = ContextCompat.getDrawable(
-                    requireActivity(), R.drawable.pb_error_gradient
-                ),
+                btText = if (serviceRunning) resources.getString(R.string.stop)
+                else resources.getString(R.string.start),
+                btTextColor = ContextCompat.getColor(requireContext(), if (serviceRunning) R.color.main
+                else R.color.white),
+                btBackgroundColor = ContextCompat.getColor(requireContext(), if (serviceRunning) R.color.white
+                else R.color.main),
+                pbGradient = ContextCompat.getDrawable(requireActivity(), R.drawable.pb_error_gradient),
                 tvStateTracker = resources.getString(R.string.gps_off),
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
                 imgTrackerIndicator = R.drawable.img_gps_is_off

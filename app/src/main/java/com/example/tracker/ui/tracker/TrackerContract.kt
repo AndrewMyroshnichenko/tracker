@@ -12,8 +12,6 @@ class TrackerContract {
 
         fun buttonToggle()
 
-        fun isGpsAvailable(): StateFlow<Boolean>
-
     }
 
     interface View : FragmentContract.View{

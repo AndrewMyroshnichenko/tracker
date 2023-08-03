@@ -1,18 +1,35 @@
 package com.example.tracker.models.gps
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import android.util.Log
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-object LocationServiceController {
+class LocationServiceController : LocationServiceInterface {
 
-    private val isGpsEnabled = MutableStateFlow(true)
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    fun getGpsStatus(): StateFlow<Boolean> {
-        return isGpsEnabled
+    override fun getLocationUpdates(location: LocationSource) {
+        LocationModel.setServiceStatus(true)
+        Log.d("GET_MARKS", "START SERVICE")
+        location.getLocationUpdates()
+            .catch { e -> e.printStackTrace() }
+            .onEach {
+                Log.d("GET_MARKS", "MARK: ${it.time}, ${it.longitude}, ${it.latitude}")
+            }.launchIn(serviceScope)
     }
 
-    fun setGpsStatus(isEnabled: Boolean) {
-        isGpsEnabled.value = isEnabled
+    override fun stop() {
+        LocationModel.setServiceStatus(false)
     }
+
+    override fun destroy() {
+        serviceScope.cancel()
+    }
+
 
 }

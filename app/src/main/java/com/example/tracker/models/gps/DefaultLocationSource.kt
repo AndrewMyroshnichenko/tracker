@@ -3,6 +3,7 @@ package com.example.tracker.models.gps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
 import com.example.tracker.bg.LocationService
 import com.example.tracker.utils.CheckPermissions
@@ -27,6 +28,8 @@ class DefaultLocationSource(
                 throw LocationSource.LocationException("Missing location permission")
             }
 
+            LocationModel.setGpsStatus(isGpsOn(context))
+
             val request = createRequest()
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(result: LocationResult) {
@@ -34,12 +37,9 @@ class DefaultLocationSource(
                     val location = result.locations.lastOrNull()
                     if (location != null) launch { send(location) }
                 }
-            }
-
-            launch {
-                while (true) {
-                    LocationServiceController.setGpsStatus(LocationService.isGpsOn(context))
-                    delay(1000)
+                override fun onLocationAvailability(locationAvailability: LocationAvailability) {
+                    super.onLocationAvailability(locationAvailability)
+                    LocationModel.setGpsStatus(locationAvailability.isLocationAvailable)
                 }
             }
 
@@ -59,5 +59,11 @@ class DefaultLocationSource(
             setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
             setWaitForAccurateLocation(true)
         }.build()
+    }
+
+    private fun isGpsOn(context: Context): Boolean {
+        val locationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
 }
