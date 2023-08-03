@@ -1,8 +1,10 @@
 package com.example.tracker.ui.tracker
 
 import android.Manifest
+import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,9 +55,11 @@ class TrackerFragment :
         if (CheckPermissions.hasLocationPermission(requireContext())) {
             model?.buttonToggle()
         } else {
-            requestPermissions(){isPermissionsAssigned ->
-                if (!isPermissionsAssigned){
-                    view?.let { Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show() }
+            requestPermissions() { isPermissionsAssigned ->
+                if (!isPermissionsAssigned) {
+                    view?.let {
+                        Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -78,11 +82,18 @@ class TrackerFragment :
             setViewsProperties(
                 btText = if (serviceRunning) resources.getString(R.string.stop)
                 else resources.getString(R.string.start),
-                btTextColor = ContextCompat.getColor(requireContext(), if (serviceRunning) R.color.main
-                else R.color.white),
-                btBackgroundColor = ContextCompat.getColor(requireContext(), if (serviceRunning) R.color.white
-                else R.color.main),
-                pbGradient = ContextCompat.getDrawable(requireActivity(), R.drawable.pb_error_gradient),
+                btTextColor = ContextCompat.getColor(
+                    requireContext(), if (serviceRunning) R.color.main
+                    else R.color.white
+                ),
+                btBackgroundColor = ContextCompat.getColor(
+                    requireContext(), if (serviceRunning) R.color.white
+                    else R.color.main
+                ),
+                pbGradient = ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.pb_error_gradient
+                ),
                 tvStateTracker = resources.getString(R.string.gps_off),
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
                 imgTrackerIndicator = R.drawable.img_gps_is_off
@@ -130,18 +141,19 @@ class TrackerFragment :
     }
 
     private fun requestPermissions(callback: (Boolean) -> Unit) {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-            ),
-            0
-        )
-        if (CheckPermissions.hasLocationPermission(requireContext())){
-            callback(true)
-        } else {
-            callback(false)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                ),
+                0
+            )
+            if (CheckPermissions.hasLocationPermission(requireContext())){
+                callback(true)
+            } else {
+                callback(false)
+            }
         }
-    }
+
 }
