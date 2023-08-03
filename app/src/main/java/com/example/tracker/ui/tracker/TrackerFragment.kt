@@ -15,7 +15,7 @@ import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.example.tracker.utils.CheckPermissions
-
+import com.google.android.material.snackbar.Snackbar
 
 class TrackerFragment :
     HostedFragment<TrackerContract.View, TrackerContract.ViewModel, TrackerContract.Host>(),
@@ -53,7 +53,11 @@ class TrackerFragment :
         if (CheckPermissions.hasLocationPermission(requireContext())) {
             model?.buttonToggle()
         } else {
-            requestPermissions()
+            requestPermissions(){isPermissionsAssigned ->
+                if (!isPermissionsAssigned){
+                    view?.let { Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show() }
+                }
+            }
         }
     }
 
@@ -125,7 +129,7 @@ class TrackerFragment :
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 
-    private fun requestPermissions() {
+    private fun requestPermissions(callback: (Boolean) -> Unit) {
         ActivityCompat.requestPermissions(
             requireActivity(),
             arrayOf(
@@ -134,5 +138,10 @@ class TrackerFragment :
             ),
             0
         )
+        if (CheckPermissions.hasLocationPermission(requireContext())){
+            callback(true)
+        } else {
+            callback(false)
+        }
     }
 }
