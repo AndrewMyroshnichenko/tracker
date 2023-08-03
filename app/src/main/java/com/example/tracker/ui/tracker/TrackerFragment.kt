@@ -1,10 +1,8 @@
 package com.example.tracker.ui.tracker
 
 import android.Manifest
-import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +75,25 @@ class TrackerFragment :
     }
 
     override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
-        if (!isGpsEnable) {
+        if (isGpsEnable) {
+            if (serviceRunning) {
+                startStopService(LocationService.ACTION_START)
+                setViewsProperties(
+                    btText = resources.getString(R.string.stop),
+                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
+                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
+                    pbGradient = ContextCompat.getDrawable(
+                        requireActivity(), R.drawable.pb_gradient
+                    ),
+                    tvStateTracker = resources.getString(R.string.tracker),
+                    tvHelperText = resources.getString(R.string.collects_locations),
+                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
+                )
+            } else {
+                startStopService(LocationService.ACTION_STOP)
+                setViewsProperties()
+            }
+        } else {
             startStopService(LocationService.ACTION_START)
             setViewsProperties(
                 btText = if (serviceRunning) resources.getString(R.string.stop)
@@ -98,24 +114,6 @@ class TrackerFragment :
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
                 imgTrackerIndicator = R.drawable.img_gps_is_off
             )
-        } else {
-            if (serviceRunning) {
-                startStopService(LocationService.ACTION_START)
-                setViewsProperties(
-                    btText = resources.getString(R.string.stop),
-                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
-                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
-                    pbGradient = ContextCompat.getDrawable(
-                        requireActivity(), R.drawable.pb_gradient
-                    ),
-                    tvStateTracker = resources.getString(R.string.tracker),
-                    tvHelperText = resources.getString(R.string.collects_locations),
-                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
-                )
-            } else {
-                startStopService(LocationService.ACTION_STOP)
-                setViewsProperties()
-            }
         }
     }
 

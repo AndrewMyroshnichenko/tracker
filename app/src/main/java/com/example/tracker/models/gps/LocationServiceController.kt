@@ -30,6 +30,4 @@ class LocationServiceController : LocationServiceInterface {
     override fun destroy() {
         serviceScope.cancel()
     }
-
-
 }

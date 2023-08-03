@@ -21,5 +21,4 @@ object LocationModel {
     fun setServiceStatus(isEnabled: Boolean) {
         isServiceOn.value = isEnabled
     }
-
 }
