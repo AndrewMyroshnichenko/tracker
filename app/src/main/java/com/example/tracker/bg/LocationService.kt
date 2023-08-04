@@ -11,16 +11,15 @@ import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.models.gps.LocationServiceInterface
 import com.example.tracker.models.gps.LocationSource
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LocationService : Service() {
-
-    private lateinit var locationSource: LocationSource
 
     private lateinit var controller: LocationServiceInterface
 
     override fun onCreate() {
         super.onCreate()
-        locationSource = DefaultLocationSource(applicationContext)
         controller = LocationServiceController()
     }
 
@@ -39,7 +38,7 @@ class LocationService : Service() {
     }
 
     private fun start() {
-        controller.getLocationUpdates(locationSource)
+        controller.getLocationUpdates()
     }
 
     private fun stop() {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.mvi.fragments.HostedFragment
 
@@ -12,10 +12,14 @@ class SplashFragment :
     HostedFragment<SplashContract.View, SplashContract.ViewModel, SplashContract.Host>(),
     SplashContract.View {
 
+    val splashViewModel : SplashViewModel by viewModels()
+
     override fun createModel(): SplashContract.ViewModel {
-        return ViewModelProvider(
+
+        return splashViewModel
+/*        return ViewModelProvider(
             this, SplashViewModelFactory()
-        )[SplashViewModel::class.java]
+        )[SplashViewModel::class.java]*/
     }
 
     override fun onCreateView(

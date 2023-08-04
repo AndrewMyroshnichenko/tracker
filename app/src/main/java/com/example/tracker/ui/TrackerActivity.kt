@@ -9,7 +9,9 @@ import com.example.tracker.databinding.ActivityTrackerBinding
 import com.example.tracker.ui.login.LoginContract
 import com.example.tracker.ui.splash.SplashContract
 import com.example.tracker.ui.tracker.TrackerContract
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host, TrackerContract.Host {
 
     private var navController: NavController? = null
