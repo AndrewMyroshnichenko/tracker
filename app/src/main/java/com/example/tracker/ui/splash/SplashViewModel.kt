@@ -7,6 +7,7 @@ import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.splash.state.SplashEffect
 import com.example.tracker.ui.splash.state.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +17,15 @@ class SplashViewModel @Inject constructor(var auth: Auth) :
     MviViewModel<SplashContract.View, SplashState>(), SplashContract.ViewModel {
 
     private val splashDelay = 1000L
+    private val handler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
+
 
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
-            viewModelScope.launch {
+            viewModelScope.launch(handler) {
                 delay(splashDelay)
                 if (auth.isSignedIn()) {
                     setEffect(SplashEffect.ProceedToTrackerScreen)
