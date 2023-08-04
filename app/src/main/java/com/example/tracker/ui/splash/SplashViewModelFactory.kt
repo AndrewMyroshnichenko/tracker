@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 class SplashViewModelFactory : ViewModelProvider.Factory {
 
-/*    @Suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return SplashViewModel() as T
-    }*/
+        return SplashViewModel(FbAuth()) as T
+    }
 }

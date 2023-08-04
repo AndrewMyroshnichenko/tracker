@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class FbAuth : Auth {
 
-    @Inject
-    lateinit var mAuth: FirebaseAuth
+
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override suspend fun signIn(userEmail: String, userPassword: String) {
         mAuth.signInWithEmailAndPassword(userEmail, userPassword).await()

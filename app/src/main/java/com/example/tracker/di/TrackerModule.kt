@@ -18,18 +18,6 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAuth(): Auth {
-        return FbAuth()
-    }
-
-    @Provides
-    @Singleton
     fun provideDefaultLocationSource(@ApplicationContext context: Context): DefaultLocationSource {
         return DefaultLocationSource(context)
     }
