@@ -1,11 +1,13 @@
 package com.example.tracker.di
 
 import android.content.Context
+import android.location.LocationManager
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FbAuth
 import com.example.tracker.models.gps.DefaultLocationSource
-import com.example.tracker.models.gps.LocationInterface
-import com.example.tracker.models.gps.LocationModel
+import com.example.tracker.models.gps.StatusManager
+import com.example.tracker.models.gps.TrackerStatusManager
 import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.models.gps.LocationServiceInterface
 import com.google.firebase.auth.FirebaseAuth
@@ -25,15 +27,15 @@ class TrackerModule {
     @Singleton
     fun provideDefaultLocationSource(
         @ApplicationContext context: Context,
-        model: LocationInterface
+        model: StatusManager
     ): DefaultLocationSource {
         return DefaultLocationSource(context, model)
     }
 
     @Provides
     @Singleton
-    fun provideDefaultLocationModel(): LocationInterface {
-        return LocationModel(MutableStateFlow(false), MutableStateFlow(true))
+    fun provideDefaultLocationModel(): StatusManager {
+        return TrackerStatusManager(MutableStateFlow(false), MutableStateFlow(true))
     }
 
     @Provides
@@ -52,9 +54,15 @@ class TrackerModule {
     @Provides
     fun provideLocationServiceController(
         locationSource: DefaultLocationSource,
-        model: LocationInterface
+        model: StatusManager,
+        locationManager: LocationManager
     ): LocationServiceInterface {
-        return LocationServiceController(locationSource, model)
+        return LocationServiceController(locationSource, model, locationManager)
+    }
+
+    @Provides
+    fun provideLocationManager(@ApplicationContext context: Context): LocationManager{
+        return context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 
 }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
-    private val locationModel: LocationInterface
+    private val locationModel: StatusManager
 ) : LocationSource {
 
     private val client = LocationServices.getFusedLocationProviderClient(context)
@@ -31,17 +31,14 @@ class DefaultLocationSource(
             val request = createRequest()
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(result: LocationResult) {
-                    Log.d("TAG", "lCallback")
                     super.onLocationResult(result)
                     val location = result.locations.lastOrNull()
                     if (location != null) launch { send(location) }
                 }
-                override fun onLocationAvailability(locationAvailability: LocationAvailability) {
+/*                override fun onLocationAvailability(locationAvailability: LocationAvailability) {
                     super.onLocationAvailability(locationAvailability)
                     locationModel.setGpsStatus(locationAvailability.isLocationAvailable)
-                    Log.d("TAG", "${locationAvailability.isLocationAvailable}")
-                    Log.d("TAG", "checkGpsOnline")
-                }
+                }*/
             }
 
             client.requestLocationUpdates(
@@ -62,9 +59,4 @@ class DefaultLocationSource(
         }.build()
     }
 
-    fun isGpsOn(): Boolean {
-        val locationManager =
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-    }
 }

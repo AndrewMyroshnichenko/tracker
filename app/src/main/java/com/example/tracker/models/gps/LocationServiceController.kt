@@ -1,10 +1,9 @@
 package com.example.tracker.models.gps
 
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.util.Log
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -12,20 +11,34 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class LocationServiceController(
     val location: DefaultLocationSource,
-    val locationModel: LocationInterface
-) :
-    LocationServiceInterface {
+    val locationStatus: StatusManager,
+    val locationManager: LocationManager,
+) : LocationServiceInterface {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+
+        }
+
+        override fun onProviderDisabled(provider: String) {
+            locationStatus.setGpsStatus(false)
+            Log.d("TAG", "controller false")
+        }
+
+        override fun onProviderEnabled(provider: String) {
+            locationStatus.setGpsStatus(true)
+            Log.d("TAG", "controller true")
+        }
+    }
+
     override fun getLocationUpdates() {
-        locationModel.setServiceStatus(true)
-        locationModel.setGpsStatus(location.isGpsOn())
+        locationStatus.setServiceStatus(true)
+        //locationStatus.setGpsStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         Log.d("GET_MARKS", "START SERVICE")
         location.getLocationUpdates()
             .catch { e -> e.printStackTrace() }
@@ -34,11 +47,26 @@ class LocationServiceController(
             }.launchIn(serviceScope)
     }
 
+    override fun onCreate(){
+        try {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                0L,
+                0f,
+                locationListener
+            )
+        } catch (e: SecurityException) {
+            Log.e("TAG", "Error: ${e.message}")
+        }
+    }
+
     override fun stop() {
-        locationModel.setServiceStatus(false)
+        locationStatus.setServiceStatus(false)
     }
 
     override fun destroy() {
         serviceScope.cancel()
+        locationManager.removeUpdates(locationListener)
     }
+
 }

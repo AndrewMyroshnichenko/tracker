@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.gps.LocationInterface
+import com.example.tracker.models.gps.StatusManager
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect
 import com.example.tracker.ui.tracker.state.TrackerState
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrackerViewModel @Inject constructor(
-    val firebaseManager: Auth, val locationModel: LocationInterface
+    val firebaseManager: Auth, val locationModel: StatusManager
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
     private var isServiceRunning = false

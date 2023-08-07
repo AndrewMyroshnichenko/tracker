@@ -3,14 +3,10 @@ package com.example.tracker.bg
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.os.IBinder
 import android.util.Log
-import com.example.tracker.models.gps.DefaultLocationSource
-import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.models.gps.LocationServiceInterface
-import com.example.tracker.models.gps.LocationSource
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -35,6 +31,7 @@ class LocationService() : Service() {
     }
 
     private fun start() {
+        controller.onCreate()
         controller.getLocationUpdates()
     }
 
