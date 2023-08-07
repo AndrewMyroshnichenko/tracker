@@ -53,17 +53,22 @@ class TrackerFragment :
     }
 
     private fun toggleTrack() {
-        if (CheckPermissions.hasLocationPermission(requireContext())) {
-            model?.buttonToggle()
+        if (bind?.btStartStop?.text == getString(R.string.stop)) {
+            startStopService(LocationService.ACTION_STOP)
         } else {
-            requestPermissions() { isPermissionsAssigned ->
-                if (!isPermissionsAssigned) {
-                    view?.let {
-                        Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show()
+            if (CheckPermissions.hasLocationPermission(requireContext())) {
+                startStopService(LocationService.ACTION_START)
+            } else {
+                requestPermissions() { isPermissionsAssigned ->
+                    if (!isPermissionsAssigned) {
+                        view?.let {
+                            Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
         }
+
     }
 
     override fun startStopService(act: String) {
@@ -80,7 +85,7 @@ class TrackerFragment :
     override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
         if (isGpsEnable) {
             if (serviceRunning) {
-                startStopService(LocationService.ACTION_START)
+//                startStopService(LocationService.ACTION_START)
                 setViewsProperties(
                     btText = resources.getString(R.string.stop),
                     btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
@@ -93,11 +98,11 @@ class TrackerFragment :
                     imgTrackerIndicator = R.drawable.img_tracker_collects_locations
                 )
             } else {
-                startStopService(LocationService.ACTION_STOP)
+//                startStopService(LocationService.ACTION_STOP)
                 setViewsProperties()
             }
         } else {
-            startStopService(LocationService.ACTION_START)
+//            startStopService(LocationService.ACTION_START)
             setViewsProperties(
                 btText = if (serviceRunning) resources.getString(R.string.stop)
                 else resources.getString(R.string.start),

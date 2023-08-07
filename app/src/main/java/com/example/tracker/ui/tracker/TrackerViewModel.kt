@@ -1,5 +1,6 @@
 package com.example.tracker.ui.tracker
 
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.models.auth.Auth
@@ -17,23 +18,24 @@ class TrackerViewModel @Inject constructor(
     val firebaseManager: Auth, val locationModel: LocationInterface
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
-    private var serviceIsRunning = false
-    private var gpsIsOn = false
+    private var isServiceRunning = false
+    private var isGpsOn = true
 
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
             if (getState() == null) {
-                setState(TrackerState(false, gpsIsOn))
+                setState(TrackerState(false, isGpsOn))
             }
             viewModelScope.launch {
                 combine(
                     locationModel.getServiceStatus(),
                     locationModel.getGpsStatus()
                 ) { servStatus, gpsStatus ->
-                    serviceIsRunning = servStatus
-                    gpsIsOn = gpsStatus
-                    TrackerState(serviceIsRunning, gpsIsOn)
+                    isServiceRunning = servStatus
+                    isGpsOn = gpsStatus
+                    Log.d("TAG","VM s $isServiceRunning g $isGpsOn")
+                    TrackerState(isServiceRunning, isGpsOn)
                 }.collect { newState ->
                     setState(newState)
                 }
@@ -42,7 +44,7 @@ class TrackerViewModel @Inject constructor(
     }
 
     override fun buttonToggle() {
-        if (serviceIsRunning) {
+        if (isServiceRunning) {
             stopTrack()
         } else {
             startTrack()
@@ -51,11 +53,11 @@ class TrackerViewModel @Inject constructor(
     }
 
     private fun startTrack() {
-        setState(TrackerState(true, gpsIsOn))
+        setState(TrackerState(true, isGpsOn))
     }
 
     private fun stopTrack() {
-        setState(TrackerState(false, gpsIsOn))
+        setState(TrackerState(false, isGpsOn))
     }
 
     override fun singOut() {

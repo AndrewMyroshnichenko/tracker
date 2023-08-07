@@ -4,10 +4,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
-@Singleton
 class LocationModel (
-    private val isGpsEnabled: MutableStateFlow<Boolean>,
-    private val isServiceOn: MutableStateFlow<Boolean>
+    private val isServiceOn: MutableStateFlow<Boolean>,
+    private val isGpsEnabled: MutableStateFlow<Boolean>
 ) : LocationInterface {
 
     override fun getGpsStatus(): Flow<Boolean> = isGpsEnabled

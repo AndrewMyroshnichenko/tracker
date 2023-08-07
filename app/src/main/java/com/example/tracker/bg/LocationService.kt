@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocationService : Service() {
+class LocationService() : Service() {
 
     @Inject
     lateinit var controller: LocationServiceInterface

@@ -56,7 +56,7 @@ class LoginViewModel @Inject constructor (
             try {
                 firebaseAuth.signIn(userEmail, userPass)
                 setState(LoginState())
-                setEffect(LoginEffect.NavigateAfterSignIn)
+                setEffect(LoginEffect.NavigateAfterSignIn())
             } catch (e: Exception) {
                 setState(LoginState(loginError = R.string.login_failed))
             }

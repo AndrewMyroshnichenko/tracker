@@ -33,7 +33,7 @@ class TrackerModule {
     @Provides
     @Singleton
     fun provideDefaultLocationModel(): LocationInterface {
-        return LocationModel(MutableStateFlow(false), MutableStateFlow(false))
+        return LocationModel(MutableStateFlow(false), MutableStateFlow(true))
     }
 
     @Provides
@@ -50,7 +50,6 @@ class TrackerModule {
 
 
     @Provides
-    @Singleton
     fun provideLocationServiceController(
         locationSource: DefaultLocationSource,
         model: LocationInterface

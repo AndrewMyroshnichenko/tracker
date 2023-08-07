@@ -5,11 +5,10 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import android.os.Looper
-import com.example.tracker.bg.LocationService
+import android.util.Log
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
@@ -29,11 +28,10 @@ class DefaultLocationSource(
                 throw LocationSource.LocationException("Missing location permission")
             }
 
-            locationModel.setGpsStatus(isGpsOn(context))
-
             val request = createRequest()
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(result: LocationResult) {
+                    Log.d("TAG", "lCallback")
                     super.onLocationResult(result)
                     val location = result.locations.lastOrNull()
                     if (location != null) launch { send(location) }
@@ -41,6 +39,8 @@ class DefaultLocationSource(
                 override fun onLocationAvailability(locationAvailability: LocationAvailability) {
                     super.onLocationAvailability(locationAvailability)
                     locationModel.setGpsStatus(locationAvailability.isLocationAvailable)
+                    Log.d("TAG", "${locationAvailability.isLocationAvailable}")
+                    Log.d("TAG", "checkGpsOnline")
                 }
             }
 
@@ -62,7 +62,7 @@ class DefaultLocationSource(
         }.build()
     }
 
-    private fun isGpsOn(context: Context): Boolean {
+    fun isGpsOn(): Boolean {
         val locationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)

@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class LocationServiceController @Inject constructor(
+class LocationServiceController(
     val location: DefaultLocationSource,
     val locationModel: LocationInterface
 ) :
@@ -25,6 +25,7 @@ class LocationServiceController @Inject constructor(
 
     override fun getLocationUpdates() {
         locationModel.setServiceStatus(true)
+        locationModel.setGpsStatus(location.isGpsOn())
         Log.d("GET_MARKS", "START SERVICE")
         location.getLocationUpdates()
             .catch { e -> e.printStackTrace() }
