@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.tracker.R
 import com.example.tracker.mvi.fragments.HostedFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment :
     HostedFragment<SplashContract.View, SplashContract.ViewModel, SplashContract.Host>(),
     SplashContract.View {
 
-    override fun createModel(): SplashContract.ViewModel {
+    private val viewModel : SplashViewModel by viewModels()
 
-        return ViewModelProvider(
-            this, SplashViewModelFactory()
-        )[SplashViewModel::class.java]
+    override fun createModel(): SplashContract.ViewModel {
+        return viewModel
     }
 
     override fun onCreateView(

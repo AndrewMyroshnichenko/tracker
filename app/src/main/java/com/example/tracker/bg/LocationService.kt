@@ -12,16 +12,13 @@ import com.example.tracker.models.gps.LocationServiceController
 import com.example.tracker.models.gps.LocationServiceInterface
 import com.example.tracker.models.gps.LocationSource
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LocationService : Service() {
 
-    private lateinit var controller: LocationServiceInterface
-
-    override fun onCreate() {
-        super.onCreate()
-        controller = LocationServiceController()
-    }
+    @Inject
+    lateinit var controller: LocationServiceInterface
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("GET_MARKS", "onStartCommand")

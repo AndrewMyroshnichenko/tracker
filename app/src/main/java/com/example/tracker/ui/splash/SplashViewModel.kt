@@ -11,7 +11,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SplashViewModel (var auth: Auth) :
+@HiltViewModel
+class SplashViewModel @Inject constructor(val auth: Auth) :
     MviViewModel<SplashContract.View, SplashState>(), SplashContract.ViewModel {
 
     private val splashDelay = 1000L

@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
+    private val locationModel: LocationInterface
 ) : LocationSource {
 
     private val client = LocationServices.getFusedLocationProviderClient(context)
@@ -28,7 +29,7 @@ class DefaultLocationSource(
                 throw LocationSource.LocationException("Missing location permission")
             }
 
-            LocationModel.setGpsStatus(isGpsOn(context))
+            locationModel.setGpsStatus(isGpsOn(context))
 
             val request = createRequest()
             val locationCallback = object : LocationCallback() {
@@ -39,7 +40,7 @@ class DefaultLocationSource(
                 }
                 override fun onLocationAvailability(locationAvailability: LocationAvailability) {
                     super.onLocationAvailability(locationAvailability)
-                    LocationModel.setGpsStatus(locationAvailability.isLocationAvailable)
+                    locationModel.setGpsStatus(locationAvailability.isLocationAvailable)
                 }
             }
 

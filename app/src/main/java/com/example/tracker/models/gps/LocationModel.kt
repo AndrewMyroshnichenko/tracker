@@ -2,23 +2,25 @@ package com.example.tracker.models.gps
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Singleton
 
-object LocationModel {
+@Singleton
+class LocationModel (
+    private val isGpsEnabled: MutableStateFlow<Boolean>,
+    private val isServiceOn: MutableStateFlow<Boolean>
+) : LocationInterface {
 
-    private val isGpsEnabled = MutableStateFlow(true)
-    private val isServiceOn = MutableStateFlow(false)
-
-    fun getGpsStatus(): Flow<Boolean> = isGpsEnabled
+    override fun getGpsStatus(): Flow<Boolean> = isGpsEnabled
 
 
-    fun setGpsStatus(isEnabled: Boolean) {
+    override fun setGpsStatus(isEnabled: Boolean) {
         isGpsEnabled.value = isEnabled
     }
 
-    fun getServiceStatus(): Flow<Boolean> = isServiceOn
+    override fun getServiceStatus(): Flow<Boolean> = isServiceOn
 
 
-    fun setServiceStatus(isEnabled: Boolean) {
+    override fun setServiceStatus(isEnabled: Boolean) {
         isServiceOn.value = isEnabled
     }
 }

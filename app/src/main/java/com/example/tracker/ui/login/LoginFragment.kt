@@ -4,23 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment :
     HostedFragment<LoginContract.View, LoginContract.ViewModel, LoginContract.Host>(),
     LoginContract.View, View.OnClickListener {
 
     private var bind: FragmentLoginBinding? = null
+    private val viewModel : LoginViewModel by viewModels()
 
     override fun createModel(): LoginViewModel {
-        return ViewModelProvider(
-            this, LoginViewModelFactory()
-        )[LoginViewModel::class.java]
+        return viewModel
     }
 
     override fun onCreateView(

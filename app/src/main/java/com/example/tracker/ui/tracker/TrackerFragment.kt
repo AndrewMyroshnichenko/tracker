@@ -9,24 +9,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.tracker.ui.login.LoginViewModel
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TrackerFragment :
     HostedFragment<TrackerContract.View, TrackerContract.ViewModel, TrackerContract.Host>(),
     TrackerContract.View, View.OnClickListener {
 
     private var bind: FragmentTrackerBinding? = null
+    private val viewModel : TrackerViewModel by viewModels()
 
     override fun createModel(): TrackerContract.ViewModel {
-        return ViewModelProvider(
-            this, TrackerViewModelFactory()
-        )[TrackerViewModel::class.java]
+        return viewModel
     }
 
     override fun onCreateView(

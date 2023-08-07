@@ -3,11 +3,10 @@ package com.example.tracker.models.auth
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class FbAuth : Auth {
-
-
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+@Singleton
+class FbAuth @Inject constructor(val mAuth: FirebaseAuth) : Auth {
 
     override suspend fun signIn(userEmail: String, userPassword: String) {
         mAuth.signInWithEmailAndPassword(userEmail, userPassword).await()
