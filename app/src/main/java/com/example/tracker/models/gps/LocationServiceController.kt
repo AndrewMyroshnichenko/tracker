@@ -3,6 +3,7 @@ package com.example.tracker.models.gps
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,16 +49,18 @@ class LocationServiceController(
     }
 
     override fun onCreate(){
-        try {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                0L,
-                0f,
-                locationListener
-            )
-        } catch (e: SecurityException) {
-            Log.e("TAG", "Error: ${e.message}")
-        }
+        locationStatus.setGpsStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            try {
+                Log.d("TAG", "GPS provider is enabled")
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    0L,
+                    0f,
+                    locationListener
+                )
+            } catch (e: SecurityException) {
+                Log.e("TAG", "Error: ${e.message}")
+            }
     }
 
     override fun stop() {
