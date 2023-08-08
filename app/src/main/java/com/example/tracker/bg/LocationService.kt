@@ -31,7 +31,6 @@ class LocationService() : Service() {
     }
 
     private fun start() {
-        controller.onCreate()
         controller.getLocationUpdates()
     }
 

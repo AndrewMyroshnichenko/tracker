@@ -2,7 +2,6 @@ package com.example.tracker.di
 
 import android.content.Context
 import android.location.LocationManager
-import androidx.core.content.ContextCompat.getSystemService
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FbAuth
 import com.example.tracker.models.gps.DefaultLocationSource
@@ -27,9 +26,9 @@ class TrackerModule {
     @Singleton
     fun provideDefaultLocationSource(
         @ApplicationContext context: Context,
-        model: StatusManager
+        model: StatusManager, locationManager: LocationManager
     ): DefaultLocationSource {
-        return DefaultLocationSource(context, model)
+        return DefaultLocationSource(context, model, locationManager)
     }
 
     @Provides
@@ -54,14 +53,13 @@ class TrackerModule {
     @Provides
     fun provideLocationServiceController(
         locationSource: DefaultLocationSource,
-        model: StatusManager,
-        locationManager: LocationManager
+        model: StatusManager
     ): LocationServiceInterface {
-        return LocationServiceController(locationSource, model, locationManager)
+        return LocationServiceController(locationSource, model)
     }
 
     @Provides
-    fun provideLocationManager(@ApplicationContext context: Context): LocationManager{
+    fun provideLocationManager(@ApplicationContext context: Context): LocationManager {
         return context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 

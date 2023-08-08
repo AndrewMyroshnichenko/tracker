@@ -3,9 +3,9 @@ package com.example.tracker.models.gps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
-import android.util.Log
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
@@ -15,10 +15,9 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
-    private val locationModel: StatusManager
+    private val locationStatus: StatusManager,
+    private val locationManager: LocationManager
 ) : LocationSource {
-
-    private val client = LocationServices.getFusedLocationProviderClient(context)
 
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(): Flow<Location> {
@@ -28,35 +27,35 @@ class DefaultLocationSource(
                 throw LocationSource.LocationException("Missing location permission")
             }
 
-            val request = createRequest()
-            val locationCallback = object : LocationCallback() {
-                override fun onLocationResult(result: LocationResult) {
-                    super.onLocationResult(result)
-                    val location = result.locations.lastOrNull()
-                    if (location != null) launch { send(location) }
+            locationStatus.setGpsStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+
+            val locationListener: LocationListener = object : LocationListener {
+                override fun onLocationChanged(location: Location) {
+                    launch { send(location) }
                 }
-/*                override fun onLocationAvailability(locationAvailability: LocationAvailability) {
-                    super.onLocationAvailability(locationAvailability)
-                    locationModel.setGpsStatus(locationAvailability.isLocationAvailable)
-                }*/
+
+                override fun onProviderDisabled(provider: String) {
+                    locationStatus.setGpsStatus(false)
+                }
+
+                override fun onProviderEnabled(provider: String) {
+                    locationStatus.setGpsStatus(true)
+                }
             }
 
-            client.requestLocationUpdates(
-                request, locationCallback, Looper.getMainLooper()
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000L,
+                10.0f,
+                locationListener,
+                Looper.getMainLooper()
             )
 
             awaitClose {
-                client.removeLocationUpdates(locationCallback)
+                locationManager.removeUpdates(locationListener)
             }
         }
     }
 
-    private fun createRequest(): LocationRequest {
-        return LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000L).apply {
-            setMinUpdateDistanceMeters(10.0f)
-            setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-            setWaitForAccurateLocation(true)
-        }.build()
-    }
 
 }

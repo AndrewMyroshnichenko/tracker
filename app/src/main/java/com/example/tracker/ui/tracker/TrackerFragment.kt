@@ -3,19 +3,20 @@ package com.example.tracker.ui.tracker
 import android.Manifest
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
-import com.example.tracker.ui.login.LoginViewModel
 import com.example.tracker.utils.CheckPermissions
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,24 @@ class TrackerFragment :
 
     private var bind: FragmentTrackerBinding? = null
     private val viewModel : TrackerViewModel by viewModels()
+    private val locationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+
+    private val locationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val allPermissionsGranted = permissions.all { it.value }
+            if (!allPermissionsGranted) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        getString(R.string.permissions_doesn_t_assigned),
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                intent.data = Uri.fromParts("package", requireActivity().packageName, null)
+                startActivity(intent)
+            }
+        }
 
     override fun createModel(): TrackerContract.ViewModel {
         return viewModel
@@ -59,16 +78,9 @@ class TrackerFragment :
             if (CheckPermissions.hasLocationPermission(requireContext())) {
                 startStopService(LocationService.ACTION_START)
             } else {
-                requestPermissions() { isPermissionsAssigned ->
-                    if (!isPermissionsAssigned) {
-                        view?.let {
-                            Snackbar.make(it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG).show()
-                        }
-                    }
-                }
+                requestLocationPermission()
             }
         }
-
     }
 
     override fun startStopService(act: String) {
@@ -85,7 +97,6 @@ class TrackerFragment :
     override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
         if (isGpsEnable) {
             if (serviceRunning) {
-//                startStopService(LocationService.ACTION_START)
                 setViewsProperties(
                     btText = resources.getString(R.string.stop),
                     btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
@@ -98,11 +109,9 @@ class TrackerFragment :
                     imgTrackerIndicator = R.drawable.img_tracker_collects_locations
                 )
             } else {
-//                startStopService(LocationService.ACTION_STOP)
                 setViewsProperties()
             }
         } else {
-//            startStopService(LocationService.ACTION_START)
             setViewsProperties(
                 btText = if (serviceRunning) resources.getString(R.string.stop)
                 else resources.getString(R.string.start),
@@ -146,20 +155,8 @@ class TrackerFragment :
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 
-    private fun requestPermissions(callback: (Boolean) -> Unit) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                ),
-                0
-            )
-            if (CheckPermissions.hasLocationPermission(requireContext())){
-                callback(true)
-            } else {
-                callback(false)
-            }
-        }
+    private fun requestLocationPermission() {
+        locationPermissionLauncher.launch(locationPermissions)
+    }
 
 }

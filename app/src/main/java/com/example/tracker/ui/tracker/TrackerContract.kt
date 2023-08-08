@@ -1,16 +1,12 @@
 package com.example.tracker.ui.tracker
 
-import androidx.lifecycle.LiveData
 import com.example.tracker.mvi.fragments.FragmentContract
-import kotlinx.coroutines.flow.StateFlow
 
 class TrackerContract {
 
     interface ViewModel : FragmentContract.ViewModel<View>{
 
         fun singOut()
-
-        fun buttonToggle()
 
     }
 

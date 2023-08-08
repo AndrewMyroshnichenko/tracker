@@ -43,23 +43,6 @@ class TrackerViewModel @Inject constructor(
         }
     }
 
-    override fun buttonToggle() {
-        if (isServiceRunning) {
-            stopTrack()
-        } else {
-            startTrack()
-        }
-
-    }
-
-    private fun startTrack() {
-        setState(TrackerState(true, isGpsOn))
-    }
-
-    private fun stopTrack() {
-        setState(TrackerState(false, isGpsOn))
-    }
-
     override fun singOut() {
         firebaseManager.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
