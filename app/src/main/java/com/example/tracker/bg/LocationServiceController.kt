@@ -1,5 +1,8 @@
-package com.example.tracker.models.gps
+package com.example.tracker.bg
+
 import android.util.Log
+import com.example.tracker.models.bus.StatusManager
+import com.example.tracker.models.gps.DefaultLocationSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -9,8 +12,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class LocationServiceController(
-    val location: DefaultLocationSource,
-    val locationStatus: StatusManager,
+    private val location: DefaultLocationSource,
+    private val locationStatus: StatusManager,
 ) : LocationServiceInterface {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -34,5 +37,4 @@ class LocationServiceController(
     override fun destroy() {
         serviceScope.cancel()
     }
-
 }

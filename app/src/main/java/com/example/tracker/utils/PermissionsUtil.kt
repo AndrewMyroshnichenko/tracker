@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import androidx.core.content.ContextCompat
 
-class CheckPermissions {
+class PermissionsUtil {
 
     companion object {
 

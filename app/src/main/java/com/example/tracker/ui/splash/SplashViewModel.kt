@@ -13,8 +13,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(val auth: Auth) :
-    MviViewModel<SplashContract.View, SplashState>(), SplashContract.ViewModel {
+class SplashViewModel @Inject constructor(
+    private val authNetwork: Auth
+) : MviViewModel<SplashContract.View, SplashState>(), SplashContract.ViewModel {
 
     private val splashDelay = 1000L
     private val handler = CoroutineExceptionHandler { _, throwable ->
@@ -27,7 +28,7 @@ class SplashViewModel @Inject constructor(val auth: Auth) :
         if (event == Lifecycle.Event.ON_CREATE) {
             viewModelScope.launch(handler) {
                 delay(splashDelay)
-                if (auth.isSignedIn()) {
+                if (authNetwork.isSignedIn()) {
                     setEffect(SplashEffect.ProceedToTrackerScreen)
                 } else {
                     setEffect(SplashEffect.ProceedToLoginScreen)

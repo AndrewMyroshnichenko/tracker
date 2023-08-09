@@ -1,4 +1,4 @@
-package com.example.tracker.models.gps
+package com.example.tracker.bg
 
 interface LocationServiceInterface {
 

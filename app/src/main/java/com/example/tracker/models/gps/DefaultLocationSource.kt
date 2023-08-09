@@ -6,7 +6,8 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
-import com.example.tracker.utils.CheckPermissions
+import com.example.tracker.models.bus.StatusManager
+import com.example.tracker.utils.PermissionsUtil
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -15,15 +16,17 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
-    private val locationStatus: StatusManager,
-    private val locationManager: LocationManager
+    private val locationStatus: StatusManager
 ) : LocationSource {
+
+    private val locationManager: LocationManager =
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(): Flow<Location> {
         return callbackFlow {
 
-            if (!CheckPermissions.hasLocationPermission(context)) {
+            if (!PermissionsUtil.hasLocationPermission(context)) {
                 throw LocationSource.LocationException("Missing location permission")
             }
 
@@ -56,6 +59,4 @@ class DefaultLocationSource(
             }
         }
     }
-
-
 }

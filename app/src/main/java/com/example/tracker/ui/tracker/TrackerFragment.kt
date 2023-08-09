@@ -10,14 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
-import com.example.tracker.utils.CheckPermissions
+import com.example.tracker.utils.PermissionsUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,7 +74,7 @@ class TrackerFragment :
         if (bind?.btStartStop?.text == getString(R.string.stop)) {
             startStopService(LocationService.ACTION_STOP)
         } else {
-            if (CheckPermissions.hasLocationPermission(requireContext())) {
+            if (PermissionsUtil.hasLocationPermission(requireContext())) {
                 startStopService(LocationService.ACTION_START)
             } else {
                 requestLocationPermission()

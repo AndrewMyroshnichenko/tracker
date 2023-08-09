@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.IBinder
 import android.util.Log
-import com.example.tracker.models.gps.LocationServiceInterface
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

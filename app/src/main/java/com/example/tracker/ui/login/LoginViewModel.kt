@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor (
-    val firebaseAuth: Auth
+    private val authNetwork: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
     private val minPassLength = 6
@@ -54,10 +54,11 @@ class LoginViewModel @Inject constructor (
         }
         viewModelScope.launch {
             try {
-                firebaseAuth.signIn(userEmail, userPass)
+                authNetwork.signIn(userEmail, userPass)
                 setState(LoginState())
                 setEffect(LoginEffect.NavigateAfterSignIn())
             } catch (e: Exception) {
+                e.printStackTrace()
                 setState(LoginState(loginError = R.string.login_failed))
             }
         }
@@ -69,10 +70,11 @@ class LoginViewModel @Inject constructor (
         }
         viewModelScope.launch {
             try {
-                firebaseAuth.signUp(userEmail, userPassFirst)
+                authNetwork.signUp(userEmail, userPassFirst)
                 setEffect(LoginEffect.ShowSuccessMessage(R.string.registration_completed))
                 setState(LoginState())
             } catch (e: Exception) {
+                e.printStackTrace()
                 setState(LoginState(loginError = R.string.registration_failed))
             }
         }
@@ -84,7 +86,7 @@ class LoginViewModel @Inject constructor (
         }
         viewModelScope.launch {
             try {
-                firebaseAuth.forgotPassword(userEmail)
+                authNetwork.forgotPassword(userEmail)
                 setEffect(LoginEffect.ShowSuccessMessage(R.string.check_your_email))
                 setState(LoginState())
             } catch (e: Exception) {

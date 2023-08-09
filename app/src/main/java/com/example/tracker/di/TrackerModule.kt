@@ -1,15 +1,13 @@
 package com.example.tracker.di
 
 import android.content.Context
-import android.location.LocationManager
+import com.example.tracker.bg.LocationServiceController
+import com.example.tracker.bg.LocationServiceInterface
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.auth.FbAuth
+import com.example.tracker.models.auth.FireBaseAuth
+import com.example.tracker.models.bus.StatusManager
+import com.example.tracker.models.bus.TrackerStatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
-import com.example.tracker.models.gps.StatusManager
-import com.example.tracker.models.gps.TrackerStatusManager
-import com.example.tracker.models.gps.LocationServiceController
-import com.example.tracker.models.gps.LocationServiceInterface
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,10 +23,9 @@ class TrackerModule {
     @Provides
     @Singleton
     fun provideDefaultLocationSource(
-        @ApplicationContext context: Context,
-        model: StatusManager, locationManager: LocationManager
+        @ApplicationContext context: Context, model: StatusManager
     ): DefaultLocationSource {
-        return DefaultLocationSource(context, model, locationManager)
+        return DefaultLocationSource(context, model)
     }
 
     @Provides
@@ -39,28 +36,15 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAuth(mAuth: FirebaseAuth): Auth {
-        return FbAuth(mAuth)
+    fun provideAuth(): Auth {
+        return FireBaseAuth()
     }
 
 
     @Provides
     fun provideLocationServiceController(
-        locationSource: DefaultLocationSource,
-        model: StatusManager
+        locationSource: DefaultLocationSource, model: StatusManager
     ): LocationServiceInterface {
         return LocationServiceController(locationSource, model)
     }
-
-    @Provides
-    fun provideLocationManager(@ApplicationContext context: Context): LocationManager {
-        return context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    }
-
 }
