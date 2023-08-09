@@ -3,6 +3,9 @@ package com.example.tracker.di
 import android.content.Context
 import com.example.tracker.bg.LocationServiceController
 import com.example.tracker.bg.LocationController
+import com.example.tracker.data.AppDatabase
+import com.example.tracker.data.auth.dao.UserDao
+import com.example.tracker.data.locations.dao.LocationsDao
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
@@ -44,4 +47,24 @@ class TrackerModule {
     ): LocationController {
         return LocationServiceController(locationSource, model)
     }
+
+    @Provides
+    @Singleton
+    fun provideAppDataBase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase.getDB(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMarkDao(database: AppDatabase): LocationsDao {
+        return database.getMarkDao()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideUserDao(database: AppDatabase): UserDao {
+        return database.getUserDao()
+    }
+
 }

@@ -9,6 +9,7 @@ buildscript {
     ext.hilt_version = "2.46.1"
     ext.fragment_ktx = "1.6.1"
     ext.hilt_common_work = "1.0.0"
+    ext.room_version = "2.5.2"
 
     repositories {
         google()

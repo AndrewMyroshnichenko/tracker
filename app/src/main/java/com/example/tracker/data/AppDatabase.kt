@@ -1,0 +1,29 @@
+package com.example.tracker.data
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.tracker.data.auth.dao.UserDao
+import com.example.tracker.data.auth.dao.UserDbEntity
+import com.example.tracker.data.locations.dao.LocationDbEntity
+import com.example.tracker.data.locations.dao.LocationsDao
+
+@Database(
+    version = 1,
+    entities = [LocationDbEntity::class, UserDbEntity::class]
+)
+abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun getMarkDao(): LocationsDao
+
+    abstract fun getUserDao(): UserDao
+
+    companion object {
+        fun getDB(context: Context): AppDatabase {
+            return Room.databaseBuilder(
+                context.applicationContext, AppDatabase::class.java, "tracker"
+            ).build()
+        }
+    }
+}
