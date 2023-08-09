@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class TrackerStatusManager : StatusManager {
 
     private val isServiceOn = MutableStateFlow(false)
-    private val isGpsEnabled = MutableStateFlow(true)
+    private val isGpsEnabled = MutableStateFlow(false)
 
     override fun getGpsStatus(): Flow<Boolean> = isGpsEnabled
 

@@ -91,23 +91,7 @@ class TrackerFragment :
     }
 
     override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
-        if (isGpsEnable) {
-            if (serviceRunning) {
-                setViewsProperties(
-                    btText = resources.getString(R.string.stop),
-                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
-                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
-                    pbGradient = ContextCompat.getDrawable(
-                        requireActivity(), R.drawable.pb_gradient
-                    ),
-                    tvStateTracker = resources.getString(R.string.tracker),
-                    tvHelperText = resources.getString(R.string.collects_locations),
-                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
-                )
-            } else {
-                setViewsProperties()
-            }
-        } else {
+        if (!isGpsEnable && serviceRunning) {
             setViewsProperties(
                 btText = if (serviceRunning) resources.getString(R.string.stop)
                 else resources.getString(R.string.start),
@@ -127,8 +111,23 @@ class TrackerFragment :
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
                 imgTrackerIndicator = R.drawable.img_gps_is_off
             )
-        }
-    }
+        } else {
+            if (serviceRunning) {
+                setViewsProperties(
+                    btText = resources.getString(R.string.stop),
+                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
+                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
+                    pbGradient = ContextCompat.getDrawable(
+                        requireActivity(), R.drawable.pb_gradient
+                    ),
+                    tvStateTracker = resources.getString(R.string.tracker),
+                    tvHelperText = resources.getString(R.string.collects_locations),
+                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
+                )
+            } else {
+                setViewsProperties()
+            }
+    }}
 
     private fun setViewsProperties(
         btText: String = resources.getString(R.string.start),
