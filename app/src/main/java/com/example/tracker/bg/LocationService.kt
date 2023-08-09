@@ -30,11 +30,11 @@ class LocationService() : Service() {
     }
 
     private fun start() {
-        controller.getLocationUpdates()
+        controller.startLocationUpdates()
     }
 
     private fun stop() {
-        controller.stop()
+        controller.stopLocationUpdates()
         stopSelf()
     }
 

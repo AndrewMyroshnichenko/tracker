@@ -2,9 +2,9 @@ package com.example.tracker.bg
 
 interface LocationServiceInterface {
 
-    fun getLocationUpdates()
+    fun startLocationUpdates()
 
-    fun stop()
+    fun stopLocationUpdates()
 
     fun destroy()
 }

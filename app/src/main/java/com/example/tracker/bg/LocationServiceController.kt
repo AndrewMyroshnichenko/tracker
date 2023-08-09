@@ -18,9 +18,8 @@ class LocationServiceController(
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    override fun getLocationUpdates() {
+    override fun startLocationUpdates() {
         locationStatus.setServiceStatus(true)
-        Log.d("GET_MARKS", "START SERVICE")
         location.getLocationUpdates()
             .catch { e -> e.printStackTrace() }
             .onEach {
@@ -30,7 +29,7 @@ class LocationServiceController(
 
 
 
-    override fun stop() {
+    override fun stopLocationUpdates() {
         locationStatus.setServiceStatus(false)
     }
 
