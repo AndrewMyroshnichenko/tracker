@@ -27,7 +27,6 @@ class TrackerFragment :
     TrackerContract.View, View.OnClickListener {
 
     private var bind: FragmentTrackerBinding? = null
-    private val viewModel : TrackerViewModel by viewModels()
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -44,6 +43,7 @@ class TrackerFragment :
         }
 
     override fun createModel(): TrackerContract.ViewModel {
+        val viewModel : TrackerViewModel by viewModels()
         return viewModel
     }
 

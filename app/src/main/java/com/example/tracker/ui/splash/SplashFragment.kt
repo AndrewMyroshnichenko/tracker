@@ -14,9 +14,8 @@ class SplashFragment :
     HostedFragment<SplashContract.View, SplashContract.ViewModel, SplashContract.Host>(),
     SplashContract.View {
 
-    private val viewModel : SplashViewModel by viewModels()
-
     override fun createModel(): SplashContract.ViewModel {
+        val viewModel : SplashViewModel by viewModels()
         return viewModel
     }
 

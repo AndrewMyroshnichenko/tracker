@@ -18,9 +18,9 @@ class LoginFragment :
     LoginContract.View, View.OnClickListener {
 
     private var bind: FragmentLoginBinding? = null
-    private val viewModel : LoginViewModel by viewModels()
 
     override fun createModel(): LoginViewModel {
+        val viewModel : LoginViewModel by viewModels()
         return viewModel
     }
 
