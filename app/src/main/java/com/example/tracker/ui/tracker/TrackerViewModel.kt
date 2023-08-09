@@ -21,9 +21,6 @@ class TrackerViewModel @Inject constructor(
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
-            if (getState() == null) {
-                setState(TrackerState(false, true))
-            }
             viewModelScope.launch {
                 combine(
                     gpsStateCache.getServiceStatus(),
