@@ -20,9 +20,12 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun getUserDao(): UserDao
 
     companion object {
+
+        const val DATABASE_NAME = "tracker"
+
         fun getDB(context: Context): AppDatabase {
             return Room.databaseBuilder(
-                context.applicationContext, AppDatabase::class.java, "tracker"
+                context.applicationContext, AppDatabase::class.java, DATABASE_NAME
             ).build()
         }
     }

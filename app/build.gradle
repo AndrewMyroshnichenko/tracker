@@ -70,6 +70,8 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
     implementation "androidx.hilt:hilt-common:$hilt_common_work"
     implementation "androidx.hilt:hilt-work:$hilt_common_work"
+    kapt "androidx.hilt:hilt-compiler:$hilt_common_work"
+
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
