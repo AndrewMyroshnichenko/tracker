@@ -21,11 +21,11 @@ data class LocationDbEntity(
     )
 
     companion object {
-        fun toLocationDbEntity(mark: Location) = LocationDbEntity(
-            time = mark.time,
-            email = mark.email,
-            latitude = mark.latitude,
-            longitude = mark.longitude
+        fun toLocationDbEntity(location: Location) = LocationDbEntity(
+            time = location.time,
+            email = location.email,
+            latitude = location.latitude,
+            longitude = location.longitude
         )
     }
 }
