@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrackerViewModel @Inject constructor(
     private val authNetwork: Auth,
-    private val statusManager: StatusManager
+    private val gpsStateCache: StatusManager
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
     override fun onStateChanged(event: Lifecycle.Event) {
@@ -26,8 +26,8 @@ class TrackerViewModel @Inject constructor(
             }
             viewModelScope.launch {
                 combine(
-                    statusManager.getServiceStatus(),
-                    statusManager.getGpsStatus()
+                    gpsStateCache.getServiceStatus(),
+                    gpsStateCache.getGpsStatus()
                 ) { servStatus, gpsStatus ->
                     TrackerState(servStatus, gpsStatus)
                 }.collect { newState ->

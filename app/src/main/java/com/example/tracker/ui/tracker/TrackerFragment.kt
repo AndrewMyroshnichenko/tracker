@@ -30,15 +30,13 @@ class TrackerFragment :
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val allPermissionsGranted = permissions.all { it.value }
-            if (!allPermissionsGranted) {
-                view?.let {
-                    Snackbar.make(
-                        it,
-                        getString(R.string.permissions_doesn_t_assigned),
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
+            if (permissions.all { it.value }) {
+                return@registerForActivityResult
+            }
+            view?.let {
+                Snackbar.make(
+                    it, getString(R.string.permissions_doesn_t_assigned), Snackbar.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -154,15 +152,12 @@ class TrackerFragment :
     }
 
     private fun requestLocationPermission() {
-
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) ||
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
         ) {
-
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.data = Uri.fromParts("package", requireActivity().packageName, null)
             startActivity(intent)
-
         } else {
             locationPermissionLauncher.launch(
                 arrayOf(
@@ -171,8 +166,5 @@ class TrackerFragment :
                 )
             )
         }
-
-
     }
-
 }

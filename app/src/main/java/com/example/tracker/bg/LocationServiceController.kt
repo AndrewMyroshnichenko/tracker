@@ -13,34 +13,28 @@ import kotlinx.coroutines.flow.onEach
 
 class LocationServiceController(
     private val location: DefaultLocationSource,
-    private val locationStatus: StatusManager,
+    private val gpsStateCache: StatusManager,
 ) : LocationController {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    override fun startLocationUpdates() {
-        locationStatus.setServiceStatus(true)
+    override fun onCreate() {
+        gpsStateCache.setServiceStatus(true)
 
-        location.getLocationUpdates()
+        location.observeLocations()
             .catch { e -> e.printStackTrace() }
             .onEach {
                 Log.d("GET_MARKS", "MARK: ${it.time}, ${it.longitude}, ${it.latitude}")
             }.launchIn(serviceScope)
 
-        location.getGpsStatus()
+        location.getGpsStatusFlow()
             .catch { e -> e.printStackTrace() }
-            .onEach {
-                locationStatus.setGpsStatus(it)
-            }.launchIn(serviceScope)
+            .onEach { gpsStateCache.setGpsStatus(it) }
+            .launchIn(serviceScope)
     }
 
-
-
-    override fun stopLocationUpdates() {
-        locationStatus.setServiceStatus(false)
-    }
-
-    override fun destroy() {
+    override fun onDestroy() {
+        gpsStateCache.setServiceStatus(false)
         serviceScope.cancel()
     }
 }

@@ -2,9 +2,7 @@ package com.example.tracker.bg
 
 interface LocationController {
 
-    fun startLocationUpdates()
+    fun onCreate()
 
-    fun stopLocationUpdates()
-
-    fun destroy()
+    fun onDestroy()
 }

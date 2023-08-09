@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocationService() : Service() {
+class LocationService : Service() {
 
     @Inject
     lateinit var controller: LocationController
@@ -26,15 +26,14 @@ class LocationService() : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        controller.destroy()
+        controller.onDestroy()
     }
 
     private fun start() {
-        controller.startLocationUpdates()
+        controller.onCreate()
     }
 
     private fun stop() {
-        controller.stopLocationUpdates()
         stopSelf()
     }
 

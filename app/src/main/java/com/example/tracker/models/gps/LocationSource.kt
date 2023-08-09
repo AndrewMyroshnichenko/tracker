@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationSource {
 
-    fun getLocationUpdates(): Flow<Location>
+    fun observeLocations(): Flow<Location>
 
-    fun getGpsStatus(): Flow<Boolean>
+    fun getGpsStatusFlow(): Flow<Boolean>
 
     class LocationException(message: String) : Exception(message)
 
