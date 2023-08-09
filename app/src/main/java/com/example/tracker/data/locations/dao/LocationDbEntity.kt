@@ -13,7 +13,7 @@ data class LocationDbEntity(
     val longitude: String
 ) {
 
-    fun toMark(): Location = Location(
+    fun toLocation(): Location = Location(
         time = time,
         email = email,
         latitude = latitude,
@@ -21,7 +21,7 @@ data class LocationDbEntity(
     )
 
     companion object {
-        fun toMarkDbEntity(mark: Location) = LocationDbEntity(
+        fun toLocationDbEntity(mark: Location) = LocationDbEntity(
             time = mark.time,
             email = mark.email,
             latitude = mark.latitude,
