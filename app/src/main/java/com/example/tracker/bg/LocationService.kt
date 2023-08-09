@@ -13,7 +13,7 @@ import javax.inject.Inject
 class LocationService() : Service() {
 
     @Inject
-    lateinit var controller: LocationServiceInterface
+    lateinit var controller: LocationController
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("GET_MARKS", "onStartCommand")

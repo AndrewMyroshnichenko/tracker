@@ -2,7 +2,7 @@ package com.example.tracker.di
 
 import android.content.Context
 import com.example.tracker.bg.LocationServiceController
-import com.example.tracker.bg.LocationServiceInterface
+import com.example.tracker.bg.LocationController
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
@@ -13,7 +13,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Singleton
 
 @Module
@@ -44,7 +43,7 @@ class TrackerModule {
     @Provides
     fun provideLocationServiceController(
         locationSource: DefaultLocationSource, model: StatusManager
-    ): LocationServiceInterface {
+    ): LocationController {
         return LocationServiceController(locationSource, model)
     }
 }

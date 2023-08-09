@@ -1,6 +1,6 @@
 package com.example.tracker.bg
 
-interface LocationServiceInterface {
+interface LocationController {
 
     fun startLocationUpdates()
 

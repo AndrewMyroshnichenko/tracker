@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 class LocationServiceController(
     private val location: DefaultLocationSource,
     private val locationStatus: StatusManager,
-) : LocationServiceInterface {
+) : LocationController {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
