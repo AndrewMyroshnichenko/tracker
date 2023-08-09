@@ -81,6 +81,7 @@ class LocationServiceController(
             .launchIn(serviceScope)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onDestroy() {
         gpsStateCache.setServiceStatus(false)
         serviceScope.cancel()
