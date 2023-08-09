@@ -16,6 +16,7 @@ import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.tracker.ui.tracker.state.TrackerState
 import com.example.tracker.utils.PermissionsUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +68,9 @@ class TrackerFragment :
     }
 
     private fun toggleTrack() {
-        if (bind?.btStartStop?.text == getString(R.string.stop)) {
+        val state = model?.getStateObservable()?.value as TrackerState
+
+        if (state.serviceRunning) {
             startStopService(LocationService.ACTION_STOP)
         } else {
             if (PermissionsUtil.hasLocationPermission(requireContext())) {

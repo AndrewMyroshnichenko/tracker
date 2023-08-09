@@ -19,24 +19,18 @@ class TrackerViewModel @Inject constructor(
     private val locationModel: StatusManager
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
-    private var isServiceRunning = false
-    private var isGpsOn = true
-
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
             if (getState() == null) {
-                setState(TrackerState(false, isGpsOn))
+                setState(TrackerState(false, true))
             }
             viewModelScope.launch {
                 combine(
                     locationModel.getServiceStatus(),
                     locationModel.getGpsStatus()
                 ) { servStatus, gpsStatus ->
-                    isServiceRunning = servStatus
-                    isGpsOn = gpsStatus
-                    Log.d("TAG","VM s $isServiceRunning g $isGpsOn")
-                    TrackerState(isServiceRunning, isGpsOn)
+                    TrackerState(servStatus, gpsStatus)
                 }.collect { newState ->
                     setState(newState)
                 }
