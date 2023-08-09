@@ -27,7 +27,6 @@ class TrackerFragment :
 
     private var bind: FragmentTrackerBinding? = null
     private val viewModel : TrackerViewModel by viewModels()
-    private val locationPermissions = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
 
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -155,7 +154,12 @@ class TrackerFragment :
     }
 
     private fun requestLocationPermission() {
-        locationPermissionLauncher.launch(locationPermissions)
+        locationPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        )
     }
 
 }
