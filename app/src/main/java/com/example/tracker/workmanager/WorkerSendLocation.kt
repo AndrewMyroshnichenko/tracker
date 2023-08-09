@@ -29,21 +29,19 @@ class WorkerSendLocation @AssistedInject constructor(
     @OptIn(DelicateCoroutinesApi::class)
     override fun doWork(): Result {
         val remoteDb = Firebase.firestore
-
-
         return try {
             GlobalScope.launch {
-                Log.d("TAG", "Worker check local database")
+                Log.d("TAGG", "Worker check local database")
                 val localMarks = repository.getMarks(mAuth.getCurrentUserEmail())
                 if (localMarks.isNotEmpty()){
-                    Log.d("TAG", "Worker push local data to firestore")
+                    Log.d("TAGG", "Worker push local data to firestore")
                     localMarks.forEach { mark ->
                         remoteDb.collection(FireBaseRemoteDb.LOCATION_TABLE_NAME)
                             .add(mark)
                             .addOnSuccessListener {
                                 GlobalScope.launch {
                                     repository.deleteMark(mark)
-                                    Log.d("TAG", "Worker delete local mark")
+                                    Log.d("TAGG", "Worker delete local mark")
                                 }
                             }
                     }
