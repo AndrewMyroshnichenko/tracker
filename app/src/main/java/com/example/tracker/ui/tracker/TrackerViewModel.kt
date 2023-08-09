@@ -1,6 +1,5 @@
 package com.example.tracker.ui.tracker
 
-import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.models.auth.Auth
@@ -16,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrackerViewModel @Inject constructor(
     private val authNetwork: Auth,
-    private val locationModel: StatusManager
+    private val statusManager: StatusManager
 ) : MviViewModel<TrackerContract.View, TrackerState>(), TrackerContract.ViewModel {
 
     override fun onStateChanged(event: Lifecycle.Event) {
@@ -27,8 +26,8 @@ class TrackerViewModel @Inject constructor(
             }
             viewModelScope.launch {
                 combine(
-                    locationModel.getServiceStatus(),
-                    locationModel.getGpsStatus()
+                    statusManager.getServiceStatus(),
+                    statusManager.getGpsStatus()
                 ) { servStatus, gpsStatus ->
                     TrackerState(servStatus, gpsStatus)
                 }.collect { newState ->
