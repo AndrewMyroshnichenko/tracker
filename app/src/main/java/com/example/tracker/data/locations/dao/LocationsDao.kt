@@ -14,7 +14,7 @@ interface LocationsDao {
     @Delete(entity = LocationDbEntity::class)
     suspend fun deleteMark(markDbEntity: LocationDbEntity)
 
-    @Query("SELECT * FROM marks WHERE email = :email")
+    @Query("SELECT * FROM locations WHERE email = :email")
     suspend fun getMarks(email: String): List<LocationDbEntity>
 
 }
