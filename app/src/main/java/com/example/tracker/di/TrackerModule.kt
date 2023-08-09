@@ -11,6 +11,8 @@ import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.bus.TrackerStatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
+import com.example.tracker.models.remotedb.FireBaseRemoteDb
+import com.example.tracker.models.remotedb.RemoteDb
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +42,11 @@ class TrackerModule {
         return FireBaseAuth()
     }
 
+    @Provides
+    @Singleton
+    fun provideRemoteDb(): RemoteDb {
+        return FireBaseRemoteDb()
+    }
 
     @Provides
     fun provideLocationServiceController(
