@@ -16,11 +16,7 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
-    private val locationStatus: StatusManager
 ) : LocationSource {
-
-    private val locationManager: LocationManager =
-        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @SuppressLint("MissingPermission")
     override fun getLocationUpdates(): Flow<Location> {
@@ -30,19 +26,49 @@ class DefaultLocationSource(
                 throw LocationSource.LocationException("Missing location permission")
             }
 
-            locationStatus.setGpsStatus(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            val locationManager: LocationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            val locationListener = LocationListener { location -> launch { send(location) } }
+
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                1000L,
+                10.0f,
+                locationListener,
+                Looper.getMainLooper()
+            )
+
+            awaitClose {
+                locationManager.removeUpdates(locationListener)
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    override fun getGpsStatus(): Flow<Boolean> {
+        return callbackFlow {
+
+            if (!PermissionsUtil.hasLocationPermission(context)) {
+                throw LocationSource.LocationException("Missing location permission")
+            }
+
+            val locationManager: LocationManager =
+                context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+            send(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
 
             val locationListener: LocationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
-                    launch { send(location) }
+
                 }
 
                 override fun onProviderDisabled(provider: String) {
-                    locationStatus.setGpsStatus(false)
+                    launch { send(false) }
                 }
 
                 override fun onProviderEnabled(provider: String) {
-                    locationStatus.setGpsStatus(true)
+                    launch { send(true) }
                 }
             }
 
@@ -57,6 +83,7 @@ class DefaultLocationSource(
             awaitClose {
                 locationManager.removeUpdates(locationListener)
             }
+
         }
     }
 }

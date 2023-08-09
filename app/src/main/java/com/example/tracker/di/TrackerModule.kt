@@ -21,10 +21,8 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideDefaultLocationSource(
-        @ApplicationContext context: Context, model: StatusManager
-    ): DefaultLocationSource {
-        return DefaultLocationSource(context, model)
+    fun provideDefaultLocationSource(@ApplicationContext context: Context): DefaultLocationSource {
+        return DefaultLocationSource(context)
     }
 
     @Provides

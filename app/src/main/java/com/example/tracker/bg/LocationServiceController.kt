@@ -20,10 +20,17 @@ class LocationServiceController(
 
     override fun startLocationUpdates() {
         locationStatus.setServiceStatus(true)
+
         location.getLocationUpdates()
             .catch { e -> e.printStackTrace() }
             .onEach {
                 Log.d("GET_MARKS", "MARK: ${it.time}, ${it.longitude}, ${it.latitude}")
+            }.launchIn(serviceScope)
+
+        location.getGpsStatus()
+            .catch { e -> e.printStackTrace() }
+            .onEach {
+                locationStatus.setGpsStatus(it)
             }.launchIn(serviceScope)
     }
 

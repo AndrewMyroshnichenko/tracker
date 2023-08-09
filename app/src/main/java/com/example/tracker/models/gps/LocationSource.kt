@@ -7,6 +7,8 @@ interface LocationSource {
 
     fun getLocationUpdates(): Flow<Location>
 
+    fun getGpsStatus(): Flow<Boolean>
+
     class LocationException(message: String) : Exception(message)
 
 }
