@@ -1,13 +1,16 @@
 package com.example.tracker.bg
 
 import android.util.Log
+import com.example.tracker.data.auth.AuthRepository
 import com.example.tracker.data.auth.RoomAuthRepository
 import com.example.tracker.data.auth.User
 import com.example.tracker.data.locations.Location
+import com.example.tracker.data.locations.LocationsRepository
 import com.example.tracker.data.locations.RoomLocationsRepository
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
+import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.remotedb.RemoteDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -20,14 +23,17 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class LocationServiceController(
-    private val location: DefaultLocationSource,
+    private val location: LocationSource,
     private val gpsStateCache: StatusManager,
+    private val locationRepository: LocationsRepository,
+    private val userRepository: AuthRepository,
+    private val remoteDb: RemoteDb,
+    private val authNetwork: Auth
 ) : LocationController {
 
-    @Inject
+/*    @Inject
     lateinit var locationRepository: RoomLocationsRepository
 
     @Inject
@@ -37,7 +43,7 @@ class LocationServiceController(
     lateinit var remoteDb: RemoteDb
 
     @Inject
-    lateinit var authNetwork: Auth
+    lateinit var authNetwork: Auth*/
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 

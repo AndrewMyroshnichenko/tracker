@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.tracker.data.auth.User
 
-@Entity("users")
+@Entity(UserDbEntity.USER_TABLE_NAME)
 class UserDbEntity(
     @PrimaryKey val id: Int = 0,
     @ColumnInfo("email") val userEmail: String,
@@ -15,6 +15,9 @@ class UserDbEntity(
     fun toUser(): User = User(id = id, userEmail = userEmail, isTrackingOn = isTrackingOn)
 
     companion object {
+
+        const val USER_TABLE_NAME = "users"
+
         fun toUserDbEntity(user: User) = UserDbEntity(
             id = user.id, userEmail = user.userEmail, isTrackingOn = user.isTrackingOn
         )

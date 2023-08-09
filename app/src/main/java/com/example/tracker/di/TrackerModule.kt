@@ -4,13 +4,18 @@ import android.content.Context
 import com.example.tracker.bg.LocationServiceController
 import com.example.tracker.bg.LocationController
 import com.example.tracker.data.AppDatabase
+import com.example.tracker.data.auth.AuthRepository
+import com.example.tracker.data.auth.RoomAuthRepository
 import com.example.tracker.data.auth.dao.UserDao
+import com.example.tracker.data.locations.LocationsRepository
+import com.example.tracker.data.locations.RoomLocationsRepository
 import com.example.tracker.data.locations.dao.LocationsDao
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.bus.TrackerStatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
+import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.remotedb.FireBaseRemoteDb
 import com.example.tracker.models.remotedb.RemoteDb
 import dagger.Module
@@ -26,7 +31,7 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideDefaultLocationSource(@ApplicationContext context: Context): DefaultLocationSource {
+    fun provideDefaultLocationSource(@ApplicationContext context: Context): LocationSource {
         return DefaultLocationSource(context)
     }
 
@@ -50,9 +55,21 @@ class TrackerModule {
 
     @Provides
     fun provideLocationServiceController(
-        locationSource: DefaultLocationSource, model: StatusManager
+        locationSource: LocationSource,
+        model: StatusManager,
+        locationRepository: LocationsRepository,
+        userRepository: AuthRepository,
+        remoteDb: RemoteDb,
+        authNetwork: Auth
     ): LocationController {
-        return LocationServiceController(locationSource, model)
+        return LocationServiceController(
+            location = locationSource,
+            gpsStateCache =  model,
+            locationRepository = locationRepository,
+            userRepository = userRepository,
+            remoteDb = remoteDb,
+            authNetwork = authNetwork
+        )
     }
 
     @Provides
@@ -67,11 +84,20 @@ class TrackerModule {
         return database.getMarkDao()
     }
 
-
     @Provides
     @Singleton
     fun provideUserDao(database: AppDatabase): UserDao {
         return database.getUserDao()
+    }
+
+    @Provides
+    fun provideLocationRepository(dao: LocationsDao): LocationsRepository {
+        return RoomLocationsRepository(dao)
+    }
+
+    @Provides
+    fun provideUserRepository(dao: UserDao): AuthRepository {
+        return RoomAuthRepository(dao)
     }
 
 }
