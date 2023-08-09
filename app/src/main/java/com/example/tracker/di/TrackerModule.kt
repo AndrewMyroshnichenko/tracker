@@ -31,7 +31,7 @@ class TrackerModule {
     @Provides
     @Singleton
     fun provideDefaultLocationModel(): StatusManager {
-        return TrackerStatusManager(MutableStateFlow(false), MutableStateFlow(true))
+        return TrackerStatusManager()
     }
 
     @Provides
