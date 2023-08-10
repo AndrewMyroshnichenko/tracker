@@ -6,7 +6,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.tracker.workmanager.WorkerSendLocation
+import com.example.tracker.bg.work.UploadLocationsWork
 import dagger.hilt.android.HiltAndroidApp
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class TrackerApp : Application(), Configuration.Provider {
 
     @SuppressLint("RestrictedApi")
     private fun startWorkerSendLocation() {
-        val requestSendLocation = PeriodicWorkRequestBuilder<WorkerSendLocation>(
+        val requestSendLocation = PeriodicWorkRequestBuilder<UploadLocationsWork>(
             repeatInterval = 1,
             repeatIntervalTimeUnit = TimeUnit.HOURS
         ).build()

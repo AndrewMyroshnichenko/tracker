@@ -1,4 +1,4 @@
-package com.example.tracker.data.auth
+package com.example.tracker.models.auth
 
 data class User(
     val id: Int = 0,

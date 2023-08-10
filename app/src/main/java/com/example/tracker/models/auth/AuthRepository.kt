@@ -1,4 +1,4 @@
-package com.example.tracker.data.auth
+package com.example.tracker.models.auth
 
 interface AuthRepository {
     suspend fun updateCurrentUser(user: User)

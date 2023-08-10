@@ -1,4 +1,4 @@
-package com.example.tracker.data.locations
+package com.example.tracker.models.locations
 
 interface LocationsRepository {
     suspend fun insertMark(mark: Location)

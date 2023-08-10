@@ -1,7 +1,7 @@
-package com.example.tracker.data.auth
+package com.example.tracker.models.auth
 
-import com.example.tracker.data.auth.dao.UserDao
-import com.example.tracker.data.auth.dao.UserDbEntity
+import com.example.tracker.models.auth.dao.UserDao
+import com.example.tracker.models.auth.dao.UserDbEntity
 
 class RoomAuthRepository (val dao: UserDao) : AuthRepository {
 

@@ -1,9 +1,9 @@
-package com.example.tracker.data.auth.dao
+package com.example.tracker.models.auth.dao
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tracker.data.auth.User
+import com.example.tracker.models.auth.User
 
 @Entity(UserDbEntity.USER_TABLE_NAME)
 class UserDbEntity(

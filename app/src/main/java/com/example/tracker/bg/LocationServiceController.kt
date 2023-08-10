@@ -1,17 +1,14 @@
 package com.example.tracker.bg
 
 import android.util.Log
-import com.example.tracker.data.auth.AuthRepository
-import com.example.tracker.data.auth.RoomAuthRepository
-import com.example.tracker.data.auth.User
-import com.example.tracker.data.locations.Location
-import com.example.tracker.data.locations.LocationsRepository
-import com.example.tracker.data.locations.RoomLocationsRepository
-import com.example.tracker.models.auth.Auth
+import com.example.tracker.models.auth.AuthRepository
+import com.example.tracker.models.auth.User
+import com.example.tracker.models.auth.network.Auth
 import com.example.tracker.models.bus.StatusManager
-import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.models.gps.LocationSource
-import com.example.tracker.models.remotedb.RemoteDb
+import com.example.tracker.models.locations.Location
+import com.example.tracker.models.locations.LocationsRepository
+import com.example.tracker.models.locations.network.LocationsNetwork
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -29,21 +26,22 @@ class LocationServiceController(
     private val gpsStateCache: StatusManager,
     private val locationRepository: LocationsRepository,
     private val userRepository: AuthRepository,
-    private val remoteDb: RemoteDb,
+    private val remoteDb: LocationsNetwork,
     private val authNetwork: Auth
 ) : LocationController {
 
-/*    @Inject
-    lateinit var locationRepository: RoomLocationsRepository
+    /*    @Inject
+        lateinit var locationRepository: RoomLocationsRepository
 
-    @Inject
-    lateinit var userRepository: RoomAuthRepository
+        @Inject
+        lateinit var userRepository: RoomAuthRepository
 
-    @Inject
-    lateinit var remoteDb: RemoteDb
+        @Inject
+        lateinit var remoteDb: RemoteDb
 
-    @Inject
-    lateinit var authNetwork: Auth*/
+        @Inject
+        lateinit var authNetwork: Auth
+        */
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 

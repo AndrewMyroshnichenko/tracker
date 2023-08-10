@@ -1,4 +1,4 @@
-package com.example.tracker.data.locations.dao
+package com.example.tracker.models.locations.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

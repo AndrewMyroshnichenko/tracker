@@ -1,14 +1,14 @@
-package com.example.tracker.workmanager
+package com.example.tracker.bg.work
 
 import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.example.tracker.data.AppDatabase
-import com.example.tracker.data.locations.RoomLocationsRepository
-import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.remotedb.FireBaseRemoteDb
+import com.example.tracker.models.auth.network.Auth
+import com.example.tracker.models.locations.RoomLocationsRepository
+import com.example.tracker.models.locations.dao.AppDatabase
+import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.assisted.Assisted
@@ -18,10 +18,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 @HiltWorker
-class WorkerSendLocation @AssistedInject constructor(
+class UploadLocationsWork @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
-    val mAuth: Auth
+    private val mAuth: Auth
 ) : Worker(context, params) {
 
     private val repository = RoomLocationsRepository(AppDatabase.getDB(context).getMarkDao())
@@ -36,7 +36,7 @@ class WorkerSendLocation @AssistedInject constructor(
                 if (localMarks.isNotEmpty()){
                     Log.d("TAGG", "Worker push local data to firestore")
                     localMarks.forEach { mark ->
-                        remoteDb.collection(FireBaseRemoteDb.LOCATION_TABLE_NAME)
+                        remoteDb.collection(FirebaseLocationsNetwork.LOCATION_TABLE_NAME)
                             .add(mark)
                             .addOnSuccessListener {
                                 GlobalScope.launch {

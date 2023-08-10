@@ -1,4 +1,4 @@
-package com.example.tracker.data.locations
+package com.example.tracker.models.locations
 
 data class Location(
     val time: String = "",

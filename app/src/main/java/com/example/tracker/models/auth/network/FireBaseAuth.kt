@@ -1,4 +1,4 @@
-package com.example.tracker.models.auth
+package com.example.tracker.models.auth.network
 
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
@@ -27,8 +27,5 @@ class FireBaseAuth : Auth {
 
     override fun isSignedIn(): Boolean = auth.currentUser != null
 
-    override fun getCurrentUserEmail(): String {
-        return auth.currentUser?.email ?: ""
-    }
-
+    override fun getCurrentUserEmail(): String = auth.currentUser?.email ?: ""
 }

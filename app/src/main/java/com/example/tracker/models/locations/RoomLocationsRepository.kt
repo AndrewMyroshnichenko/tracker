@@ -1,7 +1,7 @@
-package com.example.tracker.data.locations
+package com.example.tracker.models.locations
 
-import com.example.tracker.data.locations.dao.LocationDbEntity
-import com.example.tracker.data.locations.dao.LocationsDao
+import com.example.tracker.models.locations.dao.LocationDbEntity
+import com.example.tracker.models.locations.dao.LocationsDao
 
 class RoomLocationsRepository (val dao: LocationsDao) : LocationsRepository {
 

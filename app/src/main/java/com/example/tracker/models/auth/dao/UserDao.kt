@@ -1,4 +1,4 @@
-package com.example.tracker.data.auth.dao
+package com.example.tracker.models.auth.dao
 
 import androidx.room.Dao
 import androidx.room.Query
