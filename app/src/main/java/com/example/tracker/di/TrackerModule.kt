@@ -3,8 +3,9 @@ package com.example.tracker.di
 import android.content.Context
 import com.example.tracker.bg.LocationController
 import com.example.tracker.bg.LocationServiceController
+import com.example.tracker.models.AppDatabase
 import com.example.tracker.models.auth.AuthRepository
-import com.example.tracker.models.auth.RoomAuthRepository
+import com.example.tracker.models.auth.AuthRepositoryImpl
 import com.example.tracker.models.auth.dao.UserDao
 import com.example.tracker.models.auth.network.Auth
 import com.example.tracker.models.auth.network.FireBaseAuth
@@ -13,8 +14,7 @@ import com.example.tracker.models.bus.TrackerStatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
-import com.example.tracker.models.locations.RoomLocationsRepository
-import com.example.tracker.models.locations.dao.AppDatabase
+import com.example.tracker.models.locations.LocationsRepositoryImp
 import com.example.tracker.models.locations.dao.LocationsDao
 import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.example.tracker.models.locations.network.LocationsNetwork
@@ -92,12 +92,12 @@ class TrackerModule {
 
     @Provides
     fun provideLocationRepository(dao: LocationsDao): LocationsRepository {
-        return RoomLocationsRepository(dao)
+        return LocationsRepositoryImp(dao)
     }
 
     @Provides
     fun provideUserRepository(dao: UserDao): AuthRepository {
-        return RoomAuthRepository(dao)
+        return AuthRepositoryImpl(dao)
     }
 
 }

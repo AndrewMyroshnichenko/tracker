@@ -1,4 +1,4 @@
-package com.example.tracker.models.locations.dao
+package com.example.tracker.models
 
 import android.content.Context
 import androidx.room.Database
@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.tracker.models.auth.dao.UserDao
 import com.example.tracker.models.auth.dao.UserDbEntity
+import com.example.tracker.models.locations.dao.LocationDbEntity
+import com.example.tracker.models.locations.dao.LocationsDao
 
 @Database(
     version = 1,

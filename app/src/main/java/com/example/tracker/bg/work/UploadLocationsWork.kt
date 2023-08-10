@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.example.tracker.models.AppDatabase
 import com.example.tracker.models.auth.network.Auth
-import com.example.tracker.models.locations.RoomLocationsRepository
-import com.example.tracker.models.locations.dao.AppDatabase
+import com.example.tracker.models.locations.LocationsRepositoryImp
 import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -24,7 +24,7 @@ class UploadLocationsWork @AssistedInject constructor(
     private val mAuth: Auth
 ) : Worker(context, params) {
 
-    private val repository = RoomLocationsRepository(AppDatabase.getDB(context).getMarkDao())
+    private val repository = LocationsRepositoryImp(AppDatabase.getDB(context).getMarkDao())
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun doWork(): Result {
