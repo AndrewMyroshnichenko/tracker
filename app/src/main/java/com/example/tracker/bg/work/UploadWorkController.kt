@@ -10,8 +10,8 @@ class UploadWorkController(var context: Context) : WorkController {
 
     override fun startWorkerSendLocation() {
         val requestSendLocation = PeriodicWorkRequestBuilder<UploadLocationsWork>(
-            repeatInterval = 1,
-            repeatIntervalTimeUnit = TimeUnit.HOURS
+            repeatInterval = 5,
+            repeatIntervalTimeUnit = TimeUnit.SECONDS
         ).build()
         WorkManager.getInstance(context)
             .enqueue(requestSendLocation)

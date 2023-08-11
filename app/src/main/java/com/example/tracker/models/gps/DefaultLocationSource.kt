@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.Looper
+import com.example.tracker.BuildConfig
 import com.example.tracker.models.locations.Location
 import com.example.tracker.utils.PermissionsUtil
 import com.google.android.gms.location.*
@@ -53,7 +55,7 @@ class DefaultLocationSource(
             }
 
             locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 1000L, 10.0F,
+                LocationManager.GPS_PROVIDER, BuildConfig.PERIOD, BuildConfig.SENSITIVITY,
                 locationListener, Looper.getMainLooper()
             )
 

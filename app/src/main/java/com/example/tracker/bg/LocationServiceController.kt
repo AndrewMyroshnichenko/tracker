@@ -1,5 +1,6 @@
 package com.example.tracker.bg
 
+import android.util.Log
 import com.example.tracker.bg.work.WorkController
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.LocationSource
@@ -27,7 +28,12 @@ class LocationServiceController(
         location.observeLocations()
             .catch { e -> e.printStackTrace() }
             .onEach {
-                if (!locationRepository.insertLocation(it)) {
+                locationRepository.insertLocation(it)
+                try {
+                    locationRepository.uploadLocation(it)
+                    locationRepository.deleteLocation(it)
+                } catch (e: Exception) {
+                    Log.d("TAGG", "EXCEPTION")
                     uploadWorkController.startWorkerSendLocation()
                 }
             }.launchIn(serviceScope)

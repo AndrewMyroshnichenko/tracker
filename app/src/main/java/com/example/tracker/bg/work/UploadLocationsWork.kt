@@ -26,13 +26,14 @@ class UploadLocationsWork @AssistedInject constructor(
             GlobalScope.launch {
 
                 Log.d("TAGG", "Worker check local database")
-                val localMarks = repository.getMarks()
+                val localMarks = repository.getLocations()
 
                 if (localMarks.isNotEmpty()) {
                     Log.d("TAGG", "Worker push local data to firestore")
 
-                    localMarks.forEach { mark ->
-                        repository.insertLocation(mark)
+                    localMarks.forEach { location ->
+                        repository.uploadLocation(location)
+                        repository.deleteLocation(location)
                         Log.d("TAGG", "Worker delete local mark")
                     }
                 }

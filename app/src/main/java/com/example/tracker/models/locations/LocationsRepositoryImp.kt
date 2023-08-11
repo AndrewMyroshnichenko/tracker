@@ -7,20 +7,16 @@ import com.example.tracker.models.locations.network.LocationsNetwork
 class LocationsRepositoryImp(val dao: LocationsDao, val network: LocationsNetwork) :
     LocationsRepository {
 
-    override suspend fun insertLocation(location: Location): Boolean {
-        try {
+    override suspend fun uploadLocation(location: Location) {
             network.uploadLocation(location)
-            dao.deleteMark(LocationDbEntity.toLocationDbEntity(location))
-        } catch (e: Exception) {
-            dao.insertMark(LocationDbEntity.toLocationDbEntity(location))
-            return false
-        }
-        return true
     }
 
-    override suspend fun deleteMark(mark: Location) =
-        dao.deleteMark(LocationDbEntity.toLocationDbEntity(mark))
+    override suspend fun insertLocation(location: Location) =
+        dao.insertMark(LocationDbEntity.toLocationDbEntity(location))
 
-    override suspend fun getMarks() = dao.getMarks().map { it.toLocation() }
+    override suspend fun deleteLocation(location: Location) =
+        dao.deleteMark(LocationDbEntity.toLocationDbEntity(location))
+
+    override suspend fun getLocations() = dao.getMarks().map { it.toLocation() }
 
 }

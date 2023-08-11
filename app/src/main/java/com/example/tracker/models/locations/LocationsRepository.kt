@@ -1,9 +1,12 @@
 package com.example.tracker.models.locations
 
 interface LocationsRepository {
-    suspend fun insertLocation(mark: Location): Boolean
 
-    suspend fun deleteMark(mark: Location)
+    suspend fun uploadLocation(location: Location)
 
-    suspend fun getMarks(): List<Location>
+    suspend fun insertLocation(location: Location)
+
+    suspend fun deleteLocation(location: Location)
+
+    suspend fun getLocations(): List<Location>
 }
