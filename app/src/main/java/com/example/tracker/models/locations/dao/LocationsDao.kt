@@ -8,13 +8,13 @@ import androidx.room.Query
 @Dao
 interface LocationsDao {
 
-    @Insert(entity = LocationDbEntity::class)
-    suspend fun insertMark(markDbEntity: LocationDbEntity)
+    @Insert(entity = LocationEntity::class)
+    suspend fun insertMark(markDbEntity: LocationEntity)
 
-    @Delete(entity = LocationDbEntity::class)
-    suspend fun deleteMark(markDbEntity: LocationDbEntity)
+    @Delete(entity = LocationEntity::class)
+    suspend fun deleteMark(markDbEntity: LocationEntity)
 
     @Query("SELECT * FROM locations")
-    suspend fun getMarks(): List<LocationDbEntity>
+    suspend fun getMarks(): List<LocationEntity>
 
 }

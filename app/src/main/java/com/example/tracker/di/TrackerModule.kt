@@ -3,11 +3,11 @@ package com.example.tracker.di
 import android.content.Context
 import com.example.tracker.bg.LocationController
 import com.example.tracker.bg.LocationServiceController
-import com.example.tracker.bg.work.UploadWorkController
-import com.example.tracker.bg.work.WorkController
+import com.example.tracker.bg.work.UploadWorkScheduler
+import com.example.tracker.bg.work.WorkScheduler
 import com.example.tracker.models.AppDatabase
-import com.example.tracker.models.auth.network.Auth
-import com.example.tracker.models.auth.network.FireBaseAuth
+import com.example.tracker.models.auth.Auth
+import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.bus.TrackerStatusManager
 import com.example.tracker.models.gps.DefaultLocationSource
@@ -57,13 +57,13 @@ class TrackerModule {
         locationSource: LocationSource,
         model: StatusManager,
         locationRepository: LocationsRepository,
-        uploadWorkController: WorkController
+        uploadWorkScheduler: WorkScheduler
     ): LocationController {
         return LocationServiceController(
             location = locationSource,
             gpsStateCache = model,
             locationRepository = locationRepository,
-            uploadWorkController = uploadWorkController
+            uploadWorkScheduler = uploadWorkScheduler
         )
     }
 
@@ -88,8 +88,8 @@ class TrackerModule {
     }
 
     @Provides
-    fun provideWorkController(@ApplicationContext context: Context): WorkController {
-        return UploadWorkController(context)
+    fun provideWorkController(@ApplicationContext context: Context): WorkScheduler {
+        return UploadWorkScheduler(context)
     }
 
 }

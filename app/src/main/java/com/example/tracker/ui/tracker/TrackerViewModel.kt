@@ -2,7 +2,7 @@ package com.example.tracker.ui.tracker
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
-import com.example.tracker.models.auth.network.Auth
+import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect

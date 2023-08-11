@@ -6,13 +6,13 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
 
-class UploadWorkController(var context: Context) : WorkController {
+class UploadWorkScheduler(var context: Context) : WorkScheduler {
 
     companion object {
         const val REPEAT_WORK_INTERVAL = 5L
     }
 
-    override fun startWorkerSendLocation() {
+    override fun scheduleSync() {
         val requestSendLocation = PeriodicWorkRequestBuilder<UploadLocationsWork>(
             repeatInterval = REPEAT_WORK_INTERVAL,
             repeatIntervalTimeUnit = TimeUnit.MINUTES

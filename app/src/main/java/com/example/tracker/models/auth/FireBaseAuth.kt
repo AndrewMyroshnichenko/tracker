@@ -1,4 +1,4 @@
-package com.example.tracker.models.auth.network
+package com.example.tracker.models.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await

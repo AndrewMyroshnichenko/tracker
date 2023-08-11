@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.tracker.models.locations.dao.LocationDbEntity
+import com.example.tracker.models.locations.dao.LocationEntity
 import com.example.tracker.models.locations.dao.LocationsDao
 
 @Database(
     version = 1,
-    entities = [LocationDbEntity::class]
+    entities = [LocationEntity::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 

@@ -1,7 +1,7 @@
 package com.example.tracker.bg
 
 import android.util.Log
-import com.example.tracker.bg.work.WorkController
+import com.example.tracker.bg.work.WorkScheduler
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
@@ -17,7 +17,7 @@ class LocationServiceController(
     private val location: LocationSource,
     private val gpsStateCache: StatusManager,
     private val locationRepository: LocationsRepository,
-    private val uploadWorkController: WorkController
+    private val uploadWorkScheduler: WorkScheduler
 ) : LocationController {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -34,7 +34,7 @@ class LocationServiceController(
                     locationRepository.deleteLocation(it)
                 } catch (e: Exception) {
                     Log.d("TAGG", "EXCEPTION")
-                    uploadWorkController.startWorkerSendLocation()
+                    uploadWorkScheduler.scheduleSync()
                 }
             }.launchIn(serviceScope)
 
