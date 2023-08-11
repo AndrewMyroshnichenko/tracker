@@ -6,9 +6,6 @@ import com.example.tracker.bg.LocationServiceController
 import com.example.tracker.bg.work.UploadWorkController
 import com.example.tracker.bg.work.WorkController
 import com.example.tracker.models.AppDatabase
-import com.example.tracker.models.auth.AuthRepository
-import com.example.tracker.models.auth.AuthRepositoryImpl
-import com.example.tracker.models.auth.dao.UserDao
 import com.example.tracker.models.auth.network.Auth
 import com.example.tracker.models.auth.network.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager
@@ -83,22 +80,11 @@ class TrackerModule {
     }
 
     @Provides
-    @Singleton
-    fun provideUserDao(database: AppDatabase): UserDao {
-        return database.getUserDao()
-    }
-
-    @Provides
     fun provideLocationRepository(
         dao: LocationsDao,
         network: LocationsNetwork
     ): LocationsRepository {
         return LocationsRepositoryImp(dao, network)
-    }
-
-    @Provides
-    fun provideUserRepository(dao: UserDao): AuthRepository {
-        return AuthRepositoryImpl(dao)
     }
 
     @Provides

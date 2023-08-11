@@ -8,13 +8,18 @@ import java.util.concurrent.TimeUnit
 
 class UploadWorkController(var context: Context) : WorkController {
 
+    companion object {
+        const val REPEAT_WORK_INTERVAL = 5L
+    }
+
     override fun startWorkerSendLocation() {
         val requestSendLocation = PeriodicWorkRequestBuilder<UploadLocationsWork>(
-            repeatInterval = 5,
-            repeatIntervalTimeUnit = TimeUnit.SECONDS
+            repeatInterval = REPEAT_WORK_INTERVAL,
+            repeatIntervalTimeUnit = TimeUnit.MINUTES
         ).build()
         WorkManager.getInstance(context)
             .enqueue(requestSendLocation)
         Log.d("TAGG", "Start worker send location")
     }
+
 }
