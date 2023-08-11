@@ -2,10 +2,10 @@ package com.example.tracker.models.gps
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
+import com.example.tracker.models.locations.Location
 import com.example.tracker.utils.PermissionsUtil
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
@@ -34,8 +34,13 @@ class DefaultLocationSource(
 
             gpsStatusFlow.tryEmit(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
             val locationListener: LocationListener = object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    launch { send(location) }
+                override fun onLocationChanged(location: android.location.Location) {
+                    val mark = Location(
+                        location.time.toString(),
+                        location.latitude.toString(),
+                        location.longitude.toString()
+                    )
+                    launch { send(mark) }
                 }
 
                 override fun onProviderDisabled(provider: String) {

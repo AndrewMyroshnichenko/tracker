@@ -37,12 +37,6 @@ class LocationService : Service() {
         stopSelf()
     }
 
-    private fun isInternetAvailable(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netInfo = cm.activeNetworkInfo
-        return netInfo != null && netInfo.isConnectedOrConnecting
-    }
-
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"

@@ -1,82 +1,35 @@
 package com.example.tracker.bg
 
-import android.util.Log
-import com.example.tracker.models.auth.AuthRepository
-import com.example.tracker.models.auth.User
-import com.example.tracker.models.auth.network.Auth
+import com.example.tracker.bg.work.WorkController
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.LocationSource
-import com.example.tracker.models.locations.Location
 import com.example.tracker.models.locations.LocationsRepository
-import com.example.tracker.models.locations.network.LocationsNetwork
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 class LocationServiceController(
     private val location: LocationSource,
     private val gpsStateCache: StatusManager,
     private val locationRepository: LocationsRepository,
-    private val userRepository: AuthRepository,
-    private val remoteDb: LocationsNetwork,
-    private val authNetwork: Auth
+    private val uploadWorkController: WorkController
 ) : LocationController {
-
-    /*    @Inject
-        lateinit var locationRepository: RoomLocationsRepository
-
-        @Inject
-        lateinit var userRepository: RoomAuthRepository
-
-        @Inject
-        lateinit var remoteDb: RemoteDb
-
-        @Inject
-        lateinit var authNetwork: Auth
-        */
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate() {
         gpsStateCache.setServiceStatus(true)
-
-        GlobalScope.launch {
-            userRepository.updateCurrentUser(
-                User(userEmail = authNetwork.getCurrentUserEmail(), isTrackingOn = "yes")
-            )
-        }
 
         location.observeLocations()
             .catch { e -> e.printStackTrace() }
             .onEach {
-                val location = Location(
-                    it.time.toString(),
-                    authNetwork.getCurrentUserEmail(),
-                    it.latitude.toString(),
-                    it.longitude.toString()
-                )
-
-                GlobalScope.launch {
-                    val insertDeferred = async { locationRepository.insertMark(location) }
-                    insertDeferred.await()
-                    try {
-                        remoteDb.addLocation(location)
-                        locationRepository.deleteMark(location)
-                    } catch (e: Exception){
-                        e.printStackTrace()
-                    }
+                if (!locationRepository.insertLocation(it)) {
+                    uploadWorkController.startWorkerSendLocation()
                 }
-
-                Log.d("GET_MARKS", "MARK: ${it.time}, ${it.longitude}, ${it.latitude}")
             }.launchIn(serviceScope)
 
         location.getGpsStatusFlow()
@@ -85,14 +38,13 @@ class LocationServiceController(
             .launchIn(serviceScope)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onDestroy() {
         gpsStateCache.setServiceStatus(false)
         serviceScope.cancel()
-        GlobalScope.launch {
-            userRepository.updateCurrentUser(
-                User(userEmail = authNetwork.getCurrentUserEmail(), isTrackingOn = "no")
-            )
-        }
+    }
+
+    companion object {
+        const val TRACKING_ON = "yes"
+        const val TRACKING_OFF = "no"
     }
 }

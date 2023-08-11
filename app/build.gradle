@@ -23,6 +23,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("Float", "SENSITIVITY", "60.0f")
+            buildConfigField("Long", "PERIOD", "600000L")
+        }
+        debug{
+            buildConfigField("Float", "SENSITIVITY", "60.0f")
+            buildConfigField("Long", "PERIOD", "600000L")
         }
     }
     compileOptions {
@@ -34,6 +40,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

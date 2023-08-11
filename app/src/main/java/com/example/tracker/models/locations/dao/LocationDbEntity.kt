@@ -8,14 +8,12 @@ import com.example.tracker.models.locations.Location
 data class LocationDbEntity(
     @PrimaryKey
     val time: String,
-    val email: String,
     val latitude: String,
     val longitude: String
 ) {
 
     fun toLocation(): Location = Location(
         time = time,
-        email = email,
         latitude = latitude,
         longitude = longitude
     )
@@ -26,7 +24,6 @@ data class LocationDbEntity(
 
         fun toLocationDbEntity(location: Location) = LocationDbEntity(
             time = location.time,
-            email = location.email,
             latitude = location.latitude,
             longitude = location.longitude
         )

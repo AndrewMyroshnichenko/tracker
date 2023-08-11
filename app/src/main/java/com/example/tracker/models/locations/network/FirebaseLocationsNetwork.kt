@@ -10,7 +10,7 @@ class FirebaseLocationsNetwork : LocationsNetwork {
 
     private val remoteDb: FirebaseFirestore = Firebase.firestore
 
-    override suspend fun addLocation(location: Location) {
+    override suspend fun uploadLocation(location: Location) {
         remoteDb.collection(LOCATION_TABLE_NAME)
             .add(location)
             .await()
