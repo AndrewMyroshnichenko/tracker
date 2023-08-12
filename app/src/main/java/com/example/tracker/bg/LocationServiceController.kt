@@ -28,10 +28,8 @@ class LocationServiceController(
         location.observeLocations()
             .catch { e -> e.printStackTrace() }
             .onEach {
-                locationRepository.insertLocation(it)
                 try {
-                    locationRepository.uploadLocation(it)
-                    locationRepository.deleteLocation(it)
+                    locationRepository.saveLocation(it)
                 } catch (e: Exception) {
                     Log.d("TAGG", "EXCEPTION")
                     uploadWorkScheduler.scheduleSync()
