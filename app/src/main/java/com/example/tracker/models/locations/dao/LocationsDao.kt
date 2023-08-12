@@ -2,14 +2,14 @@ package com.example.tracker.models.locations.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Upsert
 
 @Dao
 interface LocationsDao {
 
-    @Insert(entity = LocationEntity::class)
-    suspend fun insertMark(markDbEntity: LocationEntity)
+    @Upsert(entity = LocationEntity::class)
+    suspend fun upsertMark(markDbEntity: LocationEntity)
 
     @Delete(entity = LocationEntity::class)
     suspend fun deleteMark(markDbEntity: LocationEntity)

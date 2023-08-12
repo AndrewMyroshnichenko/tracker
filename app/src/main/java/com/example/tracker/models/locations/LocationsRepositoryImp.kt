@@ -10,7 +10,7 @@ class LocationsRepositoryImp(private val dao: LocationsDao, private val network:
     override suspend fun saveLocation(
         location: Location
     ) {
-        dao.insertMark(LocationEntity.toLocationEntity(location))
+        dao.upsertMark(LocationEntity.toLocationEntity(location))
         network.uploadLocation(location)
         dao.deleteMark(LocationEntity.toLocationEntity(location))
     }

@@ -29,8 +29,7 @@ class UploadLocationsWork @AssistedInject constructor(
                 Log.d("TAGG", "Worker push local data to firestore")
 
                 localMarks.forEach { location ->
-                    repository.uploadLocation(location)
-                    repository.deleteLocation(location)
+                    repository.saveLocation(location)
                     Log.d("TAGG", "Worker delete local mark")
                 }
             }
