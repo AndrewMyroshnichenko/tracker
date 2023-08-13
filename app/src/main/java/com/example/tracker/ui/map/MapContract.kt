@@ -6,9 +6,13 @@ class MapContract {
 
     interface ViewModel : FragmentContract.ViewModel<View>{
 
+        fun singOut()
+
     }
 
     interface View : FragmentContract.View{
+
+        fun proceedToLoginScreen()
 
     }
 
