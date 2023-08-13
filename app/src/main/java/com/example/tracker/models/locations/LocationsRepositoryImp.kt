@@ -16,10 +16,10 @@ class LocationsRepositoryImp(
         dao.upsertLocation(LocationEntity.toLocationEntity(locationWithOwner))
     }
 
-    override suspend fun uploadLocation() {
+    override suspend fun syncTrackerLocations() {
         val locationsList = getLocations()
-        if (locationsList.isNotEmpty()){
-            locationsList.forEach{
+        if (locationsList.isNotEmpty()) {
+            locationsList.forEach {
                 network.uploadLocation(it)
                 dao.deleteLocation(LocationEntity.toLocationEntity(it))
             }
