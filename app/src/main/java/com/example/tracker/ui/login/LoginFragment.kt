@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
 import com.example.tracker.mvi.fragments.HostedFragment
