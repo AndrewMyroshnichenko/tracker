@@ -1,7 +1,6 @@
 package com.example.tracker.bg.work
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -18,11 +17,10 @@ class UploadLocationsWork @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         return try {
-            repository.uploadLocation()
+            repository.syncTrackerLocations()
             Result.success()
         } catch (_: Exception) {
             Result.retry()
         }
     }
-
 }

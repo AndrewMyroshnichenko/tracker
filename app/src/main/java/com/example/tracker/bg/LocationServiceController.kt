@@ -1,6 +1,5 @@
 package com.example.tracker.bg
 
-import android.util.Log
 import com.example.tracker.bg.work.WorkScheduler
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.LocationSource
@@ -30,9 +29,9 @@ class LocationServiceController(
             .onEach {
                 try {
                     locationRepository.saveLocation(it)
-                    locationRepository.uploadLocation()
+                    locationRepository.syncTrackerLocations()
                 } catch (e: Exception) {
-                    Log.d("TAGG", "EXCEPTION")
+                    e.printStackTrace()
                     uploadWorkScheduler.scheduleSync()
                 }
             }.launchIn(serviceScope)
@@ -46,10 +45,5 @@ class LocationServiceController(
     override fun onDestroy() {
         gpsStateCache.setServiceStatus(false)
         serviceScope.cancel()
-    }
-
-    companion object {
-        const val TRACKING_ON = "yes"
-        const val TRACKING_OFF = "no"
     }
 }
