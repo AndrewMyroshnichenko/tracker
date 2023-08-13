@@ -1,6 +1,5 @@
 package com.example.tracker.mvi.fragments
 
-
 import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle

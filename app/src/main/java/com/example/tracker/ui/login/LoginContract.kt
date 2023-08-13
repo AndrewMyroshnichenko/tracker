@@ -28,7 +28,7 @@ class LoginContract {
 
     interface Host : FragmentContract.Host {
 
-        fun proceedLoginToTrackerScreen()
+        fun proceedLoginToLocationScreen()
 
     }
 }

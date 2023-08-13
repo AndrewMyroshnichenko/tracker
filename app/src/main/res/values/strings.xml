@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tracker</string>
+    <string name="app_tracker">Tracker</string>
 
     <!--Tracker Strings-->
     <string name="tracker_off">TRACKER IS OFF</string>
@@ -10,7 +10,7 @@
     <string name="start">START</string>
     <string name="stop">STOP</string>\
     <string name="permissions_doesn_t_assigned">Permissions doesn\'t assigned!</string>
-    <string name="counter">You have been collected locations - %1$s</string>
+    <string name="counter">You have been collected locations: %1$s</string>
 
     <!--Login Strings-->
     <string name="hint_password">Password</string>
@@ -33,7 +33,10 @@
     <string name="to_short_password">To short password!</string>
     <string name="passwords_mismatch">Passwords mismatch!</string>
     <string name="email_is_empty">Email is empty!</string>
-    <!--    <string name="password_is_empty">Password is empty!</string>-->
     <string name="empty_error_message" />
+
+    <!--Map Strings-->
+    <string name="app_map">Map</string>
+    <string name="last_hours">last hours</string>
 
 </resources>

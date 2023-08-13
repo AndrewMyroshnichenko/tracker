@@ -87,7 +87,7 @@ class TrackerFragment :
     }
 
     override fun proceedToLoginScreen() {
-        fragmentHost?.proceedTrackerToLoginScreen()
+        fragmentHost?.proceedLocationToLoginScreen()
     }
 
     override fun showTrackerState(

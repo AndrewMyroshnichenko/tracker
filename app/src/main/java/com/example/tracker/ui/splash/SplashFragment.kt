@@ -30,6 +30,6 @@ class SplashFragment :
     }
 
     override fun proceedToTrackerScreen() {
-        fragmentHost?.proceedSplashToTrackerScreen()
+        fragmentHost?.proceedSplashToLocationScreen()
     }
 }
