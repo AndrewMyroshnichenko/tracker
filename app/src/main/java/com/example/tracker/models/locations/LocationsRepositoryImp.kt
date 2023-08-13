@@ -9,18 +9,24 @@ class LocationsRepositoryImp(
     private val dao: LocationsDao,
     private val network: LocationsNetwork,
     private val auth: Auth
-) :
-    LocationsRepository {
+) : LocationsRepository {
 
-    override suspend fun saveLocation(
-        location: Location
-    ) {
+    override suspend fun saveLocation(location: Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
-        dao.upsertMark(LocationEntity.toLocationEntity(locationWithOwner))
-        network.uploadLocation(locationWithOwner)
-        dao.deleteMark(LocationEntity.toLocationEntity(locationWithOwner))
+        dao.upsertLocation(LocationEntity.toLocationEntity(locationWithOwner))
     }
 
-    override suspend fun getLocations() = dao.getMarks(auth.getCurrentUserId()).map { it.toLocation() }
+    override suspend fun uploadLocation() {
+        val locationsList = getLocations()
+        if (locationsList.isNotEmpty()){
+            locationsList.forEach{
+                network.uploadLocation(it)
+                dao.deleteLocation(LocationEntity.toLocationEntity(it))
+            }
+        }
+    }
+
+    private suspend fun getLocations() =
+        dao.getMarks(auth.getCurrentUserId()).map { it.toLocation() }
 
 }

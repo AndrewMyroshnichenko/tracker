@@ -18,24 +18,11 @@ class UploadLocationsWork @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         return try {
-            Log.d("TAGG", "Worker check local database")
-            val localMarks = repository.getLocations()
-
-            if (localMarks.isNotEmpty()) {
-                Log.d("TAGG", "Worker push local data to firestore")
-
-                localMarks.forEach { location ->
-                    try {
-                        repository.saveLocation(location)
-                        Log.d("TAGG", "Worker delete local mark")
-                    } catch (e: Exception) {
-                        Log.e("TAGG", "Failed to save location: ${e.message}")
-                    }
-                }
-            }
+            repository.uploadLocation()
             Result.success()
         } catch (_: Exception) {
             Result.retry()
         }
     }
+
 }

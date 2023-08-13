@@ -30,6 +30,7 @@ class LocationServiceController(
             .onEach {
                 try {
                     locationRepository.saveLocation(it)
+                    locationRepository.uploadLocation()
                 } catch (e: Exception) {
                     Log.d("TAGG", "EXCEPTION")
                     uploadWorkScheduler.scheduleSync()

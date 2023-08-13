@@ -4,6 +4,6 @@ interface LocationsRepository {
 
     suspend fun saveLocation(location: Location)
 
-    suspend fun getLocations(): List<Location>
+    suspend fun uploadLocation()
 
 }

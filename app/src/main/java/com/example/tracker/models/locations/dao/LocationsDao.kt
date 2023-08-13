@@ -9,10 +9,10 @@ import androidx.room.Upsert
 interface LocationsDao {
 
     @Upsert(entity = LocationEntity::class)
-    suspend fun upsertMark(markDbEntity: LocationEntity)
+    suspend fun upsertLocation(markDbEntity: LocationEntity)
 
     @Delete(entity = LocationEntity::class)
-    suspend fun deleteMark(markDbEntity: LocationEntity)
+    suspend fun deleteLocation(markDbEntity: LocationEntity)
 
     @Query("SELECT * FROM locations WHERE ownerId = :ownerId")
     suspend fun getMarks(ownerId: String): List<LocationEntity>
