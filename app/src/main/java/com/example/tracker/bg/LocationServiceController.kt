@@ -24,11 +24,13 @@ class LocationServiceController(
 
     override fun onCreate() {
         gpsStateCache.setServiceStatus(true)
+        var locationCount = 0
 
         location.observeLocations()
             .catch { e -> e.printStackTrace() }
             .onEach {
                 try {
+                    gpsStateCache.setLocationsCounter(++locationCount)
                     locationRepository.saveLocation(it)
                     locationRepository.uploadLocation()
                 } catch (e: Exception) {
@@ -45,6 +47,7 @@ class LocationServiceController(
 
     override fun onDestroy() {
         gpsStateCache.setServiceStatus(false)
+        gpsStateCache.setLocationsCounter(0)
         serviceScope.cancel()
     }
 

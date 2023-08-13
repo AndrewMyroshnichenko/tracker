@@ -12,4 +12,8 @@ interface StatusManager {
 
     fun setServiceStatus(isEnabled: Boolean)
 
+    fun getLocationsCounter(): Flow<Int>
+
+    fun setLocationsCounter(count: Int)
+
 }

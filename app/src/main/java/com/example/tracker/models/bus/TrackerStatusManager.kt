@@ -7,6 +7,8 @@ class TrackerStatusManager : StatusManager {
 
     private val isServiceOn = MutableStateFlow(false)
     private val isGpsEnabled = MutableStateFlow(false)
+    private val locationsCounter = MutableStateFlow(0)
+
 
     override fun getGpsStatus(): Flow<Boolean> = isGpsEnabled
 
@@ -20,4 +22,12 @@ class TrackerStatusManager : StatusManager {
     override fun setServiceStatus(isEnabled: Boolean) {
         isServiceOn.value = isEnabled
     }
+
+    override fun getLocationsCounter(): Flow<Int> = locationsCounter
+
+
+    override fun setLocationsCounter(count: Int) {
+        locationsCounter.value = count
+    }
+
 }

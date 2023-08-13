@@ -10,6 +10,7 @@
     <string name="start">START</string>
     <string name="stop">STOP</string>\
     <string name="permissions_doesn_t_assigned">Permissions doesn\'t assigned!</string>
+    <string name="counter">You have been collected locations - %1$s</string>
 
     <!--Login Strings-->
     <string name="hint_password">Password</string>

@@ -12,7 +12,7 @@ class TrackerContract {
 
     interface View : FragmentContract.View{
 
-        fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean)
+        fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean, locationsCounter: Int)
 
         fun startStopService(act: String)
 

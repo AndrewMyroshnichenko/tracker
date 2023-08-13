@@ -41,7 +41,7 @@ class TrackerFragment :
         }
 
     override fun createModel(): TrackerContract.ViewModel {
-        val viewModel : TrackerViewModel by viewModels()
+        val viewModel: TrackerViewModel by viewModels()
         return viewModel
     }
 
@@ -90,25 +90,23 @@ class TrackerFragment :
         fragmentHost?.proceedTrackerToLoginScreen()
     }
 
-    override fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean) {
+    override fun showTrackerState(
+        serviceRunning: Boolean,
+        isGpsEnable: Boolean,
+        locationsCounter: Int
+    ) {
         if (!isGpsEnable && serviceRunning) {
             setViewsProperties(
-                btText = if (serviceRunning) resources.getString(R.string.stop)
-                else resources.getString(R.string.start),
-                btTextColor = ContextCompat.getColor(
-                    requireContext(), if (serviceRunning) R.color.main
-                    else R.color.white
-                ),
-                btBackgroundColor = ContextCompat.getColor(
-                    requireContext(), if (serviceRunning) R.color.white
-                    else R.color.main
-                ),
+                btText = resources.getString(R.string.stop),
+                btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
+                btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
                 pbGradient = ContextCompat.getDrawable(
                     requireActivity(),
                     R.drawable.pb_error_gradient
                 ),
                 tvStateTracker = resources.getString(R.string.gps_off),
                 tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
+                tvCounter = resources.getString(R.string.counter, locationsCounter.toString()),
                 imgTrackerIndicator = R.drawable.img_gps_is_off
             )
         } else {
@@ -122,12 +120,14 @@ class TrackerFragment :
                     ),
                     tvStateTracker = resources.getString(R.string.tracker),
                     tvHelperText = resources.getString(R.string.collects_locations),
+                    tvCounter = resources.getString(R.string.counter, locationsCounter.toString()),
                     imgTrackerIndicator = R.drawable.img_tracker_collects_locations
                 )
             } else {
                 setViewsProperties()
             }
-    }}
+        }
+    }
 
     private fun setViewsProperties(
         btText: String = resources.getString(R.string.start),
@@ -138,6 +138,7 @@ class TrackerFragment :
         ),
         tvStateTracker: String = resources.getString(R.string.tracker_off),
         tvHelperText: String = "",
+        tvCounter: String = "",
         imgTrackerIndicator: Int = R.drawable.img_tracker_is_off
     ) {
         bind?.btStartStop?.text = btText
@@ -147,6 +148,7 @@ class TrackerFragment :
         bind?.trackerBar?.indeterminateDrawable = pbGradient
         bind?.tvStateTracker?.text = tvStateTracker
         bind?.tvHelper?.text = tvHelperText
+        bind?.tvCounter?.text = tvCounter
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 

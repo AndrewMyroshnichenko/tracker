@@ -24,9 +24,10 @@ class TrackerViewModel @Inject constructor(
             viewModelScope.launch {
                 combine(
                     gpsStateCache.getServiceStatus(),
-                    gpsStateCache.getGpsStatus()
-                ) { servStatus, gpsStatus ->
-                    TrackerState(servStatus, gpsStatus)
+                    gpsStateCache.getGpsStatus(),
+                    gpsStateCache.getLocationsCounter()
+                ) { servStatus, gpsStatus , counter ->
+                    TrackerState(servStatus, gpsStatus, counter)
                 }.collect { newState ->
                     setState(newState)
                 }
