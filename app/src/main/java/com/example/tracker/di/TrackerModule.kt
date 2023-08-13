@@ -82,9 +82,10 @@ class TrackerModule {
     @Provides
     fun provideLocationRepository(
         dao: LocationsDao,
-        network: LocationsNetwork
+        network: LocationsNetwork,
+        auth: Auth
     ): LocationsRepository {
-        return LocationsRepositoryImp(dao, network)
+        return LocationsRepositoryImp(dao, network, auth)
     }
 
     @Provides

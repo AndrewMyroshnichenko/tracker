@@ -8,12 +8,14 @@ import com.example.tracker.models.locations.Location
 data class LocationEntity(
     @PrimaryKey
     val time: String,
+    val ownerId: String,
     val latitude: String,
     val longitude: String
 ) {
 
     fun toLocation(): Location = Location(
         time = time,
+        ownerId = ownerId,
         latitude = latitude,
         longitude = longitude
     )
@@ -24,6 +26,7 @@ data class LocationEntity(
 
         fun toLocationEntity(location: Location) = LocationEntity(
             time = location.time,
+            ownerId = location.ownerId,
             latitude = location.latitude,
             longitude = location.longitude
         )

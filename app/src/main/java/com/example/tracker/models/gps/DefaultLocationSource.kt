@@ -38,9 +38,9 @@ class DefaultLocationSource(
             val locationListener: LocationListener = object : LocationListener {
                 override fun onLocationChanged(location: android.location.Location) {
                     val mark = Location(
-                        location.time.toString(),
-                        location.latitude.toString(),
-                        location.longitude.toString()
+                        time = location.time.toString(),
+                        latitude = location.latitude.toString(),
+                        longitude = location.longitude.toString()
                     )
                     launch { send(mark) }
                 }

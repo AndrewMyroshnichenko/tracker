@@ -4,14 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
-import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.example.tracker.models.locations.LocationsRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @HiltWorker
 class UploadLocationsWork @AssistedInject constructor(
@@ -29,13 +25,17 @@ class UploadLocationsWork @AssistedInject constructor(
                 Log.d("TAGG", "Worker push local data to firestore")
 
                 localMarks.forEach { location ->
-                    repository.saveLocation(location)
-                    Log.d("TAGG", "Worker delete local mark")
+                    try {
+                        repository.saveLocation(location)
+                        Log.d("TAGG", "Worker delete local mark")
+                    } catch (e: Exception) {
+                        Log.e("TAGG", "Failed to save location: ${e.message}")
+                    }
                 }
             }
             Result.success()
         } catch (_: Exception) {
-            Result.failure()
+            Result.retry()
         }
     }
 }
