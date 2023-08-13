@@ -54,9 +54,8 @@ class LoginFragment :
         }
     }
 
-    override fun proceedLoginToTrackerScreen() {
-        val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_map)
-        navController.navigate(R.id.action_loginFragment_to_trackerFragment)
+    override fun proceedLoginToLocationScreen() {
+        fragmentHost?.proceedLoginToLocationScreen()
     }
 
     override fun onClick(v: View?) {

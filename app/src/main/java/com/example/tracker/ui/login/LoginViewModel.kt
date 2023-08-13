@@ -1,5 +1,6 @@
 package com.example.tracker.ui.login
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
@@ -45,6 +46,8 @@ class LoginViewModel @Inject constructor (
             }
         }
         setState(LoginState(loginError, passError))
+        Log.d("AAA","$loginError, $passError")
+        Log.d("AAA","${R.string.empty_error_message}")
         return loginError != R.string.empty_error_message || passError != R.string.empty_error_message
     }
 
