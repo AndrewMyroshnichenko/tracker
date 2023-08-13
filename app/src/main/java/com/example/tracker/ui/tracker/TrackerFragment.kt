@@ -95,37 +95,39 @@ class TrackerFragment :
         isGpsEnable: Boolean,
         locationsCounter: Int
     ) {
-        if (!isGpsEnable && serviceRunning) {
+        if (serviceRunning) {
+            val gradient = if (isGpsEnable) {
+                R.drawable.pb_gradient
+            } else {
+                R.drawable.pb_error_gradient
+            }
+            val trackerStateText = if (isGpsEnable) {
+                R.string.tracker
+            } else {
+                R.string.gps_off
+            }
+            val helperText = if (isGpsEnable) {
+                R.string.collects_locations
+            } else {
+                R.string.tracker_cant_collect_locations
+            }
+            val trackerIndicator = if (isGpsEnable) {
+                R.drawable.img_tracker_collects_locations
+            } else {
+                R.drawable.img_gps_is_off
+            }
             setViewsProperties(
                 btText = resources.getString(R.string.stop),
                 btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
                 btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
-                pbGradient = ContextCompat.getDrawable(
-                    requireActivity(),
-                    R.drawable.pb_error_gradient
-                ),
-                tvStateTracker = resources.getString(R.string.gps_off),
-                tvHelperText = resources.getString(R.string.tracker_cant_collect_locations),
+                pbGradient = ContextCompat.getDrawable(requireActivity(), gradient),
+                tvStateTracker = resources.getString(trackerStateText),
+                tvHelperText = resources.getString(helperText),
                 tvCounter = resources.getString(R.string.counter, locationsCounter.toString()),
-                imgTrackerIndicator = R.drawable.img_gps_is_off
+                imgTrackerIndicator = trackerIndicator
             )
         } else {
-            if (serviceRunning) {
-                setViewsProperties(
-                    btText = resources.getString(R.string.stop),
-                    btTextColor = ContextCompat.getColor(requireContext(), R.color.main),
-                    btBackgroundColor = ContextCompat.getColor(requireContext(), R.color.white),
-                    pbGradient = ContextCompat.getDrawable(
-                        requireActivity(), R.drawable.pb_gradient
-                    ),
-                    tvStateTracker = resources.getString(R.string.tracker),
-                    tvHelperText = resources.getString(R.string.collects_locations),
-                    tvCounter = resources.getString(R.string.counter, locationsCounter.toString()),
-                    imgTrackerIndicator = R.drawable.img_tracker_collects_locations
-                )
-            } else {
-                setViewsProperties()
-            }
+            setViewsProperties()
         }
     }
 
