@@ -7,12 +7,12 @@ class SplashContract {
     interface ViewModel : FragmentContract.ViewModel<View>
 
     interface View : FragmentContract.View{
-        fun proceedToLoginScreen()
-        fun proceedToTrackerScreen()
+        fun proceedToAuthScreen()
+        fun proceedToMainScreen()
     }
 
     interface Host : FragmentContract.Host {
-        fun proceedSplashToLoginScreen()
-        fun proceedSplashToLocationScreen()
+        fun proceedSplashToAuthScreen()
+        fun proceedSplashToMainScreen()
     }
 }

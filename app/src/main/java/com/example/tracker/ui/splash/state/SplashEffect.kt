@@ -7,13 +7,13 @@ open class SplashEffect : AbstractEffect<SplashContract.View>() {
 
     object ProceedToLoginScreen : SplashEffect() {
         override fun handle(screen: SplashContract.View) {
-            screen.proceedToLoginScreen()
+            screen.proceedToAuthScreen()
         }
     }
 
     object ProceedToTrackerScreen : SplashEffect() {
         override fun handle(screen: SplashContract.View) {
-            screen.proceedToTrackerScreen()
+            screen.proceedToMainScreen()
         }
     }
 }

@@ -22,13 +22,13 @@ class LoginContract {
 
         fun showPopUpError(messageId: Int?)
 
-        fun proceedLoginToLocationScreen()
+        fun proceedAuthToMainScreen()
 
     }
 
     interface Host : FragmentContract.Host {
 
-        fun proceedLoginToLocationScreen()
+        fun proceedAuthToMainScreen()
 
     }
 }

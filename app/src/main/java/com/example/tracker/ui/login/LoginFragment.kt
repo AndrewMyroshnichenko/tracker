@@ -53,8 +53,8 @@ class LoginFragment :
         }
     }
 
-    override fun proceedLoginToLocationScreen() {
-        fragmentHost?.proceedLoginToLocationScreen()
+    override fun proceedAuthToMainScreen() {
+        fragmentHost?.proceedAuthToMainScreen()
     }
 
     override fun onClick(v: View?) {

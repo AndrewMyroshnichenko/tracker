@@ -15,7 +15,7 @@ class SplashFragment :
     SplashContract.View {
 
     override fun createModel(): SplashContract.ViewModel {
-        val viewModel : SplashViewModel by viewModels()
+        val viewModel: SplashViewModel by viewModels()
         return viewModel
     }
 
@@ -25,11 +25,11 @@ class SplashFragment :
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
-    override fun proceedToLoginScreen() {
-        fragmentHost?.proceedSplashToLoginScreen()
+    override fun proceedToAuthScreen() {
+        fragmentHost?.proceedSplashToAuthScreen()
     }
 
-    override fun proceedToTrackerScreen() {
-        fragmentHost?.proceedSplashToLocationScreen()
+    override fun proceedToMainScreen() {
+        fragmentHost?.proceedSplashToMainScreen()
     }
 }

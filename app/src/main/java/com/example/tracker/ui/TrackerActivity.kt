@@ -28,15 +28,15 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_tracker)
     }
 
-    override fun proceedLoginToLocationScreen() {
+    override fun proceedAuthToMainScreen() {
         navController?.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
 
-    override fun proceedSplashToLoginScreen() {
+    override fun proceedSplashToAuthScreen() {
         navController?.navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
-    override fun proceedSplashToLocationScreen() {
+    override fun proceedSplashToMainScreen() {
         navController?.navigate(R.id.action_splashFragment_to_trackerFragment)
     }
 

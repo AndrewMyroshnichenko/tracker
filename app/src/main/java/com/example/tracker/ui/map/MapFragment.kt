@@ -22,9 +22,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         bind = FragmentMapBinding.inflate(layoutInflater)
         return (bind?.root)
