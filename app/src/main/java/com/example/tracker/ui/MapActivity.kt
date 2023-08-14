@@ -43,6 +43,4 @@ class MapActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host
     override fun proceedLocationToLoginScreen() {
         navController?.navigate(R.id.action_mapFragment_to_loginFragment)
     }
-
-
 }

@@ -9,11 +9,10 @@ import com.example.tracker.R
 import com.example.tracker.databinding.FragmentMapBinding
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.type.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -60,7 +59,6 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     }
 
     private fun showDateRangePicker() {
-
         val picker = MaterialDatePicker.Builder
             .dateRangePicker()
             .setTheme(R.style.CustomMaterialDatePickerTheme)
@@ -83,6 +81,4 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                 .color(R.color.way_color)
         )
     }
-
-
 }
