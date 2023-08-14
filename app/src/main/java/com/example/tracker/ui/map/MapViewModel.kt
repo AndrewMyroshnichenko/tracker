@@ -36,7 +36,6 @@ class MapViewModel @Inject constructor(
         viewModelScope.launch {
             val list = locationsRepository.getMapLocations(lastLocationTime)
                 .filter { it.time.toLong() in startDate..endDate }
-                .sortedBy { it.time.toLong() }
                 .map { LatLng(it.latitude.toDouble(), it.longitude.toDouble()) }
             setState(MapState(list))
         }
@@ -47,8 +46,9 @@ class MapViewModel @Inject constructor(
         authNetwork.signOut()
         viewModelScope.launch {
             locationsRepository.clearLocations()
+            setEffect(MapEffect.NavigateAfterLogOut())
         }
-        setEffect(MapEffect.NavigateAfterLogOut())
+
     }
 
 }

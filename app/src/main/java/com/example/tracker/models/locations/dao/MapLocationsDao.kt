@@ -15,7 +15,7 @@ interface MapLocationsDao {
     @Query("DELETE FROM mapLocations")
     suspend fun deleteAllLocations()
 
-    @Query("SELECT * FROM mapLocations")
+    @Query("SELECT * FROM mapLocations ORDER BY time ASC")
     suspend fun getLocations(): List<MapLocationEntity>
 
 }

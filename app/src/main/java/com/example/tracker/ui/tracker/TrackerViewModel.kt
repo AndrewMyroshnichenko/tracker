@@ -41,7 +41,7 @@ class TrackerViewModel @Inject constructor(
         authNetwork.signOut()
         viewModelScope.launch {
             locationsRepository.clearLocations()
+            setEffect(TrackerEffect.NavigateAfterLogOut())
         }
-        setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 }
