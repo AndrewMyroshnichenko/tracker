@@ -14,6 +14,8 @@ class LocationsRepositoryImp(
     private val auth: Auth
 ) : LocationsRepository {
 
+    private var lastLocationTime = 0L
+
     override suspend fun saveLocation(location: Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
         trackerDao.upsertLocation(TrackerLocationEntity.toLocationEntity(locationWithOwner))
@@ -29,9 +31,11 @@ class LocationsRepositoryImp(
         }
     }
 
-    override suspend fun getMapLocations(lastLocationTime: Long): List<Location> {
+    override suspend fun getMapLocations(): List<Location> {
         downloadMapLocations(lastLocationTime)
-        return mapDao.getLocations().map { it.toLocation() }
+        val list = mapDao.getLocations().map { it.toLocation() }
+        list.maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
+        return list
     }
 
     override suspend fun clearLocations() {

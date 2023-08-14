@@ -1,7 +1,7 @@
 package com.example.tracker.ui.map
 
+import com.example.tracker.models.locations.Location
 import com.example.tracker.mvi.fragments.FragmentContract
-import com.google.android.gms.maps.model.LatLng
 
 class MapContract {
 
@@ -17,7 +17,7 @@ class MapContract {
 
         fun proceedToLoginScreen()
 
-        fun showMapState(locationsList: List<LatLng>)
+        fun showMapState(locationsList: List<Location>)
 
     }
 

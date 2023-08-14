@@ -6,7 +6,7 @@ interface LocationsRepository {
 
     suspend fun syncTrackerLocations()
 
-    suspend fun getMapLocations(lastLocationTime: Long): List<Location>
+    suspend fun getMapLocations(): List<Location>
 
     suspend fun clearLocations()
 

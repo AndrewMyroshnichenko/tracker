@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentMapBinding
+import com.example.tracker.models.locations.Location
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,10 +45,12 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
         fragmentHost?.proceedLocationToLoginScreen()
     }
 
-    override fun showMapState(locationsList: List<LatLng>) {
+    override fun showMapState(locationsList: List<Location>) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
         mapFragment.getMapAsync { googleMap ->
-            renderMarks(googleMap, locationsList)
+            renderMarks(
+                googleMap,
+                locationsList.map { LatLng(it.latitude.toDouble(), it.longitude.toDouble()) })
         }
     }
 
