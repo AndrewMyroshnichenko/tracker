@@ -6,4 +6,6 @@ interface LocationsRepository {
 
     suspend fun syncTrackerLocations()
 
+    suspend fun getMapLocations(): List<Location>
+
 }

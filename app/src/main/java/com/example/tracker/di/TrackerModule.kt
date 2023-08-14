@@ -14,7 +14,8 @@ import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
 import com.example.tracker.models.locations.LocationsRepositoryImp
-import com.example.tracker.models.locations.dao.LocationsDao
+import com.example.tracker.models.locations.dao.MapLocationsDao
+import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.example.tracker.models.locations.network.LocationsNetwork
 import dagger.Module
@@ -75,17 +76,24 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideMarkDao(database: AppDatabase): LocationsDao {
-        return database.getMarkDao()
+    fun provideLocationDao(database: AppDatabase): TrackerLocationsDao {
+        return database.getLocationsDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoadedLocationDao(database: AppDatabase): MapLocationsDao {
+        return database.getLoadedLocationsDao()
     }
 
     @Provides
     fun provideLocationRepository(
-        dao: LocationsDao,
+        trackerDao: TrackerLocationsDao,
+        mapDao: MapLocationsDao,
         network: LocationsNetwork,
         auth: Auth
     ): LocationsRepository {
-        return LocationsRepositoryImp(dao, network, auth)
+        return LocationsRepositoryImp(trackerDao, mapDao, network, auth)
     }
 
     @Provides

@@ -16,7 +16,22 @@ class FirebaseLocationsNetwork : LocationsNetwork {
             .await()
     }
 
+    override suspend fun downloadLocations(ownerId: String): List<Location> {
+        val list = mutableListOf<Location>()
+        remoteDb.collection(LOCATION_TABLE_NAME)
+            .whereEqualTo(COLUMN_OWNER_ID, ownerId)
+            .get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val location = document.toObject(Location::class.java)
+                    list.add(location)
+                }
+            }.await()
+        return list
+    }
+
     companion object {
         const val LOCATION_TABLE_NAME = "locations"
+        const val COLUMN_OWNER_ID = "ownerId"
     }
 }

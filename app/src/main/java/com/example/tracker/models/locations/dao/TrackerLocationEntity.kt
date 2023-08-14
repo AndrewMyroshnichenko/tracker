@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.tracker.models.locations.Location
 
-@Entity(LocationEntity.LOCATIONS_TABLE_NAME)
-data class LocationEntity(
+@Entity(TrackerLocationEntity.LOCATIONS_TABLE_NAME)
+data class TrackerLocationEntity(
     @PrimaryKey
     val time: String,
     val ownerId: String,
@@ -22,9 +22,9 @@ data class LocationEntity(
 
     companion object {
 
-        const val LOCATIONS_TABLE_NAME = "locations"
+        const val LOCATIONS_TABLE_NAME = "trackerLocations"
 
-        fun toLocationEntity(location: Location) = LocationEntity(
+        fun toLocationEntity(location: Location) = TrackerLocationEntity(
             time = location.time,
             ownerId = location.ownerId,
             latitude = location.latitude,

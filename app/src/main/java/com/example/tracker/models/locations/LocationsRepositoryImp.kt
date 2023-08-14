@@ -1,32 +1,51 @@
 package com.example.tracker.models.locations
 
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.locations.dao.LocationEntity
-import com.example.tracker.models.locations.dao.LocationsDao
+import com.example.tracker.models.locations.dao.MapLocationEntity
+import com.example.tracker.models.locations.dao.MapLocationsDao
+import com.example.tracker.models.locations.dao.TrackerLocationEntity
+import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.tracker.models.locations.network.LocationsNetwork
+import java.lang.Exception
 
 class LocationsRepositoryImp(
-    private val dao: LocationsDao,
+    private val trackerDao: TrackerLocationsDao,
+    private val mapDao: MapLocationsDao,
     private val network: LocationsNetwork,
     private val auth: Auth
 ) : LocationsRepository {
 
     override suspend fun saveLocation(location: Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
-        dao.upsertLocation(LocationEntity.toLocationEntity(locationWithOwner))
+        trackerDao.upsertLocation(TrackerLocationEntity.toLocationEntity(locationWithOwner))
     }
 
     override suspend fun syncTrackerLocations() {
-        val locationsList = getLocations()
+        val locationsList = getTrackerLocalLocations()
         if (locationsList.isNotEmpty()) {
             locationsList.forEach {
                 network.uploadLocation(it)
-                dao.deleteLocation(LocationEntity.toLocationEntity(it))
+                trackerDao.deleteLocation(TrackerLocationEntity.toLocationEntity(it))
             }
         }
     }
 
-    private suspend fun getLocations() =
-        dao.getMarks(auth.getCurrentUserId()).map { it.toLocation() }
+    override suspend fun getMapLocations(): List<Location> {
+        try {
+            downloadMapLocations()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return mapDao.getLocations(auth.getCurrentUserId()).map { it.toLocation() }
+    }
+
+    private suspend fun downloadMapLocations() {
+        network.downloadLocations(auth.getCurrentUserId()).forEach {
+            mapDao.upsertLocation(MapLocationEntity.toLocationEntity(it))
+        }
+    }
+
+    private suspend fun getTrackerLocalLocations() =
+        trackerDao.getLocations(auth.getCurrentUserId()).map { it.toLocation() }
 
 }

@@ -4,16 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.tracker.models.locations.dao.LocationEntity
-import com.example.tracker.models.locations.dao.LocationsDao
+import com.example.tracker.models.locations.dao.MapLocationEntity
+import com.example.tracker.models.locations.dao.MapLocationsDao
+import com.example.tracker.models.locations.dao.TrackerLocationEntity
+import com.example.tracker.models.locations.dao.TrackerLocationsDao
 
 @Database(
     version = 1,
-    entities = [LocationEntity::class]
+    entities = [TrackerLocationEntity::class, MapLocationEntity::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getMarkDao(): LocationsDao
+    abstract fun getLocationsDao(): TrackerLocationsDao
+
+    abstract fun getLoadedLocationsDao(): MapLocationsDao
 
     companion object {
 

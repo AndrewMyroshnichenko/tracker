@@ -9,4 +9,5 @@
     <color name="error_message_red_light">#FF8585</color>
     <color name="background_grey_tracker">#ACACAC</color>
     <color name="light_grey">#F7F7FA</color>
+    <color name="way_color">#00B0FF</color>
 </resources>
