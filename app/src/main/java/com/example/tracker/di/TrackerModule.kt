@@ -82,7 +82,7 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideLoadedLocationDao(database: AppDatabase): MapLocationsDao {
+    fun provideMapLocationDao(database: AppDatabase): MapLocationsDao {
         return database.getLoadedLocationsDao()
     }
 

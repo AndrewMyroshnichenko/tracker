@@ -9,7 +9,7 @@ import androidx.room.Upsert
 interface TrackerLocationsDao {
 
     @Upsert(entity = TrackerLocationEntity::class)
-    suspend fun upsertLocation(markDbEntity: TrackerLocationEntity)
+    suspend fun upsertLocation(locationEntity: TrackerLocationEntity)
 
     @Delete(entity = TrackerLocationEntity::class)
     suspend fun deleteLocation(locationEntity: TrackerLocationEntity)

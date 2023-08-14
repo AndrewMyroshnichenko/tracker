@@ -6,7 +6,6 @@ import com.example.tracker.models.locations.dao.MapLocationsDao
 import com.example.tracker.models.locations.dao.TrackerLocationEntity
 import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.tracker.models.locations.network.LocationsNetwork
-import java.lang.Exception
 
 class LocationsRepositoryImp(
     private val trackerDao: TrackerLocationsDao,
@@ -31,18 +30,14 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun getMapLocations(): List<Location> {
-        try {
-            downloadMapLocations()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        downloadMapLocations()
         return mapDao.getLocations(auth.getCurrentUserId()).map { it.toLocation() }
     }
 
     private suspend fun downloadMapLocations() {
-        network.downloadLocations(auth.getCurrentUserId()).forEach {
-            mapDao.upsertLocation(MapLocationEntity.toLocationEntity(it))
-        }
+        val list = network.downloadLocations(auth.getCurrentUserId())
+            .map { MapLocationEntity.toLocationEntity(it) }
+        mapDao.saveLocations(list)
     }
 
     private suspend fun getTrackerLocalLocations() =
