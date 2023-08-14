@@ -12,7 +12,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.type.LatLng
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
