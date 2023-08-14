@@ -1,11 +1,10 @@
-package com.example.tracker.di
+package com.example.tracker.models
 
 import android.content.Context
 import com.example.tracker.bg.LocationController
 import com.example.tracker.bg.LocationServiceController
 import com.example.tracker.bg.work.UploadWorkScheduler
 import com.example.tracker.bg.work.WorkScheduler
-import com.example.tracker.models.AppDatabase
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.auth.FireBaseAuth
 import com.example.tracker.models.bus.StatusManager

@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface MapLocationsDao {
 
-    @Insert(entity = MapLocationEntity::class, onConflict = OnConflictStrategy.IGNORE)
+    @Insert(entity = MapLocationEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLocations(locations: List<MapLocationEntity>)
 
     @Query("SELECT * FROM mapLocations WHERE ownerId = :ownerId")
