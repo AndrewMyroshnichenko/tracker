@@ -14,7 +14,10 @@ interface TrackerLocationsDao {
     @Delete(entity = TrackerLocationEntity::class)
     suspend fun deleteLocation(locationEntity: TrackerLocationEntity)
 
-    @Query("SELECT * FROM trackerLocations WHERE ownerId = :ownerId")
-    suspend fun getLocations(ownerId: String): List<TrackerLocationEntity>
+    @Query("DELETE FROM trackerLocations")
+    suspend fun deleteAllLocations()
+
+    @Query("SELECT * FROM trackerLocations")
+    suspend fun getLocations(): List<TrackerLocationEntity>
 
 }

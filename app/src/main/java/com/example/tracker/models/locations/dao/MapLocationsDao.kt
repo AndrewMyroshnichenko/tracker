@@ -1,6 +1,7 @@
 package com.example.tracker.models.locations.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -11,7 +12,10 @@ interface MapLocationsDao {
     @Insert(entity = MapLocationEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveLocations(locations: List<MapLocationEntity>)
 
-    @Query("SELECT * FROM mapLocations WHERE ownerId = :ownerId")
-    suspend fun getLocations(ownerId: String): List<MapLocationEntity>
+    @Query("DELETE FROM mapLocations")
+    suspend fun deleteAllLocations()
+
+    @Query("SELECT * FROM mapLocations")
+    suspend fun getLocations(): List<MapLocationEntity>
 
 }

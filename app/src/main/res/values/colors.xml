@@ -10,4 +10,5 @@
     <color name="background_grey_tracker">#ACACAC</color>
     <color name="light_grey">#F7F7FA</color>
     <color name="way_color">#00B0FF</color>
+    <color name="ic_launcher_background">#3DCFDC</color>
 </resources>

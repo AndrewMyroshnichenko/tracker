@@ -29,18 +29,23 @@ class LocationsRepositoryImp(
         }
     }
 
-    override suspend fun getMapLocations(): List<Location> {
-        downloadMapLocations()
-        return mapDao.getLocations(auth.getCurrentUserId()).map { it.toLocation() }
+    override suspend fun getMapLocations(lastLocationTime: Long): List<Location> {
+        downloadMapLocations(lastLocationTime)
+        return mapDao.getLocations().map { it.toLocation() }
     }
 
-    private suspend fun downloadMapLocations() {
-        val list = network.downloadLocations(auth.getCurrentUserId())
+    override suspend fun clearLocations() {
+        trackerDao.deleteAllLocations()
+        mapDao.deleteAllLocations()
+    }
+
+    private suspend fun downloadMapLocations(lastLocationTime: Long) {
+        val list = network.downloadLocations(auth.getCurrentUserId(), lastLocationTime)
             .map { MapLocationEntity.toLocationEntity(it) }
         mapDao.saveLocations(list)
     }
 
     private suspend fun getTrackerLocalLocations() =
-        trackerDao.getLocations(auth.getCurrentUserId()).map { it.toLocation() }
+        trackerDao.getLocations().map { it.toLocation() }
 
 }
