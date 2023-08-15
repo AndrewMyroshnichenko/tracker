@@ -31,16 +31,21 @@ class LocationsRepositoryImp(
         }
     }
 
-    override suspend fun getMapLocations(): List<Location> {
+    override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
+        lastLocationTime = getLastLocationTimeOrZero()
         downloadMapLocations(lastLocationTime)
-        val list = mapDao.getLocations().map { it.toLocation() }
-        list.maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
-        return list
+        return mapDao.getLocations().map { it.toLocation() }
+            .toMutableList()
+            .filter { it.time.toLong() in startDate..endDate }
     }
 
     override suspend fun clearLocations() {
         trackerDao.deleteAllLocations()
         mapDao.deleteAllLocations()
+    }
+
+    private suspend fun getLastLocationTimeOrZero(): Long {
+        return mapDao.getLocations().maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
     }
 
     private suspend fun downloadMapLocations(lastLocationTime: Long) {

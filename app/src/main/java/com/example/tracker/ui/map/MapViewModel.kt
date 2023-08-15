@@ -19,8 +19,7 @@ class MapViewModel @Inject constructor(
 
     override fun getFilteredLocations(startDate: Long, endDate: Long) {
         viewModelScope.launch {
-            val list = locationsRepository.getMapLocations()
-                .filter { it.time.toLong() in startDate..endDate }
+            val list = locationsRepository.getMapLocations(startDate, endDate)
             setState(MapState(list))
         }
     }
