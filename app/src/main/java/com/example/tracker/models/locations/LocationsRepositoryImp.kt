@@ -1,5 +1,6 @@
 package com.example.tracker.models.locations
 
+import android.util.Log
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.locations.dao.MapLocationEntity
 import com.example.tracker.models.locations.dao.MapLocationsDao
@@ -14,7 +15,7 @@ class LocationsRepositoryImp(
     private val auth: Auth
 ) : LocationsRepository {
 
-    private var locationsCash: MutableList<Location>? = null
+    private var locationsCash: List<Location>? = null
 
     override suspend fun saveLocation(location: Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
@@ -34,7 +35,7 @@ class LocationsRepositoryImp(
     override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
 
         if (locationsCash == null) {
-            locationsCash = mapDao.getLocations().map { it.toLocation() }.toMutableList()
+            locationsCash = mapDao.getLocations().map { it.toLocation() }
         }
 
         var list: MutableList<Location> = locationsCash as MutableList<Location>
