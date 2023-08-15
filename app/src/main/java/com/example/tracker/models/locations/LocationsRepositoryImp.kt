@@ -45,7 +45,7 @@ class LocationsRepositoryImp(
 
         if (list.isEmpty() || firstLocation > startDate || lastLocation < endDate) {
             downloadMapLocations(lastLocation)
-            locationsCash = mapDao.getLocations().map { it.toLocation() }.toMutableList()
+            locationsCash = mapDao.getLocations().map { it.toLocation() }
             list = locationsCash as MutableList<Location>
         }
 
