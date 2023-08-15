@@ -14,7 +14,7 @@ class LocationsRepositoryImp(
     private val auth: Auth
 ) : LocationsRepository {
 
-    private var lastLocationTime = 0L
+    private var locationsCash: MutableList<Location>? = null
 
     override suspend fun saveLocation(location: Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
@@ -32,29 +32,25 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
-        if (!isTheRequestedDataStoredLocally(endDate)){
-            lastLocationTime = getLastLocationTimeOrZero()
-            downloadMapLocations(lastLocationTime)
+        if (locationsCash == null) {
+            locationsCash = mapDao.getLocations().map { it.toLocation() }.toMutableList()
         }
-        return mapDao.getLocations().map { it.toLocation() }
-            .toMutableList()
-            .filter { it.time.toLong() in startDate..endDate }
+
+        val list: MutableList<Location> = locationsCash as MutableList<Location>
+        val firstLocation = list.minByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
+        val lastLocation = list.maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
+
+        if (list.isEmpty() || firstLocation > startDate || lastLocation < endDate) {
+            downloadMapLocations(lastLocation)
+        } else {
+            list.filter { it.time.toLong() in startDate..endDate }
+        }
+        return list
     }
 
     override suspend fun clearLocations() {
         trackerDao.deleteAllLocations()
         mapDao.deleteAllLocations()
-    }
-
-    private fun isTheRequestedDataStoredLocally(endDate: Long): Boolean{
-        if (lastLocationTime > endDate) {
-            return true
-        }
-        return false
-    }
-
-    private suspend fun getLastLocationTimeOrZero(): Long {
-        return mapDao.getLocations().maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
     }
 
     private suspend fun downloadMapLocations(lastLocationTime: Long) {
