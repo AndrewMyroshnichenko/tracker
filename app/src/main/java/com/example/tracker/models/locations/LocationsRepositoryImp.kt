@@ -32,20 +32,24 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
+
         if (locationsCash == null) {
             locationsCash = mapDao.getLocations().map { it.toLocation() }.toMutableList()
         }
 
-        val list: MutableList<Location> = locationsCash as MutableList<Location>
+        var list: MutableList<Location> = locationsCash as MutableList<Location>
+
         val firstLocation = list.minByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
         val lastLocation = list.maxByOrNull { it.time.toLong() }?.time?.toLong() ?: 0L
 
         if (list.isEmpty() || firstLocation > startDate || lastLocation < endDate) {
             downloadMapLocations(lastLocation)
-        } else {
-            list.filter { it.time.toLong() in startDate..endDate }
+            locationsCash = mapDao.getLocations().map { it.toLocation() }.toMutableList()
+            list = locationsCash as MutableList<Location>
         }
-        return list
+
+        return list.filter { it.time.toLong() in startDate..endDate }
+
     }
 
     override suspend fun clearLocations() {
