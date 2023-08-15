@@ -32,8 +32,10 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
-        lastLocationTime = getLastLocationTimeOrZero()
-        downloadMapLocations(lastLocationTime)
+        if (!isTheRequestedDataStoredLocally(endDate)){
+            lastLocationTime = getLastLocationTimeOrZero()
+            downloadMapLocations(lastLocationTime)
+        }
         return mapDao.getLocations().map { it.toLocation() }
             .toMutableList()
             .filter { it.time.toLong() in startDate..endDate }
@@ -42,6 +44,13 @@ class LocationsRepositoryImp(
     override suspend fun clearLocations() {
         trackerDao.deleteAllLocations()
         mapDao.deleteAllLocations()
+    }
+
+    private fun isTheRequestedDataStoredLocally(endDate: Long): Boolean{
+        if (lastLocationTime > endDate) {
+            return true
+        }
+        return false
     }
 
     private suspend fun getLastLocationTimeOrZero(): Long {
