@@ -1,7 +1,6 @@
 package com.example.tracker.models.locations.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,6 +15,6 @@ interface MapLocationsDao {
     suspend fun deleteAllLocations()
 
     @Query("SELECT * FROM mapLocations ORDER BY time ASC")
-    suspend fun getLocations(): List<MapLocationEntity>
+    suspend fun getLocations(startDate: Long, endDate: Long): List<MapLocationEntity>
 
 }

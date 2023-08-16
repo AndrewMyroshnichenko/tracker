@@ -17,13 +17,13 @@ class FirebaseLocationsNetwork : LocationsNetwork {
     }
 
     override suspend fun downloadLocations(
-        ownerId: String,
-        lastLocationTime: Long
+        ownerId: String, startDate: Long, endDate: Long
     ): List<Location> {
         val list = mutableListOf<Location>()
         remoteDb.collection(LOCATION_TABLE_NAME)
             .whereEqualTo(COLUMN_OWNER_ID, ownerId)
-            .whereGreaterThan(COLUMN_TIME, lastLocationTime.toString())
+            .whereGreaterThanOrEqualTo(COLUMN_TIME, startDate.toString())
+            .whereLessThanOrEqualTo(COLUMN_TIME, endDate.toString())
             .get()
             .addOnSuccessListener {
                 for (document in it) {

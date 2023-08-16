@@ -6,6 +6,10 @@ interface LocationsNetwork {
 
     suspend fun uploadLocation(location: Location)
 
-    suspend fun downloadLocations(ownerId: String, lastLocationTime: Long): List<Location>
+    suspend fun downloadLocations(
+        ownerId: String,
+        lastLocationTime: Long,
+        endDate: Long
+    ): List<Location>
 
 }
