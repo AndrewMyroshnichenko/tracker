@@ -1,6 +1,5 @@
 package com.example.tracker.models.locations
 
-import android.util.Log
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.locations.dao.MapLocationEntity
 import com.example.tracker.models.locations.dao.MapLocationsDao
@@ -23,7 +22,7 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun syncTrackerLocations() {
-        val locationsList = getTrackerLocalLocations()
+        val locationsList = getTrackerLocations()
         if (locationsList.isNotEmpty()) {
             locationsList.forEach {
                 network.uploadLocation(it)
@@ -33,6 +32,24 @@ class LocationsRepositoryImp(
     }
 
     override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
+        /*
+        LocationsSet result = cache.getLocations(startDate, endDate)
+        if (result.isRangeFilled()) {
+           setState(result.locations)
+           return
+        }
+        List<Locations> list = mapDao.getLocations(startDate, endDate).map { it.toLocation() }
+        LocationsSet result = LocationsSet(list, startDate, endDate)
+        cache.putLocations(list)
+        if (result.isRangeFilled()) {
+           setState(result.locations)
+           return
+        }
+        list = network.downloadLocations(auth.getCurrentUserId(), startDate, endDate)
+        mapDao.saveLocations(list.map { MapLocationEntity.toLocationEntity(it) })
+        cache.putLocations(list)
+        setState(result.locations)
+        */
 
         if (locationsCash == null) {
             locationsCash = mapDao.getLocations().map { it.toLocation() }
@@ -64,7 +81,6 @@ class LocationsRepositoryImp(
         mapDao.saveLocations(list)
     }
 
-    private suspend fun getTrackerLocalLocations() =
-        trackerDao.getLocations().map { it.toLocation() }
+    private suspend fun getTrackerLocations() = trackerDao.getLocations().map { it.toLocation() }
 
 }
