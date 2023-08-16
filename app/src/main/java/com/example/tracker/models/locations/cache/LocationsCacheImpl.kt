@@ -17,13 +17,14 @@ class LocationsCacheImpl(private val prefs: Prefs) : LocationsCache {
             loadedRanges = mutableListOf()
             loadedRanges?.addAll(prefs.getLoadedRanges())
         }
-        return loadedRanges?.first { p -> p.first <= startDate && p.second >= endDate }?.let { p ->
-            // range is loaded, but maybe data is not cached
-            val locations = locationsMap[p]?.filter { l ->
-                l.time.toLong() in startDate..endDate
-            } ?: listOf()
-            LocationsSet(locations, true)
-        } ?: kotlin.run {
+        return loadedRanges?.firstOrNull { p -> p.first <= startDate && p.second >= endDate }
+            ?.let { p ->
+                // range is loaded, but maybe data is not cached
+                val locations = locationsMap[p]?.filter { l ->
+                    l.time.toLong() in startDate..endDate
+                } ?: listOf()
+                LocationsSet(locations, true)
+            } ?: kotlin.run {
             // if ranges not found
             LocationsSet(Collections.emptyList(), false)
         }

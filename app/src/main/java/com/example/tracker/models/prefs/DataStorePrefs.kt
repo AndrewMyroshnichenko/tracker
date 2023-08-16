@@ -20,7 +20,7 @@ class DataStorePrefs(private val context: Context) : Prefs {
         return context.mapsDataStore.data.map {
             return@map gson.fromJson<List<Pair<Long, Long>>>(
                 it[KEY_RANGES] ?: "[]",
-                object : TypeToken<Pair<Long, Long>>() {}.type
+                object : TypeToken<List<Pair<Long, Long>>>() {}.type
             )
         }.first()
     }
