@@ -22,7 +22,7 @@ class MapActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirebaseApp.initializeApp(this)
+//        FirebaseApp.initializeApp(this)
         bind = ActivityMapBinding.inflate(layoutInflater)
         setContentView(bind?.root)
     }
