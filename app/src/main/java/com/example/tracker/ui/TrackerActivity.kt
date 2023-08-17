@@ -1,6 +1,7 @@
 package com.example.tracker.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -44,6 +45,7 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     }
 
     override fun proceedSplashToMainScreen() {
+        Log.d("BUG","Tracker")
         navController?.navigate(
             R.id.action_splashFragment_to_trackerFragment, null,
             NavOptions.Builder()
