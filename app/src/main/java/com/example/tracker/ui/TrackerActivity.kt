@@ -11,6 +11,7 @@ import com.example.tracker.databinding.ActivityTrackerBinding
 import com.example.tracker.ui.login.LoginContract
 import com.example.tracker.ui.splash.SplashContract
 import com.example.tracker.ui.tracker.TrackerContract
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+            //FirebaseApp.initializeApp(this)
         bind = ActivityTrackerBinding.inflate(layoutInflater)
         setContentView(bind?.root)
     }
@@ -45,7 +47,7 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     }
 
     override fun proceedSplashToMainScreen() {
-        Log.d("BUG","Tracker")
+        Log.d("BUG","Tracker navigate")
         navController?.navigate(
             R.id.action_splashFragment_to_trackerFragment, null,
             NavOptions.Builder()

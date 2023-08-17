@@ -11,6 +11,7 @@ import com.example.tracker.databinding.ActivityMapBinding
 import com.example.tracker.ui.login.LoginContract
 import com.example.tracker.ui.map.MapContract
 import com.example.tracker.ui.splash.SplashContract
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +22,7 @@ class MapActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         bind = ActivityMapBinding.inflate(layoutInflater)
         setContentView(bind?.root)
     }
@@ -43,7 +45,7 @@ class MapActivity : AppCompatActivity(), SplashContract.Host, LoginContract.Host
     }
 
     override fun proceedSplashToMainScreen() {
-        Log.d("BUG","Map")
+        Log.d("BUG","Map navigate")
         navController?.navigate(R.id.action_splashFragment_to_mapFragment, null,
             NavOptions.Builder()
                 .setPopUpTo(R.id.splashFragment, true)

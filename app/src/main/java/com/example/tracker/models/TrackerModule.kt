@@ -33,6 +33,12 @@ class TrackerModule {
 
     @Provides
     @Singleton
+    fun provideAuth(): Auth {
+        return FireBaseAuth()
+    }
+
+    @Provides
+    @Singleton
     fun provideDefaultLocationSource(@ApplicationContext context: Context): LocationSource {
         return DefaultLocationSource(context)
     }
@@ -41,12 +47,6 @@ class TrackerModule {
     @Singleton
     fun provideDefaultLocationModel(): StatusManager {
         return TrackerStatusManager()
-    }
-
-    @Provides
-    @Singleton
-    fun provideAuth(): Auth {
-        return FireBaseAuth()
     }
 
     @Provides
