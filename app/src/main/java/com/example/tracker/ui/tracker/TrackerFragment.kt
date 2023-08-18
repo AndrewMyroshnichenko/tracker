@@ -175,13 +175,13 @@ class TrackerFragment :
 
     override fun showLogOutDialog() {
         AlertDialog.Builder(context)
-            .setTitle("Log out")
-            .setMessage("Do you want log out and clear all local locations?")
-            .setPositiveButton("Yes") { d, _ ->
+            .setTitle(getString(R.string.log_out))
+            .setMessage(getString(R.string.do_you_want_log_out_and_clear_all_local_locations))
+            .setPositiveButton(getString(R.string.yes)) { d, _ ->
                 d.dismiss()
                 model?.clearLocationsAndSignOut()
             }
-            .setNegativeButton("No") { d, _ ->
+            .setNegativeButton(getString(R.string.no)) { d, _ ->
                 d.dismiss()
                 model?.scheduleUploadLocations()
             }
