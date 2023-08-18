@@ -20,7 +20,7 @@
         tools:targetApi="34">
         <activity
             android:name=".ui.TrackerActivity"
-            android:taskAffinity="com.example.process1"
+            android:taskAffinity="com.example.trackerTask"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
         <!--I'll change the icon when I move it to the other module-->
         <activity
             android:name=".ui.MapActivity"
-            android:process=":process1"
+            android:process=":mapProcess"
             android:exported="true"
             android:icon="@drawable/ic_maps"
             android:label="@string/app_map">
