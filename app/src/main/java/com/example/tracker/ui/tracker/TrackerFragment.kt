@@ -31,6 +31,7 @@ class TrackerFragment :
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             if (permissions.all { it.value }) {
+                toggleTrack()
                 return@registerForActivityResult
             }
             view?.let {
