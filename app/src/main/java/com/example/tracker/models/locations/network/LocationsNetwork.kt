@@ -8,7 +8,7 @@ interface LocationsNetwork {
 
     suspend fun downloadLocations(
         ownerId: String,
-        lastLocationTime: Long,
+        startDate: Long,
         endDate: Long
     ): List<Location>
 

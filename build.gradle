@@ -4,7 +4,7 @@ buildscript {
     ext.nav_version = "2.6.0"
     ext.firebase_bom = "32.1.1"
     ext.firestore_ktx = "24.7.0"
-    ext.firebase_auth_ktx = "22.1.0"
+    ext.firebase_auth_ktx = "22.1.1"
     ext.service_location = "21.0.1"
     ext.hilt_version = "2.46.1"
     ext.fragment_ktx = "1.6.1"

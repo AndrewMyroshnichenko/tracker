@@ -9,8 +9,8 @@ data class TrackerLocationEntity(
     @PrimaryKey
     val time: String,
     val ownerId: String,
-    val latitude: String,
-    val longitude: String
+    val latitude: Double,
+    val longitude: Double
 ) {
 
     fun toLocation(): Location = Location(

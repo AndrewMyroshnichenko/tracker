@@ -50,7 +50,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
         mapFragment.getMapAsync { googleMap ->
             renderMarks(
                 googleMap,
-                locationsList.map { LatLng(it.latitude.toDouble(), it.longitude.toDouble()) })
+                locationsList.map { LatLng(it.latitude, it.longitude) })
         }
     }
 
