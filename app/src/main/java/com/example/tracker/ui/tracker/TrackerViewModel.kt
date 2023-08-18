@@ -65,7 +65,7 @@ class TrackerViewModel @Inject constructor(
     }
 
     private fun exit() {
-        authNetwork.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
+        authNetwork.signOut()
     }
 }
