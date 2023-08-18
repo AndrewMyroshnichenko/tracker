@@ -6,7 +6,6 @@ import com.example.tracker.models.locations.LocationsRepository
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.map.state.MapEffect
 import com.example.tracker.ui.map.state.MapState
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,6 +1,5 @@
 package com.example.tracker.mvi
 
-
 import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
