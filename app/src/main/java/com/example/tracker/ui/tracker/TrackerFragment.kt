@@ -5,12 +5,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
@@ -84,7 +86,7 @@ class TrackerFragment :
     override fun startStopService(act: String) {
         Intent(requireContext(), LocationService::class.java).apply {
             action = act
-            requireContext().startService(this)
+            ContextCompat.startForegroundService(requireContext(), this)
         }
     }
 
@@ -156,6 +158,7 @@ class TrackerFragment :
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 
+
     private fun requestLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) ||
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -165,9 +168,14 @@ class TrackerFragment :
             startActivity(intent)
         } else {
             locationPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                    arrayOf(
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    ) else arrayOf(
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
                 )
             )
         }

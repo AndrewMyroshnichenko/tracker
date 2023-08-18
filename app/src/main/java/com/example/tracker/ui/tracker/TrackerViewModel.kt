@@ -41,29 +41,30 @@ class TrackerViewModel @Inject constructor(
     }
 
     override fun clearLocationsAndSignOut() {
-        viewModelScope.launch{
+        viewModelScope.launch {
             locationsRepository.clearLocations()
             exit()
         }
     }
 
-    override fun scheduleUploadLocations(){
+    override fun scheduleUploadLocations() {
         worker.scheduleSync()
     }
 
     override fun singOut() {
         viewModelScope.launch {
+
             try {
                 locationsRepository.syncTrackerLocations()
                 exit()
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 setEffect(TrackerEffect.ShowLogOutDialog())
             }
 
         }
     }
 
-    private fun exit(){
+    private fun exit() {
         authNetwork.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
     }
