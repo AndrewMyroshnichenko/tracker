@@ -1,7 +1,6 @@
 package com.example.tracker.ui.tracker
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -12,13 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.tracker.ui.signout.SignOutFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 import com.example.tracker.utils.PermissionsUtil
 import com.google.android.material.snackbar.Snackbar
@@ -27,8 +27,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TrackerFragment :
     HostedFragment<TrackerContract.View, TrackerContract.ViewModel, TrackerContract.Host>(),
-    TrackerContract.View, View.OnClickListener {
+    TrackerContract.View, View.OnClickListener, FragmentResultListener {
 
+    private val signOutFragment = SignOutFragment()
     private var bind: FragmentTrackerBinding? = null
 
     private val locationPermissionLauncher =
@@ -60,6 +61,9 @@ class TrackerFragment :
         super.onViewCreated(view, savedInstanceState)
         bind?.ibSignout?.setOnClickListener(this)
         bind?.btStartStop?.setOnClickListener(this)
+        childFragmentManager.setFragmentResultListener(
+            SignOutFragment.SIGN_OUT_REQUEST_KEY, this, this
+        )
     }
 
     override fun onClick(v: View?) {
@@ -174,26 +178,19 @@ class TrackerFragment :
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.POST_NOTIFICATIONS
                     ) else arrayOf(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
                 )
             )
         }
     }
 
     override fun showLogOutDialog() {
-        AlertDialog.Builder(context)
-            .setTitle(getString(R.string.log_out))
-            .setMessage(getString(R.string.do_you_want_log_out_and_clear_all_local_locations))
-            .setPositiveButton(getString(R.string.yes)) { d, _ ->
-                d.dismiss()
-                model?.clearLocationsAndSignOut()
-            }
-            .setNegativeButton(getString(R.string.no)) { d, _ ->
-                d.dismiss()
-                model?.scheduleUploadLocations()
-            }
-            .create()
-            .show()
+        signOutFragment.show(childFragmentManager, null)
+    }
+
+    override fun onFragmentResult(requestKey: String, result: Bundle) {
+        val isSignOut = result.getBoolean(SignOutFragment.SIGN_OUT)
+        if (isSignOut) model?.clearLocationsAndSignOut() else model?.scheduleUploadLocations()
     }
 }

@@ -42,5 +42,6 @@
     <!--Map Strings-->
     <string name="app_map">Map</string>
     <string name="last_hours">last hours</string>
+    <string name="timeline">Timeline</string>
 
 </resources>
