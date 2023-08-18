@@ -8,6 +8,10 @@ class TrackerContract {
 
         fun singOut()
 
+        fun clearLocationsAndSignOut()
+
+        fun scheduleUploadLocations()
+
     }
 
     interface View : FragmentContract.View{
@@ -17,6 +21,9 @@ class TrackerContract {
         fun startStopService(act: String)
 
         fun proceedToLoginScreen()
+
+        fun showLogOutDialog()
+
     }
 
     interface Host : FragmentContract.Host {

@@ -1,6 +1,7 @@
 package com.example.tracker.ui.tracker
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -170,5 +171,21 @@ class TrackerFragment :
                 )
             )
         }
+    }
+
+    override fun showLogOutDialog() {
+        AlertDialog.Builder(context)
+            .setTitle("Log out")
+            .setMessage("Do you want log out and clear all local locations?")
+            .setPositiveButton("Yes") { d, _ ->
+                d.dismiss()
+                model?.clearLocationsAndSignOut()
+            }
+            .setNegativeButton("No") { d, _ ->
+                d.dismiss()
+                model?.scheduleUploadLocations()
+            }
+            .create()
+            .show()
     }
 }
