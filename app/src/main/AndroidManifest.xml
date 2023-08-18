@@ -33,7 +33,7 @@
             android:name=".ui.MapActivity"
             android:process=":process1"
             android:exported="true"
-            android:icon="@color/black"
+            android:icon="@drawable/ic_maps"
             android:label="@string/app_map">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
