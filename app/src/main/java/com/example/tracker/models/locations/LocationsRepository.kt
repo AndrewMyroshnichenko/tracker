@@ -8,6 +8,10 @@ interface LocationsRepository {
 
     suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location>
 
+    suspend fun getTrackerLocations(): List<Location>
+
     suspend fun clearLocations()
+
+
 
 }

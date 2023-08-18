@@ -28,7 +28,7 @@ class TrackerViewModel @Inject constructor(
                     gpsStateCache.getServiceStatus(),
                     gpsStateCache.getGpsStatus(),
                     gpsStateCache.getLocationsCounter()
-                ) { servStatus, gpsStatus , counter ->
+                ) { servStatus, gpsStatus, counter ->
                     TrackerState(servStatus, gpsStatus, counter)
                 }.collect { newState ->
                     setState(newState)
@@ -38,10 +38,24 @@ class TrackerViewModel @Inject constructor(
     }
 
     override fun singOut() {
-        authNetwork.signOut()
+        //authNetwork.signOut()
         viewModelScope.launch {
-            locationsRepository.clearLocations()
-            setEffect(TrackerEffect.NavigateAfterLogOut())
+            try {
+                locationsRepository.syncTrackerLocations()
+                authNetwork.signOut()
+                setEffect(TrackerEffect.NavigateAfterLogOut())
+            } catch (e: Exception) {
+
+            }
+/*            val list = locationsRepository.getTrackerLocations()
+            if (list.isEmpty()) {
+                authNetwork.signOut()
+                setEffect(TrackerEffect.NavigateAfterLogOut())
+            } else {
+                locationsRepository.syncTrackerLocations()
+            }*/
+
+
         }
     }
 }

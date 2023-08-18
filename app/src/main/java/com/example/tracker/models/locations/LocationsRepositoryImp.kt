@@ -47,12 +47,14 @@ class LocationsRepositoryImp(
         return list
     }
 
+    override suspend fun getTrackerLocations() = trackerDao.getLocations().map { it.toLocation() }
+
     override suspend fun clearLocations() {
         trackerDao.deleteAllLocations()
         mapDao.deleteAllLocations()
         cache.clear()
     }
 
-    private suspend fun getTrackerLocations() = trackerDao.getLocations().map { it.toLocation() }
+
 
 }
