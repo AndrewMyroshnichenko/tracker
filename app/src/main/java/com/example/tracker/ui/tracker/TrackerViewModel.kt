@@ -55,7 +55,7 @@ class TrackerViewModel @Inject constructor(
     override fun singOut() {
         viewModelScope.launch {
             try {
-                withTimeout(5000) {
+                withTimeout(DELAY) {
                     locationsRepository.syncTrackerLocations()
                 }
                 exit()
@@ -68,5 +68,9 @@ class TrackerViewModel @Inject constructor(
     private fun exit() {
         authNetwork.signOut()
         setEffect(TrackerEffect.NavigateAfterLogOut())
+    }
+
+    companion object {
+        const val DELAY = 5000L
     }
 }
