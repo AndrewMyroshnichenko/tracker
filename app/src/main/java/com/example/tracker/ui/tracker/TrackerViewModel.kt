@@ -12,6 +12,7 @@ import com.example.tracker.ui.tracker.state.TrackerState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 
@@ -53,19 +54,19 @@ class TrackerViewModel @Inject constructor(
 
     override fun singOut() {
         viewModelScope.launch {
-
             try {
-                locationsRepository.syncTrackerLocations()
+                withTimeout(5000) {
+                    locationsRepository.syncTrackerLocations()
+                }
                 exit()
             } catch (e: Exception) {
                 setEffect(TrackerEffect.ShowLogOutDialog())
             }
-
         }
     }
 
     private fun exit() {
-        setEffect(TrackerEffect.NavigateAfterLogOut())
         authNetwork.signOut()
+        setEffect(TrackerEffect.NavigateAfterLogOut())
     }
 }
