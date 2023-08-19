@@ -48,8 +48,8 @@ class LocationService : Service() {
 
     private fun start() {
         val notification: Notification = NotificationCompat.Builder(this, TRACKER_CHANNEL_ID)
-            .setContentTitle("tracker")
-            .setContentText("Tracking your location...")
+            .setContentTitle(getString(R.string.tracker))
+            .setContentText(getString(R.string.collects_locations))
             .build()
         startForeground(TRACKER_NOTIFICATION_ID, notification)
         controller.onCreate()
