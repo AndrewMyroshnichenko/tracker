@@ -44,7 +44,6 @@ class LocationService : Service() {
     }
 
     override fun onDestroy() {
-        Log.d("TAG", "Destroyed")
         super.onDestroy()
         controller.onDestroy()
     }
@@ -62,6 +61,7 @@ class LocationService : Service() {
     }
 
     private fun stop() {
+        stopForeground(STOP_FOREGROUND_DETACH)
         stopSelf()
     }
 
