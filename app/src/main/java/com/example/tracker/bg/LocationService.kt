@@ -3,10 +3,12 @@ package com.example.tracker.bg
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.tracker.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,13 +37,14 @@ class LocationService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
-            ACTION_START -> start()
-            ACTION_STOP -> stop()
+            START -> start()
+            STOP -> stop()
         }
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
+        Log.d("TAG", "Destroyed")
         super.onDestroy()
         controller.onDestroy()
     }
@@ -50,6 +53,9 @@ class LocationService : Service() {
         val notification: Notification = NotificationCompat.Builder(this, TRACKER_CHANNEL_ID)
             .setContentTitle(getString(R.string.tracker))
             .setContentText(getString(R.string.collects_locations))
+            .setSmallIcon(R.drawable.img_tracker_collects_locations)
+            .addAction(R.drawable.ic_stop, getString(R.string.stop), startStopIntent(STOP))
+            .addAction(R.drawable.ic_start, getString(R.string.start), startStopIntent(START))
             .build()
         startForeground(TRACKER_NOTIFICATION_ID, notification)
         controller.onCreate()
@@ -59,9 +65,15 @@ class LocationService : Service() {
         stopSelf()
     }
 
+    private fun startStopIntent(action: String): PendingIntent {
+        val intent = Intent(this, LocationService::class.java)
+        intent.action = action
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    }
+
     companion object {
-        const val ACTION_START = "ACTION_START"
-        const val ACTION_STOP = "ACTION_STOP"
+        const val START = "ACTION_START"
+        const val STOP = "ACTION_STOP"
         const val TRACKER_CHANNEL_ID = "TRACKER_CHANNEL_ID"
         const val TRACKER_NOTIFICATION_ID = 1
     }

@@ -77,10 +77,10 @@ class TrackerFragment :
         val state = model?.getStateObservable()?.value as TrackerState
 
         if (state.serviceRunning) {
-            startStopService(LocationService.ACTION_STOP)
+            startStopService(LocationService.STOP)
         } else {
             if (PermissionsUtil.hasLocationPermission(requireContext())) {
-                startStopService(LocationService.ACTION_START)
+                startStopService(LocationService.START)
             } else {
                 requestLocationPermission()
             }
