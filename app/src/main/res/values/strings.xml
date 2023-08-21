@@ -43,6 +43,6 @@
     <string name="app_map">Map</string>
     <string name="last_hours">last hours</string>
     <string name="timeline">Timeline</string>
-    <string name="service_state_idle">Tracker sleeps</string>
+    <string name="service_state_idle">Tracker is OFF</string>
 
 </resources>
