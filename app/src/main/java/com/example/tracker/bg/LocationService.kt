@@ -8,8 +8,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.tracker.R
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,19 +20,11 @@ class LocationService : Service() {
     @Inject
     lateinit var controller: LocationController
 
+    private val builder = NotificationCompat.Builder(this, TRACKER_CHANNEL_ID)
+
     override fun onCreate() {
         super.onCreate()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                TRACKER_CHANNEL_ID,
-                TRACKER_CHANNEL_ID,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            val notificationManager = getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+        createNotificationChannel()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -49,20 +41,49 @@ class LocationService : Service() {
     }
 
     private fun start() {
-        val notification: Notification = NotificationCompat.Builder(this, TRACKER_CHANNEL_ID)
-            .setContentTitle(getString(R.string.tracker))
-            .setContentText(getString(R.string.collects_locations))
-            .setSmallIcon(R.drawable.img_tracker_collects_locations)
-            .addAction(R.drawable.ic_stop, getString(R.string.stop), startStopIntent(STOP))
-            .addAction(R.drawable.ic_start, getString(R.string.start), startStopIntent(START))
-            .build()
-        startForeground(TRACKER_NOTIFICATION_ID, notification)
+        startForeground(TRACKER_NOTIFICATION_ID, createAndUpdateNotification(START))
         controller.onCreate()
     }
 
     private fun stop() {
+        startForeground(TRACKER_NOTIFICATION_ID, createAndUpdateNotification(STOP))
         stopForeground(STOP_FOREGROUND_DETACH)
         stopSelf()
+    }
+
+    private fun createNotificationChannel() {
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                TRACKER_CHANNEL_ID,
+                TRACKER_CHANNEL_ID,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun proceedToTrackerFragment(): PendingIntent {
+        return NavDeepLinkBuilder(this)
+            .setGraph(R.navigation.nav_tracker_graph)
+            .setDestination(R.id.trackerFragment)
+            .createPendingIntent()
+    }
+
+    private fun createAndUpdateNotification(action: String): Notification {
+        return builder
+            .clearActions()
+            .setContentTitle(getString(R.string.tracker))
+            .setContentText( if (action == START) getString(R.string.collects_locations) else "")
+            .setSmallIcon(R.drawable.img_tracker_collects_locations)
+            .setContentIntent(proceedToTrackerFragment())
+            .addAction(
+                if (action == START) R.drawable.ic_stop else R.drawable.ic_start,
+                if (action == START) getString(R.string.stop) else getString(R.string.start),
+                if (action == START) startStopIntent(STOP) else startStopIntent(START)
+            )
+            .setOngoing(false)
+            .build()
     }
 
     private fun startStopIntent(action: String): PendingIntent {
