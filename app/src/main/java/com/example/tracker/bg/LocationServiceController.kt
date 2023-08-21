@@ -4,6 +4,7 @@ import com.example.tracker.bg.work.WorkScheduler
 import com.example.tracker.models.bus.StatusManager
 import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
+import com.example.tracker.models.prefs.Prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,18 +12,25 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class LocationServiceController(
     private val location: LocationSource,
     private val gpsStateCache: StatusManager,
     private val locationRepository: LocationsRepository,
-    private val uploadWorkScheduler: WorkScheduler
+    private val uploadWorkScheduler: WorkScheduler,
+    private val prefs: Prefs
 ) : LocationController {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     override fun onCreate() {
         gpsStateCache.setServiceStatus(true)
+
+        serviceScope.launch {
+            prefs.putTrackerStatus(true)
+        }
+
         var locationCount = 0
 
         location.observeLocations()
@@ -45,8 +53,14 @@ class LocationServiceController(
     }
 
     override fun onDestroy() {
+
+        serviceScope.launch {
+            prefs.putTrackerStatus(false)
+        }
+
         gpsStateCache.setServiceStatus(false)
         gpsStateCache.setLocationsCounter(0)
         serviceScope.cancel()
+
     }
 }

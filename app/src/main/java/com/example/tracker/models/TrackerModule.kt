@@ -20,6 +20,7 @@ import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.example.tracker.models.locations.network.LocationsNetwork
 import com.example.tracker.models.prefs.DataStorePrefs
+import com.example.tracker.models.prefs.Prefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,13 +59,15 @@ class TrackerModule {
         locationSource: LocationSource,
         model: StatusManager,
         locationRepository: LocationsRepository,
-        uploadWorkScheduler: WorkScheduler
+        uploadWorkScheduler: WorkScheduler,
+        prefs: Prefs
     ): LocationController {
         return LocationServiceController(
             location = locationSource,
             gpsStateCache = model,
             locationRepository = locationRepository,
-            uploadWorkScheduler = uploadWorkScheduler
+            uploadWorkScheduler = uploadWorkScheduler,
+            prefs = prefs
         )
     }
 
@@ -100,5 +103,10 @@ class TrackerModule {
     @Provides
     fun provideWorkController(@ApplicationContext context: Context): WorkScheduler {
         return UploadWorkScheduler(context)
+    }
+
+    @Provides
+    fun provideDataStorePrefs(@ApplicationContext context: Context): Prefs {
+        return DataStorePrefs(context)
     }
 }

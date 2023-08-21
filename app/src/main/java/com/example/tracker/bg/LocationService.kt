@@ -35,11 +35,6 @@ class LocationService : Service() {
         return START_NOT_STICKY
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        controller.onDestroy()
-    }
-
     private fun start() {
         startForeground(TRACKER_NOTIFICATION_ID, createAndUpdateNotification(START))
         controller.onCreate()
@@ -48,6 +43,7 @@ class LocationService : Service() {
     private fun stop() {
         startForeground(TRACKER_NOTIFICATION_ID, createAndUpdateNotification(STOP))
         stopForeground(STOP_FOREGROUND_DETACH)
+        controller.onDestroy()
         stopSelf()
     }
 
