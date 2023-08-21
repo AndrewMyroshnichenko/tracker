@@ -165,8 +165,7 @@ class TrackerFragment :
 
     private fun requestLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) ||
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) ||
-            shouldShowRequestPermissionRationale(Manifest.permission.INTERNET)
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
         ) {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             intent.data = Uri.fromParts("package", requireActivity().packageName, null)
@@ -178,12 +177,9 @@ class TrackerFragment :
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.POST_NOTIFICATIONS,
-                        Manifest.permission.FOREGROUND_SERVICE,
-                        Manifest.permission.INTERNET
                     ) else arrayOf(
                     Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.INTERNET
                 )
             )
         }
