@@ -55,8 +55,7 @@ class LocationService : Service() {
         val notificationManager = getSystemService(NotificationManager::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                TRACKER_CHANNEL_ID,
-                TRACKER_CHANNEL_ID,
+                TRACKER_CHANNEL_ID, TRACKER_CHANNEL_ID,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
@@ -74,7 +73,7 @@ class LocationService : Service() {
         return builder
             .clearActions()
             .setContentTitle(getString(R.string.tracker))
-            .setContentText( if (action == START) getString(R.string.collects_locations) else "")
+            .setContentText(getString(if (action == START) R.string.collects_locations else R.string.service_state_idle))
             .setSmallIcon(R.drawable.img_tracker_collects_locations)
             .setContentIntent(proceedToTrackerFragment())
             .addAction(

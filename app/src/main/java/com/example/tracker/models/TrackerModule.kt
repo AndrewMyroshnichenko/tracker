@@ -32,10 +32,7 @@ import javax.inject.Singleton
 class TrackerModule {
 
     @Provides
-    @Singleton
-    fun provideAuth(): Auth {
-        return FireBaseAuth()
-    }
+    fun provideAuth(): Auth = FireBaseAuth()
 
     @Provides
     @Singleton
@@ -45,9 +42,7 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideDefaultLocationModel(): StatusManager {
-        return TrackerStatusManager()
-    }
+    fun provideDefaultLocationModel(): StatusManager = TrackerStatusManager()
 
     @Provides
     @Singleton
@@ -56,10 +51,7 @@ class TrackerModule {
     }
 
     @Provides
-    @Singleton
-    fun provideRemoteDb(): LocationsNetwork {
-        return FirebaseLocationsNetwork()
-    }
+    fun provideRemoteDb(): LocationsNetwork = FirebaseLocationsNetwork()
 
     @Provides
     fun provideLocationServiceController(
@@ -109,5 +101,4 @@ class TrackerModule {
     fun provideWorkController(@ApplicationContext context: Context): WorkScheduler {
         return UploadWorkScheduler(context)
     }
-
 }
