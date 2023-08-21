@@ -11,6 +11,7 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.tracker.R
+import com.example.tracker.ui.TrackerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -59,10 +60,13 @@ class LocationService : Service() {
     }
 
     private fun proceedToTrackerFragment(): PendingIntent {
-        return NavDeepLinkBuilder(this)
-            .setGraph(R.navigation.nav_tracker_graph)
-            .setDestination(R.id.trackerFragment)
-            .createPendingIntent()
+        val intent = Intent(this, TrackerActivity::class.java)
+        return PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     private fun createAndUpdateNotification(action: String): Notification {
@@ -84,7 +88,12 @@ class LocationService : Service() {
     private fun startStopIntent(action: String): PendingIntent {
         val intent = Intent(this, LocationService::class.java)
         intent.action = action
-        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        return PendingIntent.getService(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
     }
 
     companion object {
