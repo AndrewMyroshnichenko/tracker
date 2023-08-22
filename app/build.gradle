@@ -25,8 +25,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("Float", "SENSITIVITY", "10.0f")
-            buildConfigField("Long", "PERIOD", "5000L")
+            buildConfigField("Float", "SENSITIVITY", "60.0f")
+            buildConfigField("Long", "PERIOD", "600000L")
         }
         debug{
             buildConfigField("Float", "SENSITIVITY", "10.0f")

@@ -46,10 +46,17 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
         fragmentHost?.proceedLocationToLoginScreen()
     }
 
-    override fun showMapState(locationsList: List<Location>) {
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
-        mapFragment.getMapAsync { googleMap ->
-            renderMarks(googleMap, locationsList.map { LatLng(it.latitude, it.longitude) })
+    override fun showMapState(locationsList: List<Location>, isGetLocationsRunning: Boolean) {
+        if (isGetLocationsRunning){
+            bind?.mapBar?.visibility = View.VISIBLE
+        }else{
+            bind?.mapBar?.visibility = View.INVISIBLE
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
+            mapFragment.getMapAsync { googleMap ->
+                renderMarks(
+                    googleMap,
+                    locationsList.map { LatLng(it.latitude, it.longitude) })
+            }
         }
     }
 

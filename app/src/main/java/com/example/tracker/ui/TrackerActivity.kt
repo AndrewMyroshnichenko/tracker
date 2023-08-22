@@ -34,13 +34,18 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
         navController?.navigate(
             R.id.action_loginFragment_to_trackerFragment, null,
             NavOptions.Builder()
-                .setPopUpTo(R.id.splashFragment, true)
+                .setPopUpTo(R.id.loginFragment, true)
                 .build()
         )
     }
 
     override fun proceedSplashToAuthScreen() {
-        navController?.navigate(R.id.action_splashFragment_to_loginFragment)
+        navController?.navigate(
+            R.id.action_splashFragment_to_loginFragment, null,
+            NavOptions.Builder()
+                .setPopUpTo(R.id.splashFragment, true)
+                .build()
+        )
     }
 
     override fun proceedSplashToMainScreen() {
@@ -53,6 +58,11 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     }
 
     override fun proceedLocationToLoginScreen() {
-        navController?.navigate(R.id.action_trackerFragment_to_loginFragment)
+        navController?.navigate(
+            R.id.action_trackerFragment_to_loginFragment, null,
+            NavOptions.Builder()
+                .setPopUpTo(R.id.trackerFragment, true)
+                .build()
+        )
     }
 }

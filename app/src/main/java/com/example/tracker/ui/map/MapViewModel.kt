@@ -1,5 +1,6 @@
 package com.example.tracker.ui.map
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
 import com.example.tracker.models.auth.Auth
@@ -22,15 +23,22 @@ class MapViewModel @Inject constructor(
         setEffect(MapEffect.ShowMessage(R.string.download_failed))
     }
 
+    override fun onStateChanged(event: Lifecycle.Event) {
+        super.onStateChanged(event)
+        if (event == Lifecycle.Event.ON_CREATE) {
+            getFilteredLocations(startDate = getTodayTime())
+        }
+    }
+
     override fun getFilteredLocations(startDate: Long, endDate: Long) {
         viewModelScope.launch(exceptionHandler) {
-            val list = locationsRepository.getMapLocations(startDate, endDate)
+            setState(MapState(listOf(), true))
+            val list  = locationsRepository.getMapLocations(startDate, endDate)
             if (list.isEmpty()){
                 setEffect(MapEffect.ShowMessage(R.string.any_locations))
             }else{
-                setState(MapState(list))
+                setState(MapState(list, false))
             }
-
         }
     }
 
@@ -40,6 +48,14 @@ class MapViewModel @Inject constructor(
             locationsRepository.clearLocations()
             setEffect(MapEffect.NavigateAfterLogOut())
         }
+    }
+
+    private fun getTodayTime(): Long {
+        return System.currentTimeMillis() - MILLISECONDS_PER_DAY
+    }
+
+    companion object{
+        const val MILLISECONDS_PER_DAY = 86_400_000L
     }
 
 }

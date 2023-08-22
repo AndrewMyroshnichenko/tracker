@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_trackerFragment"
-            app:destination="@id/trackerFragment" />
+            app:destination="@id/trackerFragment"
+            app:popUpTo="@id/trackerFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
