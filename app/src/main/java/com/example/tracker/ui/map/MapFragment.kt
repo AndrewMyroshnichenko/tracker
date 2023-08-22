@@ -48,9 +48,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     override fun showMapState(locationsList: List<Location>) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
         mapFragment.getMapAsync { googleMap ->
-            renderMarks(
-                googleMap,
-                locationsList.map { LatLng(it.latitude, it.longitude) })
+            renderMarks(googleMap, locationsList.map { LatLng(it.latitude, it.longitude) })
         }
     }
 
@@ -70,9 +68,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
         picker.addOnPositiveButtonClickListener { selection ->
             model?.getFilteredLocations(selection.first, selection.second)
         }
-
         picker.show(childFragmentManager, null)
-
     }
 
     private fun renderMarks(mMap: GoogleMap, list: List<LatLng>) {
