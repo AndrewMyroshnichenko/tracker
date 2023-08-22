@@ -72,7 +72,6 @@ class TrackerModule {
     }
 
     @Provides
-//    @Singleton
     fun provideAppDataBase(@ApplicationContext context: Context): AppDatabase {
         return AppDatabase.getDB(context)
     }
