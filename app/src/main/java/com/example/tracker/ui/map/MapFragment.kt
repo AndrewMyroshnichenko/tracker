@@ -10,6 +10,7 @@ import com.example.tracker.R
 import com.example.tracker.databinding.FragmentMapBinding
 import com.example.tracker.models.locations.Location
 import com.example.tracker.mvi.fragments.HostedFragment
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
@@ -91,6 +92,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                 .addAll(list)
                 .color(R.color.way_color)
         )
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(list.last(), 15f))
     }
 
 }
