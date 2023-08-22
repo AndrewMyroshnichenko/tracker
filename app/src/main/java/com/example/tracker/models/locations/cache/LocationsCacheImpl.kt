@@ -1,10 +1,10 @@
 package com.example.tracker.models.locations.cache
 
 import com.example.tracker.models.locations.Location
-import com.example.tracker.models.prefs.Prefs
+import com.example.tracker.models.prefs.MapPrefs
 import java.util.Collections
 
-class LocationsCacheImpl(private val prefs: Prefs) : LocationsCache {
+class LocationsCacheImpl(private val prefs: MapPrefs) : LocationsCache {
     private var loadedRanges: MutableList<Pair<Long, Long>>? = null
     private var locationsMap = mutableMapOf<Pair<Long, Long>, List<Location>>()
 

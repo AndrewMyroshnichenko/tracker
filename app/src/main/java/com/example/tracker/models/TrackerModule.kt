@@ -19,8 +19,10 @@ import com.example.tracker.models.locations.dao.MapLocationsDao
 import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.example.tracker.models.locations.network.LocationsNetwork
-import com.example.tracker.models.prefs.DataStorePrefs
-import com.example.tracker.models.prefs.Prefs
+import com.example.tracker.models.prefs.MapDataStorePrefs
+import com.example.tracker.models.prefs.MapPrefs
+import com.example.tracker.models.prefs.TrackerDataStorePrefs
+import com.example.tracker.models.prefs.TrackerPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,7 +49,7 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideLocationsCache(prefs: Prefs): LocationsCache {
+    fun provideLocationsCache(prefs: MapPrefs): LocationsCache {
         return LocationsCacheImpl(prefs)
     }
 
@@ -60,7 +62,7 @@ class TrackerModule {
         model: StatusManager,
         locationRepository: LocationsRepository,
         uploadWorkScheduler: WorkScheduler,
-        prefs: Prefs
+        prefs: TrackerPrefs
     ): LocationController {
         return LocationServiceController(
             location = locationSource,
@@ -105,7 +107,15 @@ class TrackerModule {
     }
 
     @Provides
-    fun provideDataStorePrefs(@ApplicationContext context: Context): Prefs {
-        return DataStorePrefs(context)
+    @Singleton
+    fun provideTrackerDataStorePrefs(@ApplicationContext context: Context): TrackerPrefs {
+        return TrackerDataStorePrefs(context)
     }
+
+    @Provides
+    @Singleton
+    fun provideMapDataStorePrefs(@ApplicationContext context: Context): MapPrefs {
+        return MapDataStorePrefs(context)
+    }
+
 }

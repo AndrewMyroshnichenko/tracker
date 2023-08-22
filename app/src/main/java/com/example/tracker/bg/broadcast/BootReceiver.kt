@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
 import com.example.tracker.bg.LocationService
-import com.example.tracker.models.prefs.Prefs
+import com.example.tracker.models.prefs.TrackerPrefs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ class BootReceiver: BroadcastReceiver() {
 
 
     @Inject
-    lateinit var prefs: Prefs
+    lateinit var prefs: TrackerPrefs
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
