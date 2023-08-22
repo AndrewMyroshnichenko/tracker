@@ -17,6 +17,8 @@ class MapContract {
 
         fun proceedToLoginScreen()
 
+        fun showMessage(messageId: Int)
+
         fun showMapState(locationsList: List<Location>)
 
     }

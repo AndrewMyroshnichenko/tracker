@@ -26,11 +26,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("Float", "SENSITIVITY", "10.0f")
-            buildConfigField("Long", "PERIOD", "600000L")
+            buildConfigField("Long", "PERIOD", "5000L")
         }
         debug{
             buildConfigField("Float", "SENSITIVITY", "10.0f")
-            buildConfigField("Long", "PERIOD", "600000L")
+            buildConfigField("Long", "PERIOD", "5000L")
         }
     }
     compileOptions {
