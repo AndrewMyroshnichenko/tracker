@@ -3,7 +3,6 @@ package com.example.tracker.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.ActivityTrackerBinding
@@ -31,38 +30,18 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     }
 
     override fun proceedAuthToMainScreen() {
-        navController?.navigate(
-            R.id.action_loginFragment_to_trackerFragment, null,
-            NavOptions.Builder()
-                .setPopUpTo(R.id.loginFragment, true)
-                .build()
-        )
+        navController?.navigate(R.id.action_loginFragment_to_trackerFragment)
     }
 
     override fun proceedSplashToAuthScreen() {
-        navController?.navigate(
-            R.id.action_splashFragment_to_loginFragment, null,
-            NavOptions.Builder()
-                .setPopUpTo(R.id.splashFragment, true)
-                .build()
-        )
+        navController?.navigate(R.id.action_splashFragment_to_loginFragment)
     }
 
     override fun proceedSplashToMainScreen() {
-        navController?.navigate(
-            R.id.action_splashFragment_to_trackerFragment, null,
-            NavOptions.Builder()
-                .setPopUpTo(R.id.splashFragment, true)
-                .build()
-        )
+        navController?.navigate(R.id.action_splashFragment_to_trackerFragment)
     }
 
     override fun proceedLocationToLoginScreen() {
-        navController?.navigate(
-            R.id.action_trackerFragment_to_loginFragment, null,
-            NavOptions.Builder()
-                .setPopUpTo(R.id.trackerFragment, true)
-                .build()
-        )
+        navController?.navigate(R.id.action_trackerFragment_to_loginFragment)
     }
 }

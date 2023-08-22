@@ -29,9 +29,9 @@ class SplashViewModel @Inject constructor(
             viewModelScope.launch(handler) {
                 delay(splashDelay)
                 if (authNetwork.isSignedIn()) {
-                    setEffect(SplashEffect.ProceedToTrackerScreen)
+                    setEffect(SplashEffect.ProceedToTrackerScreen())
                 } else {
-                    setEffect(SplashEffect.ProceedToLoginScreen)
+                    setEffect(SplashEffect.ProceedToLoginScreen())
                 }
             }
         }

@@ -108,6 +108,4 @@ class TrackerModule {
     fun provideDataStorePrefs(@ApplicationContext context: Context): Prefs {
         return DataStorePrefs(context)
     }
-
-
 }

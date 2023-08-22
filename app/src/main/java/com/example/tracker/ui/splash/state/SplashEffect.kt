@@ -5,13 +5,13 @@ import com.example.tracker.ui.splash.SplashContract
 
 open class SplashEffect : AbstractEffect<SplashContract.View>() {
 
-    object ProceedToLoginScreen : SplashEffect() {
+    class ProceedToLoginScreen : SplashEffect() {
         override fun handle(screen: SplashContract.View) {
             screen.proceedToAuthScreen()
         }
     }
 
-    object ProceedToTrackerScreen : SplashEffect() {
+    class ProceedToTrackerScreen : SplashEffect() {
         override fun handle(screen: SplashContract.View) {
             screen.proceedToMainScreen()
         }
