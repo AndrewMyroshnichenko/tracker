@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
@@ -64,6 +65,9 @@ class TrackerFragment :
         childFragmentManager.setFragmentResultListener(
             SignOutFragment.SIGN_OUT_REQUEST_KEY, this, this
         )
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+            requireActivity().moveTaskToBack(true)
+        }
     }
 
     override fun onClick(v: View?) {
