@@ -47,8 +47,8 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideLocationsCache(@ApplicationContext context: Context): LocationsCache {
-        return LocationsCacheImpl(DataStorePrefs(context))
+    fun provideLocationsCache(prefs: Prefs): LocationsCache {
+        return LocationsCacheImpl(prefs)
     }
 
     @Provides
@@ -109,4 +109,6 @@ class TrackerModule {
     fun provideDataStorePrefs(@ApplicationContext context: Context): Prefs {
         return DataStorePrefs(context)
     }
+
+
 }
