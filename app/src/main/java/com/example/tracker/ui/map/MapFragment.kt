@@ -94,7 +94,10 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                 .addAll(list)
                 .color(R.color.way_color)
         )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(list.last(), 15f))
+        if (list.isNotEmpty()) {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(list.last(), 15f))
+        }
+
     }
 
 }
