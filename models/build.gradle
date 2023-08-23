@@ -38,8 +38,6 @@ dependencies {
     implementation "com.google.android.material:material:$android_material"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
     implementation "androidx.work:work-runtime-ktx:$work_runtime"
-    implementation "androidx.datastore:datastore-preferences:$datastore_preferences"
-    implementation "com.google.code.gson:gson:$gson"
 
     // Tests
     testImplementation "junit:junit:$ju_test_impl"
