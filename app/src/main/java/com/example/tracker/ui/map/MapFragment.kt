@@ -15,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -95,7 +96,17 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                 .color(R.color.way_color)
         )
         if (list.isNotEmpty()) {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(list.last(), 15f))
+            val boundsBuilder = LatLngBounds.Builder()
+            for (point in list) {
+                boundsBuilder.include(point)
+            }
+            val bounds = boundsBuilder.build()
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds,
+                    resources.getDimensionPixelSize(R.dimen.dp_10)
+                )
+            )
         }
     }
 
