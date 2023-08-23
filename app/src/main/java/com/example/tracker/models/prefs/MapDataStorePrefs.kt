@@ -33,5 +33,4 @@ class MapDataStorePrefs(private val context: Context) : MapPrefs {
     override suspend fun clear() {
         context.mapsDataStore.edit { it[KEY_RANGES] = "[]" }
     }
-
 }

@@ -9,7 +9,6 @@ import com.example.tracker.databinding.ActivityMapBinding
 import com.example.tracker.ui.login.LoginContract
 import com.example.tracker.ui.map.MapContract
 import com.example.tracker.ui.splash.SplashContract
-import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
