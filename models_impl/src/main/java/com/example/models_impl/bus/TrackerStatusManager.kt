@@ -1,4 +1,4 @@
-package com.example.tracker.models.bus
+package com.example.models_impl.bus
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

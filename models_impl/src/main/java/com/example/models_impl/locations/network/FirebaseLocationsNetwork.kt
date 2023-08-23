@@ -1,4 +1,4 @@
-package com.example.tracker.models.locations.network
+package com.example.models_impl.locations.network
 
 import com.example.models.locations.Location
 import com.google.firebase.firestore.FirebaseFirestore

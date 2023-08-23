@@ -25,12 +25,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("Float", "SENSITIVITY", "60.0f")
-            buildConfigField("Long", "PERIOD", "600000L")
-        }
-        debug{
-            buildConfigField("Float", "SENSITIVITY", "10.0f")
-            buildConfigField("Long", "PERIOD", "5000L")
         }
     }
     compileOptions {
@@ -51,6 +45,7 @@ dependencies {
     // Modules
     implementation project(':mvi')
     implementation project(':models')
+    implementation project(':models_impl')
 
     // Base dependencies
     implementation "androidx.core:core-ktx:$core_ktx"

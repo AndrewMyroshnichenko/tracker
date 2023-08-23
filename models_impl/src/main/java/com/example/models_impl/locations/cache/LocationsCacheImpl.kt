@@ -1,7 +1,7 @@
-package com.example.tracker.models.locations.cache
+package com.example.models_impl.locations.cache
 
 import com.example.models.locations.Location
-import com.example.tracker.models.prefs.MapPrefs
+import com.example.models.prefs.MapPrefs
 import java.util.Collections
 
 class LocationsCacheImpl(private val prefs: MapPrefs) :

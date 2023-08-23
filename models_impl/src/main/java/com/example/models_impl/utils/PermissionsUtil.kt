@@ -1,4 +1,4 @@
-package com.example.tracker.utils
+package com.example.models_impl.utils
 
 import android.Manifest
 import android.content.Context

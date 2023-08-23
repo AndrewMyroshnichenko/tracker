@@ -1,11 +1,12 @@
-package com.example.tracker.models.auth
+package com.example.models_impl.auth
 
+import com.example.models.auth.Auth
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.tasks.await
 import javax.inject.Singleton
 
 @Singleton
-class FireBaseAuth : com.example.models.auth.Auth {
+class FireBaseAuth : Auth {
 
     private val auth = FirebaseAuth.getInstance()
 

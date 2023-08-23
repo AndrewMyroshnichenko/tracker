@@ -21,7 +21,7 @@ import com.example.tracker.databinding.FragmentTrackerBinding
 import com.example.mvi.fragments.HostedFragment
 import com.example.tracker.ui.signout.SignOutFragment
 import com.example.tracker.ui.tracker.state.TrackerState
-import com.example.tracker.utils.PermissionsUtil
+import com.example.models_impl.utils.PermissionsUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 

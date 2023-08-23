@@ -1,10 +1,9 @@
 package com.example.tracker.bg
 
-import com.example.tracker.bg.work.WorkScheduler
 import com.example.models.bus.StatusManager
 import com.example.models.gps.LocationSource
+import com.example.tracker.bg.work.WorkScheduler
 import com.example.tracker.models.locations.LocationsRepository
-import com.example.tracker.models.prefs.TrackerPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -19,7 +18,7 @@ class LocationServiceController(
     private val gpsStateCache: StatusManager,
     private val locationRepository: LocationsRepository,
     private val uploadWorkScheduler: WorkScheduler,
-    private val prefs: TrackerPrefs
+    private val prefs: com.example.models.prefs.TrackerPrefs
 ) : LocationController {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)

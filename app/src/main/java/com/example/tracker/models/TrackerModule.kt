@@ -6,23 +6,15 @@ import com.example.tracker.bg.LocationServiceController
 import com.example.tracker.bg.work.UploadWorkScheduler
 import com.example.tracker.bg.work.WorkScheduler
 import com.example.models.auth.Auth
-import com.example.tracker.models.auth.FireBaseAuth
 import com.example.models.bus.StatusManager
-import com.example.tracker.models.bus.TrackerStatusManager
-import com.example.tracker.models.gps.DefaultLocationSource
 import com.example.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
 import com.example.tracker.models.locations.LocationsRepositoryImp
 import com.example.models.locations.cache.LocationsCache
-import com.example.tracker.models.locations.cache.LocationsCacheImpl
 import com.example.tracker.models.locations.dao.MapLocationsDao
 import com.example.tracker.models.locations.dao.TrackerLocationsDao
-import com.example.tracker.models.locations.network.FirebaseLocationsNetwork
 import com.example.models.locations.network.LocationsNetwork
-import com.example.tracker.models.prefs.MapDataStorePrefs
-import com.example.tracker.models.prefs.MapPrefs
-import com.example.tracker.models.prefs.TrackerDataStorePrefs
-import com.example.tracker.models.prefs.TrackerPrefs
+import com.example.models.prefs.MapPrefs
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,26 +27,28 @@ import javax.inject.Singleton
 class TrackerModule {
 
     @Provides
-    fun provideAuth(): Auth = FireBaseAuth()
+    fun provideAuth(): Auth = com.example.models_impl.auth.FireBaseAuth()
 
     @Provides
     @Singleton
     fun provideDefaultLocationSource(@ApplicationContext context: Context): LocationSource {
-        return DefaultLocationSource(context)
+        return com.example.models_impl.gps.DefaultLocationSource(context)
     }
 
     @Provides
     @Singleton
-    fun provideDefaultLocationModel(): StatusManager = TrackerStatusManager()
+    fun provideDefaultLocationModel(): StatusManager =
+        com.example.models_impl.bus.TrackerStatusManager()
 
     @Provides
     @Singleton
     fun provideLocationsCache(prefs: MapPrefs): LocationsCache {
-        return LocationsCacheImpl(prefs)
+        return com.example.models_impl.locations.cache.LocationsCacheImpl(prefs)
     }
 
     @Provides
-    fun provideRemoteDb(): LocationsNetwork = FirebaseLocationsNetwork()
+    fun provideRemoteDb(): LocationsNetwork =
+        com.example.models_impl.locations.network.FirebaseLocationsNetwork()
 
     @Provides
     fun provideLocationServiceController(
@@ -62,7 +56,7 @@ class TrackerModule {
         model: StatusManager,
         locationRepository: LocationsRepository,
         uploadWorkScheduler: WorkScheduler,
-        prefs: TrackerPrefs
+        prefs: com.example.models.prefs.TrackerPrefs
     ): LocationController {
         return LocationServiceController(
             location = locationSource,
@@ -108,14 +102,14 @@ class TrackerModule {
 
     @Provides
     @Singleton
-    fun provideTrackerDataStorePrefs(@ApplicationContext context: Context): TrackerPrefs {
-        return TrackerDataStorePrefs(context)
+    fun provideTrackerDataStorePrefs(@ApplicationContext context: Context): com.example.models.prefs.TrackerPrefs {
+        return com.example.models_impl.prefs.TrackerDataStorePrefs(context)
     }
 
     @Provides
     @Singleton
     fun provideMapDataStorePrefs(@ApplicationContext context: Context): MapPrefs {
-        return MapDataStorePrefs(context)
+        return com.example.models_impl.prefs.MapDataStorePrefs(context)
     }
 
 }

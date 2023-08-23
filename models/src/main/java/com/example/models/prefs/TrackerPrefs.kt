@@ -1,4 +1,4 @@
-package com.example.tracker.models.prefs
+package com.example.models.prefs
 
 interface TrackerPrefs {
     suspend fun getTrackerStatus(): Boolean
