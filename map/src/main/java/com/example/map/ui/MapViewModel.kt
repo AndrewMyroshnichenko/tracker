@@ -1,13 +1,13 @@
-package com.example.tracker.ui.map
+package com.example.map.ui
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
-import com.example.tracker.R
+import com.example.map.R
 import com.example.models.auth.Auth
 import com.example.models.LocationsRepository
 import com.example.mvi.MviViewModel
-import com.example.tracker.ui.map.state.MapEffect
-import com.example.tracker.ui.map.state.MapState
+import com.example.map.ui.state.MapEffect
+import com.example.map.ui.state.MapState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

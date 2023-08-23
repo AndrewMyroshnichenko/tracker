@@ -1,4 +1,4 @@
-package com.example.tracker.ui.map
+package com.example.map.ui
 
 import com.example.models.locations.Location
 import com.example.mvi.fragments.FragmentContract

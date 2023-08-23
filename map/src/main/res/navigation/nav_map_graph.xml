@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.example.tracker.ui.map.MapFragment"
+        android:name="com.example.map.ui.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action

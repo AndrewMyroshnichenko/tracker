@@ -1,14 +1,13 @@
-package com.example.tracker.ui
+package com.example.map.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.tracker.R
-import com.example.tracker.databinding.ActivityMapBinding
 import com.example.auth.login.LoginContract
-import com.example.tracker.ui.map.MapContract
 import com.example.auth.splash.SplashContract
+import com.example.map.R
+import com.example.map.databinding.ActivityMapBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

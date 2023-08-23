@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Login Strings-->
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="hint_user_name">User name</string>

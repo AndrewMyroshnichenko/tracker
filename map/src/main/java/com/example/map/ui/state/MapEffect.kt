@@ -1,7 +1,7 @@
-package com.example.tracker.ui.map.state
+package com.example.map.ui.state
 
 import com.example.mvi.states.AbstractEffect
-import com.example.tracker.ui.map.MapContract
+import com.example.map.ui.MapContract
 
 open class MapEffect : AbstractEffect<MapContract.View>() {
 
