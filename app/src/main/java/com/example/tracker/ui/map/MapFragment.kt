@@ -97,7 +97,6 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
         if (list.isNotEmpty()) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(list.last(), 15f))
         }
-
     }
 
 }
