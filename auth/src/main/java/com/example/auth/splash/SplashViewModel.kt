@@ -1,11 +1,11 @@
-package com.example.tracker.ui.splash
+package com.example.auth.splash
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.models.auth.Auth
 import com.example.mvi.MviViewModel
-import com.example.tracker.ui.splash.state.SplashEffect
-import com.example.tracker.ui.splash.state.SplashState
+import com.example.auth.splash.state.SplashEffect
+import com.example.auth.splash.state.SplashState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay

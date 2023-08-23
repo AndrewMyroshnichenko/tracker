@@ -1,4 +1,4 @@
-package com.example.tracker.ui.login
+package com.example.auth.login
 
 import com.example.mvi.fragments.FragmentContract
 

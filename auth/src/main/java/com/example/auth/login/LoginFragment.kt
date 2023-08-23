@@ -1,12 +1,12 @@
-package com.example.tracker.ui.login
+package com.example.auth.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.tracker.R
-import com.example.tracker.databinding.FragmentLoginBinding
+import com.example.auth.databinding.FragmentLoginBinding
+import com.example.auth.R
 import com.example.mvi.fragments.HostedFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

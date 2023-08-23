@@ -1,7 +1,7 @@
-package com.example.tracker.ui.login.state
+package com.example.auth.login.state
 
 import com.example.mvi.states.AbstractEffect
-import com.example.tracker.ui.login.LoginContract
+import com.example.auth.login.LoginContract
 
 open class LoginEffect : AbstractEffect<LoginContract.View>() {
 

@@ -1,4 +1,4 @@
-package com.example.tracker.ui.splash
+package com.example.auth.splash
 
 import com.example.mvi.fragments.FragmentContract
 

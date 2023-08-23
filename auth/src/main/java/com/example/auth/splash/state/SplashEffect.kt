@@ -1,7 +1,7 @@
-package com.example.tracker.ui.splash.state
+package com.example.auth.splash.state
 
 import com.example.mvi.states.AbstractEffect
-import com.example.tracker.ui.splash.SplashContract
+import com.example.auth.splash.SplashContract
 
 open class SplashEffect : AbstractEffect<SplashContract.View>() {
 

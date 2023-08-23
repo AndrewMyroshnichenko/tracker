@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.ActivityTrackerBinding
-import com.example.tracker.ui.login.LoginContract
-import com.example.tracker.ui.splash.SplashContract
+import com.example.auth.login.LoginContract
+import com.example.auth.splash.SplashContract
 import com.example.tracker.ui.tracker.TrackerContract
 import dagger.hilt.android.AndroidEntryPoint
 

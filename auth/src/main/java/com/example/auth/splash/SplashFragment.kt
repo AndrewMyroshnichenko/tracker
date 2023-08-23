@@ -1,11 +1,11 @@
-package com.example.tracker.ui.splash
+package com.example.auth.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.tracker.R
+import com.example.auth.R
 import com.example.mvi.fragments.HostedFragment
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -28,9 +30,17 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+
+    // Modules
+    implementation project(':mvi')
+    implementation project(':data')
+    implementation project(':models')
 
     // Base dependencies
     implementation "androidx.core:core-ktx:$core_ktx"
@@ -38,8 +48,22 @@ dependencies {
     implementation "com.google.android.material:material:$android_material"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
     implementation "androidx.work:work-runtime-ktx:$work_runtime"
-    implementation "androidx.datastore:datastore-preferences:$datastore_preferences"
-    implementation "com.google.code.gson:gson:$gson"
+
+    // Firebase
+    implementation "com.google.firebase:firebase-auth-ktx:$firebase_auth_ktx"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
+    implementation "androidx.hilt:hilt-common:$hilt_common_work"
+    implementation "androidx.hilt:hilt-work:$hilt_common_work"
+    kapt "androidx.hilt:hilt-compiler:$hilt_common_work"
+
 
     // Tests
     testImplementation "junit:junit:$ju_test_impl"
