@@ -21,6 +21,7 @@ class MapViewModel @Inject constructor(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
         setEffect(MapEffect.ShowMessage(R.string.download_failed))
+        setState(MapState(listOf(), false))
     }
 
     override fun onStateChanged(event: Lifecycle.Event) {
