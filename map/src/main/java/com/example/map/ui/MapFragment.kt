@@ -95,7 +95,32 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                 .addAll(list)
                 .color(R.color.way_color)
         )
+
         if (list.isNotEmpty()) {
+            val boundsBuilder = LatLngBounds.Builder()
+            var initialPoint: LatLng? = null
+
+            for (point in list) {
+                boundsBuilder.include(point)
+                if (initialPoint == null) {
+                    initialPoint = point
+                }
+            }
+
+            val bounds = boundsBuilder.build()
+            if (initialPoint != null) {
+                boundsBuilder.include(initialPoint)
+            }
+            mMap.animateCamera(
+                CameraUpdateFactory.newLatLngBounds(
+                    bounds,
+                    resources.getDimensionPixelSize(R.dimen.dp_10)
+                )
+            )
+
+        }
+
+/*        if (list.isNotEmpty()) {
             val boundsBuilder = LatLngBounds.Builder()
             for (point in list) {
                 boundsBuilder.include(point)
@@ -107,7 +132,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
                     resources.getDimensionPixelSize(R.dimen.dp_10)
                 )
             )
-        }
+        }*/
     }
 
 }
