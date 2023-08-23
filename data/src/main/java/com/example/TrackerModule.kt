@@ -1,20 +1,20 @@
-package com.example.tracker.models
+package com.example
 
 import android.content.Context
-import com.example.tracker.bg.LocationController
-import com.example.tracker.bg.LocationServiceController
-import com.example.tracker.bg.work.UploadWorkScheduler
-import com.example.tracker.bg.work.WorkScheduler
+import com.example.data.locations.dao.MapLocationsDao
+import com.example.data.locations.dao.TrackerLocationsDao
+import com.example.models.LocationsRepository
+import com.example.data.locations.LocationsRepositoryImp
 import com.example.models.auth.Auth
+import com.example.models.bg.LocationController
+import com.example.models.bg.work.WorkScheduler
 import com.example.models.bus.StatusManager
 import com.example.models.gps.LocationSource
-import com.example.tracker.models.locations.LocationsRepository
-import com.example.tracker.models.locations.LocationsRepositoryImp
 import com.example.models.locations.cache.LocationsCache
-import com.example.tracker.models.locations.dao.MapLocationsDao
-import com.example.tracker.models.locations.dao.TrackerLocationsDao
 import com.example.models.locations.network.LocationsNetwork
 import com.example.models.prefs.MapPrefs
+import com.example.models_impl.bg.LocationServiceController
+import com.example.models_impl.bg.work.UploadWorkScheduler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -92,7 +92,13 @@ class TrackerModule {
         cache: LocationsCache,
         auth: Auth
     ): LocationsRepository {
-        return LocationsRepositoryImp(trackerDao, mapDao, network, auth, cache)
+        return LocationsRepositoryImp(
+            trackerDao,
+            mapDao,
+            network,
+            auth,
+            cache
+        )
     }
 
     @Provides

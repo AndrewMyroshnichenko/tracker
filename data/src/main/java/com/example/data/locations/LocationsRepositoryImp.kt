@@ -1,11 +1,12 @@
-package com.example.tracker.models.locations
+package com.example.data.locations
 
 import com.example.models.auth.Auth
 import com.example.models.locations.cache.LocationsCache
-import com.example.tracker.models.locations.dao.MapLocationEntity
-import com.example.tracker.models.locations.dao.MapLocationsDao
-import com.example.tracker.models.locations.dao.TrackerLocationEntity
-import com.example.tracker.models.locations.dao.TrackerLocationsDao
+import com.example.data.locations.dao.MapLocationEntity
+import com.example.data.locations.dao.MapLocationsDao
+import com.example.data.locations.dao.TrackerLocationEntity
+import com.example.data.locations.dao.TrackerLocationsDao
+import com.example.models.LocationsRepository
 import com.example.models.locations.network.LocationsNetwork
 
 class LocationsRepositoryImp(

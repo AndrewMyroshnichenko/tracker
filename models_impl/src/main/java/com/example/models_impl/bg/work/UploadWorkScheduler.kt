@@ -1,10 +1,11 @@
-package com.example.tracker.bg.work
+package com.example.models_impl.bg.work
 
 import android.content.Context
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.example.models.bg.work.WorkScheduler
 
 class UploadWorkScheduler(private var context: Context) : WorkScheduler {
 

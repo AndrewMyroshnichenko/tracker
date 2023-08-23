@@ -1,11 +1,11 @@
-package com.example.tracker.models.locations.dao
+package com.example.data.locations.dao
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.models.locations.Location
 
-@Entity(MapLocationEntity.LOADED_LOCATIONS_TABLE_NAME)
-class MapLocationEntity(
+@Entity(TrackerLocationEntity.LOCATIONS_TABLE_NAME)
+data class TrackerLocationEntity(
     @PrimaryKey
     val time: String,
     val ownerId: String,
@@ -22,9 +22,9 @@ class MapLocationEntity(
 
     companion object {
 
-        const val LOADED_LOCATIONS_TABLE_NAME = "mapLocations"
+        const val LOCATIONS_TABLE_NAME = "trackerLocations"
 
-        fun toLocationEntity(location: Location) = MapLocationEntity(
+        fun toLocationEntity(location: Location) = TrackerLocationEntity(
             time = location.time,
             ownerId = location.ownerId,
             latitude = location.latitude,

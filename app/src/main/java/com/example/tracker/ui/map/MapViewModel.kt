@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
 import com.example.models.auth.Auth
-import com.example.tracker.models.locations.LocationsRepository
+import com.example.models.LocationsRepository
 import com.example.mvi.MviViewModel
 import com.example.tracker.ui.map.state.MapEffect
 import com.example.tracker.ui.map.state.MapState

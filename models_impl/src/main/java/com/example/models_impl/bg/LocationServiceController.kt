@@ -1,9 +1,10 @@
-package com.example.tracker.bg
+package com.example.models_impl.bg
 
+import com.example.models.LocationsRepository
 import com.example.models.bus.StatusManager
 import com.example.models.gps.LocationSource
-import com.example.tracker.bg.work.WorkScheduler
-import com.example.tracker.models.locations.LocationsRepository
+import com.example.models.bg.work.WorkScheduler
+import com.example.models.bg.LocationController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

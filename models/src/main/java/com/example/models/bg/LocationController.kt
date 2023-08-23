@@ -1,8 +1,9 @@
-package com.example.tracker.bg
+package com.example.models.bg
 
 interface LocationController {
 
     fun onCreate()
 
     fun onDestroy()
+
 }

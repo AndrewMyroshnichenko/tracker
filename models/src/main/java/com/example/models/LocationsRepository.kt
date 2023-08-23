@@ -1,4 +1,4 @@
-package com.example.tracker.models.locations
+package com.example.models
 
 interface LocationsRepository {
 

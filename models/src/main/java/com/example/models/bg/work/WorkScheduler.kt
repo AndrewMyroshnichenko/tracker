@@ -1,4 +1,4 @@
-package com.example.tracker.bg.work
+package com.example.models.bg.work
 
 interface WorkScheduler {
 

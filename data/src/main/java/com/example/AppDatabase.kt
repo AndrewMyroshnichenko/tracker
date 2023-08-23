@@ -1,13 +1,13 @@
-package com.example.tracker.models
+package com.example
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.tracker.models.locations.dao.MapLocationEntity
-import com.example.tracker.models.locations.dao.MapLocationsDao
-import com.example.tracker.models.locations.dao.TrackerLocationEntity
-import com.example.tracker.models.locations.dao.TrackerLocationsDao
+import com.example.data.locations.dao.MapLocationEntity
+import com.example.data.locations.dao.MapLocationsDao
+import com.example.data.locations.dao.TrackerLocationEntity
+import com.example.data.locations.dao.TrackerLocationsDao
 
 @Database(
     version = 1,
