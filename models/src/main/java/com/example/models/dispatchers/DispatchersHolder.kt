@@ -1,4 +1,4 @@
-package com.example.tracker.models.dispatchers
+package com.example.models.dispatchers
 
 import kotlinx.coroutines.CoroutineDispatcher
 

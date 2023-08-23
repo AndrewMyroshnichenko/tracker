@@ -1,4 +1,4 @@
-package com.example.tracker.models.bus
+package com.example.models.bus
 
 import kotlinx.coroutines.flow.Flow
 

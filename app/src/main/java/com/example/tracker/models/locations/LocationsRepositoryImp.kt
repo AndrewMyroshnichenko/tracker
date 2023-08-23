@@ -1,12 +1,12 @@
 package com.example.tracker.models.locations
 
-import com.example.tracker.models.auth.Auth
-import com.example.tracker.models.locations.cache.LocationsCache
+import com.example.models.auth.Auth
+import com.example.models.locations.cache.LocationsCache
 import com.example.tracker.models.locations.dao.MapLocationEntity
 import com.example.tracker.models.locations.dao.MapLocationsDao
 import com.example.tracker.models.locations.dao.TrackerLocationEntity
 import com.example.tracker.models.locations.dao.TrackerLocationsDao
-import com.example.tracker.models.locations.network.LocationsNetwork
+import com.example.models.locations.network.LocationsNetwork
 
 class LocationsRepositoryImp(
     private val trackerDao: TrackerLocationsDao,
@@ -16,7 +16,7 @@ class LocationsRepositoryImp(
     private val cache: LocationsCache
 ) : LocationsRepository {
 
-    override suspend fun saveLocation(location: Location) {
+    override suspend fun saveLocation(location: com.example.models.locations.Location) {
         val locationWithOwner = location.copy(ownerId = auth.getCurrentUserId())
         trackerDao.upsertLocation(TrackerLocationEntity.toLocationEntity(locationWithOwner))
     }
@@ -31,7 +31,7 @@ class LocationsRepositoryImp(
         }
     }
 
-    override suspend fun getMapLocations(startDate: Long, endDate: Long): List<Location> {
+    override suspend fun getMapLocations(startDate: Long, endDate: Long): List<com.example.models.locations.Location> {
         val result = cache.getLocations(startDate, endDate)
         if (result.locations.isNotEmpty()) {
             return result.locations

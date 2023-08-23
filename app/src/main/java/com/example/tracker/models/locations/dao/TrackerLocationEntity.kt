@@ -2,7 +2,7 @@ package com.example.tracker.models.locations.dao
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 
 @Entity(TrackerLocationEntity.LOCATIONS_TABLE_NAME)
 data class TrackerLocationEntity(

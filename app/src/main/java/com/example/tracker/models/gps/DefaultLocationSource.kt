@@ -6,7 +6,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
 import com.example.tracker.BuildConfig
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 import com.example.tracker.utils.PermissionsUtil
 import com.google.android.gms.location.*
 import kotlinx.coroutines.channels.awaitClose
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class DefaultLocationSource(
     private val context: Context,
-) : LocationSource {
+) : com.example.models.gps.LocationSource {
 
     private val gpsStatusFlow = MutableStateFlow(false)
 
@@ -26,7 +26,7 @@ class DefaultLocationSource(
         return callbackFlow {
 
             if (!PermissionsUtil.hasLocationPermission(context)) {
-                throw LocationSource.LocationException("Missing location permission")
+                throw com.example.models.gps.LocationSource.LocationException("Missing location permission")
             }
 
             val locationManager: LocationManager = context.getSystemService(

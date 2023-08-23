@@ -1,17 +1,18 @@
 package com.example.tracker.models.locations.cache
 
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 import com.example.tracker.models.prefs.MapPrefs
 import java.util.Collections
 
-class LocationsCacheImpl(private val prefs: MapPrefs) : LocationsCache {
+class LocationsCacheImpl(private val prefs: MapPrefs) :
+    com.example.models.locations.cache.LocationsCache {
     private var loadedRanges: MutableList<Pair<Long, Long>>? = null
     private var locationsMap = mutableMapOf<Pair<Long, Long>, List<Location>>()
 
-    override suspend fun getLocations(startDate: Long, endDate: Long): LocationsSet {
+    override suspend fun getLocations(startDate: Long, endDate: Long): com.example.models.locations.cache.LocationsSet {
         if (loadedRanges?.isEmpty() == true) {
             // if ranges are initialized and there is nothing
-            return LocationsSet(Collections.emptyList(), false)
+            return com.example.models.locations.cache.LocationsSet(Collections.emptyList(), false)
         }
         if (loadedRanges == null) {
             loadedRanges = mutableListOf()
@@ -23,10 +24,10 @@ class LocationsCacheImpl(private val prefs: MapPrefs) : LocationsCache {
                 val locations = locationsMap[p]?.filter { l ->
                     l.time.toLong() in startDate..endDate
                 } ?: listOf()
-                LocationsSet(locations, true)
+                com.example.models.locations.cache.LocationsSet(locations, true)
             } ?: kotlin.run {
             // if ranges not found
-            LocationsSet(Collections.emptyList(), false)
+            com.example.models.locations.cache.LocationsSet(Collections.emptyList(), false)
         }
     }
 

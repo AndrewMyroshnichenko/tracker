@@ -1,6 +1,6 @@
-package com.example.tracker.models.locations.network
+package com.example.models.locations.network
 
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 
 interface LocationsNetwork {
 

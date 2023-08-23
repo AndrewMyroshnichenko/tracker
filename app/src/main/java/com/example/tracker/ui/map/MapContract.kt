@@ -1,6 +1,6 @@
 package com.example.tracker.ui.map
 
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 import com.example.mvi.fragments.FragmentContract
 
 class MapContract {

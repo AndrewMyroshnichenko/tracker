@@ -1,8 +1,8 @@
 package com.example.tracker.bg
 
 import com.example.tracker.bg.work.WorkScheduler
-import com.example.tracker.models.bus.StatusManager
-import com.example.tracker.models.gps.LocationSource
+import com.example.models.bus.StatusManager
+import com.example.models.gps.LocationSource
 import com.example.tracker.models.locations.LocationsRepository
 import com.example.tracker.models.prefs.TrackerPrefs
 import kotlinx.coroutines.CoroutineScope

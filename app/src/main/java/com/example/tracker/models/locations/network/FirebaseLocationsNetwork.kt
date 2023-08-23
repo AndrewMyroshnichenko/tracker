@@ -1,13 +1,13 @@
 package com.example.tracker.models.locations.network
 
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 
-class FirebaseLocationsNetwork : LocationsNetwork {
+class FirebaseLocationsNetwork : com.example.models.locations.network.LocationsNetwork {
 
     private val remoteDb: FirebaseFirestore = Firebase.firestore
 

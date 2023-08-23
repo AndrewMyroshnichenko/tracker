@@ -1,4 +1,4 @@
-package com.example.tracker.models.auth
+package com.example.models.auth
 
 interface Auth {
 

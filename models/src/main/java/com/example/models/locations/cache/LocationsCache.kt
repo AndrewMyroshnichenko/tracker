@@ -1,6 +1,6 @@
-package com.example.tracker.models.locations.cache
+package com.example.models.locations.cache
 
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 
 interface LocationsCache {
     suspend fun getLocations(startDate: Long, endDate: Long): LocationsSet

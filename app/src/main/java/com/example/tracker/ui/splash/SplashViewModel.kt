@@ -2,7 +2,7 @@ package com.example.tracker.ui.splash
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
-import com.example.tracker.models.auth.Auth
+import com.example.models.auth.Auth
 import com.example.mvi.MviViewModel
 import com.example.tracker.ui.splash.state.SplashEffect
 import com.example.tracker.ui.splash.state.SplashState

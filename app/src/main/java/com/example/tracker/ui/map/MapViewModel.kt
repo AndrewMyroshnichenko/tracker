@@ -3,7 +3,7 @@ package com.example.tracker.ui.map
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
-import com.example.tracker.models.auth.Auth
+import com.example.models.auth.Auth
 import com.example.tracker.models.locations.LocationsRepository
 import com.example.mvi.MviViewModel
 import com.example.tracker.ui.map.state.MapEffect
@@ -21,6 +21,7 @@ class MapViewModel @Inject constructor(
 
     private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
         setEffect(MapEffect.ShowMessage(R.string.download_failed))
+        setState(MapState(listOf(), false))
     }
 
     override fun onStateChanged(event: Lifecycle.Event) {

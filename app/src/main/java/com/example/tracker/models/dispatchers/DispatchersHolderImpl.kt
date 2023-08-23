@@ -3,7 +3,7 @@ package com.example.tracker.models.dispatchers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class DispatchersHolderImpl : DispatchersHolder {
+class DispatchersHolderImpl : com.example.models.dispatchers.DispatchersHolder {
 
     override fun getMain(): CoroutineDispatcher {
         return Dispatchers.Main

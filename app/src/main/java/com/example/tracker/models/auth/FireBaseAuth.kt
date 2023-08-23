@@ -5,7 +5,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Singleton
 
 @Singleton
-class FireBaseAuth : Auth {
+class FireBaseAuth : com.example.models.auth.Auth {
 
     private val auth = FirebaseAuth.getInstance()
 

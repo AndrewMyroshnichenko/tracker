@@ -3,7 +3,7 @@ package com.example.tracker.models.bus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class TrackerStatusManager : StatusManager {
+class TrackerStatusManager : com.example.models.bus.StatusManager {
 
     private val isServiceOn = MutableStateFlow(false)
     private val isGpsEnabled = MutableStateFlow(false)

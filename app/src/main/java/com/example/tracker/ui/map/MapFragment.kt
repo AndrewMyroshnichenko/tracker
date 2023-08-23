@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentMapBinding
-import com.example.tracker.models.locations.Location
+import com.example.models.locations.Location
 import com.example.mvi.fragments.HostedFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
