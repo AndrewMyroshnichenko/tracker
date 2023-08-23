@@ -12,6 +12,7 @@ import com.example.tracker.models.locations.Location
 import com.example.tracker.mvi.fragments.HostedFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
@@ -32,6 +33,7 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        MapsInitializer.initialize(requireContext(), MapsInitializer.Renderer.LATEST) {}
         bind = FragmentMapBinding.inflate(layoutInflater)
         return (bind?.root)
     }

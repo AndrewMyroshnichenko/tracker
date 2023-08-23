@@ -36,6 +36,7 @@ class MapViewModel @Inject constructor(
             val list  = locationsRepository.getMapLocations(startDate, endDate)
             if (list.isEmpty()){
                 setEffect(MapEffect.ShowMessage(R.string.any_locations))
+                setState(MapState(listOf(), false))
             }else{
                 setState(MapState(list, false))
             }

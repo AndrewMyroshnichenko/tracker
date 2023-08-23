@@ -45,6 +45,6 @@
     <string name="timeline">Timeline</string>
     <string name="service_state_idle">Tracker is OFF</string>
     <string name="download_failed">"Download failed!"</string>
-    <string name="any_locations">"There are any locations!"</string>
+    <string name="any_locations">"There are not any locations!"</string>
 
 </resources>
