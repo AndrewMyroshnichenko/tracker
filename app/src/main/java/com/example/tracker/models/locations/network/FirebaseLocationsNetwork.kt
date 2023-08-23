@@ -40,5 +40,4 @@ class FirebaseLocationsNetwork : LocationsNetwork {
         const val COLUMN_OWNER_ID = "ownerId"
         const val COLUMN_TIME = "time"
     }
-
 }
