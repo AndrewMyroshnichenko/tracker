@@ -1,7 +1,7 @@
 package com.example.tracker.ui.login.state
 
 import com.example.tracker.R
-import com.example.tracker.mvi.states.AbstractState
+import com.example.mvi.states.AbstractState
 import com.example.tracker.ui.login.LoginContract
 
 open class LoginState(

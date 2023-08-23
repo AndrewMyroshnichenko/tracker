@@ -41,6 +41,10 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences"
     implementation "com.google.code.gson:gson:$gson"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
     // Tests
     testImplementation "junit:junit:$ju_test_impl"
     androidTestImplementation "androidx.test.ext:junit:$ju_test_ext"

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentLoginBinding
-import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.mvi.fragments.HostedFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class LoginFragment :
     private var bind: FragmentLoginBinding? = null
 
     override fun createModel(): LoginViewModel {
-        val viewModel : LoginViewModel by viewModels()
+        val viewModel: LoginViewModel by viewModels()
         return viewModel
     }
 

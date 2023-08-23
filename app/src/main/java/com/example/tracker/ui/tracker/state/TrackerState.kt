@@ -1,6 +1,6 @@
 package com.example.tracker.ui.tracker.state
 
-import com.example.tracker.mvi.states.AbstractState
+import com.example.mvi.states.AbstractState
 import com.example.tracker.ui.tracker.TrackerContract
 
 class TrackerState(

@@ -1,16 +1,15 @@
-package com.example.tracker.mvi.fragments
+package com.example.mvi.fragments
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
-import com.example.tracker.mvi.states.ScreenState
 
 class FragmentContract {
 
     interface ViewModel<V> : LifecycleObserver {
         fun onStateChanged(event: Lifecycle.Event)
-        fun getStateObservable(): LiveData<ScreenState<V>>
-        fun getEffectObservable(): LiveData<ScreenState<V>>
+        fun getStateObservable(): LiveData<com.example.mvi.states.ScreenState<V>>
+        fun getEffectObservable(): LiveData<com.example.mvi.states.ScreenState<V>>
     }
 
     interface View

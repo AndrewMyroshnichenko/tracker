@@ -1,6 +1,6 @@
 package com.example.tracker.ui.login
 
-import com.example.tracker.mvi.fragments.FragmentContract
+import com.example.mvi.fragments.FragmentContract
 
 class LoginContract {
 

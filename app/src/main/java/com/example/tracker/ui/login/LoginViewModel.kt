@@ -5,7 +5,7 @@ import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.tracker.R
 import com.example.tracker.models.auth.Auth
-import com.example.tracker.mvi.MviViewModel
+import com.example.mvi.MviViewModel
 import com.example.tracker.ui.login.state.LoginEffect
 import com.example.tracker.ui.login.state.LoginState
 import dagger.hilt.android.lifecycle.HiltViewModel

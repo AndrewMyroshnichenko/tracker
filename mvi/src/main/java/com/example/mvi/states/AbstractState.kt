@@ -1,5 +1,4 @@
-package com.example.tracker.mvi.states
-
+package com.example.mvi.states
 
 abstract class AbstractState<V, S> : ScreenState<V> {
 

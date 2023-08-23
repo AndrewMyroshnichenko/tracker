@@ -1,4 +1,4 @@
-package com.example.tracker.mvi.states
+package com.example.mvi.states
 
 abstract class AbstractEffect<T>: ScreenState<T> {
     var isHandled = false

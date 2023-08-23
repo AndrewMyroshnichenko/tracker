@@ -1,12 +1,12 @@
-package com.example.tracker.mvi
+package com.example.mvi
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tracker.mvi.fragments.FragmentContract
-import com.example.tracker.mvi.states.AbstractState
-import com.example.tracker.mvi.states.ScreenState
+import com.example.mvi.fragments.FragmentContract
+import com.example.mvi.states.AbstractState
+import com.example.mvi.states.ScreenState
 
 abstract class MviViewModel<V, STATE : AbstractState<V, STATE>> : ViewModel(),
     FragmentContract.ViewModel<V> {

@@ -1,4 +1,4 @@
-package com.example.tracker.mvi.fragments
+package com.example.mvi.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,14 +7,13 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
-import com.example.tracker.mvi.states.ScreenState
 import java.lang.reflect.ParameterizedType
 
 abstract class HostedFragment<
         VIEW : FragmentContract.View,
         VIEW_MODEL : FragmentContract.ViewModel<VIEW>,
         HOST : FragmentContract.Host>
-    : NavHostFragment(), FragmentContract.View, Observer<ScreenState<VIEW>>,
+    : NavHostFragment(), FragmentContract.View, Observer<com.example.mvi.states.ScreenState<VIEW>>,
     LifecycleEventObserver {
 
     protected var model: VIEW_MODEL? = null
@@ -63,7 +62,7 @@ abstract class HostedFragment<
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun onChanged(value: ScreenState<VIEW>) {
+    override fun onChanged(value: com.example.mvi.states.ScreenState<VIEW>) {
         value.visit(this@HostedFragment as VIEW)
     }
 

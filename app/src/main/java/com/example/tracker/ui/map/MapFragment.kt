@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.databinding.FragmentMapBinding
 import com.example.tracker.models.locations.Location
-import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.mvi.fragments.HostedFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapsInitializer

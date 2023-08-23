@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.tracker.R
-import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.mvi.fragments.HostedFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

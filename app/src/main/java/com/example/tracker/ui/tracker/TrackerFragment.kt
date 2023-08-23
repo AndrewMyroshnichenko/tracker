@@ -18,7 +18,7 @@ import androidx.fragment.app.viewModels
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
-import com.example.tracker.mvi.fragments.HostedFragment
+import com.example.mvi.fragments.HostedFragment
 import com.example.tracker.ui.signout.SignOutFragment
 import com.example.tracker.ui.tracker.state.TrackerState
 import com.example.tracker.utils.PermissionsUtil
