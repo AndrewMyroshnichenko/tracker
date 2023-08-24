@@ -34,4 +34,5 @@ abstract class MviViewModel<V, STATE : AbstractState<V, STATE>> : ViewModel(),
     @CallSuper
     override fun onStateChanged(event: Lifecycle.Event) {
     }
+
 }

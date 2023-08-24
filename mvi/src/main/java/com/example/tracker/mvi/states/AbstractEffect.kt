@@ -13,4 +13,5 @@ abstract class AbstractEffect<T> : ScreenState<T> {
     open fun handle(screen: T) {
 
     }
+
 }
