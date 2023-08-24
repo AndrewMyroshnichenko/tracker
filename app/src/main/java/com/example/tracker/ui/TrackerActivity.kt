@@ -44,4 +44,5 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     override fun proceedLocationToLoginScreen() {
         navController?.navigate(R.id.action_trackerFragment_to_loginFragment)
     }
+
 }
