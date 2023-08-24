@@ -67,4 +67,5 @@ class LocationsCacheImpl(private val prefs: MapPrefs) :
         loadedRanges = null
         prefs.clear()
     }
+
 }

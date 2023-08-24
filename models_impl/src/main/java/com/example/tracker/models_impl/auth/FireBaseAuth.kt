@@ -29,4 +29,5 @@ class FireBaseAuth : Auth {
     override fun isSignedIn(): Boolean = auth.currentUser != null
 
     override fun getCurrentUserId(): String = auth.currentUser?.uid.toString()
+
 }

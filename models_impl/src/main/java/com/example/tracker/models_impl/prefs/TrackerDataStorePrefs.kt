@@ -23,4 +23,5 @@ class TrackerDataStorePrefs(private val context: Context) : TrackerPrefs {
     override suspend fun putTrackerStatus(trackerStatus: Boolean) {
         context.trackerDataStore.edit { it[KEY_TRACKER_STATUS] = trackerStatus }
     }
+
 }

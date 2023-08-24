@@ -66,4 +66,5 @@ class DefaultLocationSource(
 
     @SuppressLint("MissingPermission")
     override fun getGpsStatusFlow(): Flow<Boolean> = gpsStatusFlow
+
 }

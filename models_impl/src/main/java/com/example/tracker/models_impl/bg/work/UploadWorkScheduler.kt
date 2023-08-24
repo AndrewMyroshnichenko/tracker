@@ -18,4 +18,5 @@ class UploadWorkScheduler(private var context: Context) : WorkScheduler {
             ).build()
         WorkManager.getInstance(context).enqueue(requestSendLocation)
     }
+
 }

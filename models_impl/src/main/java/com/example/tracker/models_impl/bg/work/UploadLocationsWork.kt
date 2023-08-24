@@ -23,4 +23,5 @@ class UploadLocationsWork @AssistedInject constructor(
             Result.retry()
         }
     }
+
 }
