@@ -166,7 +166,6 @@ class TrackerFragment :
         bind?.imgTrackerIndicator?.setImageResource(imgTrackerIndicator)
     }
 
-
     private fun requestLocationPermission() {
         if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) ||
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)

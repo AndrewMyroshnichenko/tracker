@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import com.example.tracker.models.bg.LocationController
 import com.example.tracker.R
 import com.example.tracker.ui.TrackerActivity
 import dagger.hilt.android.AndroidEntryPoint

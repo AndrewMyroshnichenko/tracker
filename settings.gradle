@@ -14,3 +14,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Tracker"
 include ':app'
+include ':map'
+include ':mvi'
+include ':auth'
+include ':data'
+include ':models'
+include ':models_impl'
+include ':utils'

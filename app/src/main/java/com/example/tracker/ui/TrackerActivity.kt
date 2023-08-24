@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.tracker.R
 import com.example.tracker.databinding.ActivityTrackerBinding
-import com.example.tracker.ui.login.LoginContract
-import com.example.tracker.ui.splash.SplashContract
+import com.example.tracker.auth.login.LoginContract
+import com.example.tracker.auth.splash.SplashContract
 import com.example.tracker.ui.tracker.TrackerContract
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,4 +44,5 @@ class TrackerActivity : AppCompatActivity(), SplashContract.Host, LoginContract.
     override fun proceedLocationToLoginScreen() {
         navController?.navigate(R.id.action_trackerFragment_to_loginFragment)
     }
+
 }

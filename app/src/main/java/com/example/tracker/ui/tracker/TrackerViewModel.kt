@@ -2,10 +2,10 @@ package com.example.tracker.ui.tracker
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
-import com.example.tracker.bg.work.WorkScheduler
+import com.example.tracker.models.LocationsRepository
+import com.example.tracker.models.bg.work.WorkScheduler
 import com.example.tracker.models.auth.Auth
 import com.example.tracker.models.bus.StatusManager
-import com.example.tracker.models.locations.LocationsRepository
 import com.example.tracker.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect
 import com.example.tracker.ui.tracker.state.TrackerState
@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
-
 
 @HiltViewModel
 class TrackerViewModel @Inject constructor(

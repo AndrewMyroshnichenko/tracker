@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BootReceiver: BroadcastReceiver() {
-
+class BootReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var prefs: TrackerPrefs
