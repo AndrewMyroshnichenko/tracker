@@ -13,4 +13,5 @@ interface Auth {
     fun isSignedIn(): Boolean
 
     fun getCurrentUserId(): String
+
 }
