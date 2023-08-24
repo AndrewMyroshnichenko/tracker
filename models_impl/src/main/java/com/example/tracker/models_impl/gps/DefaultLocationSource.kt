@@ -5,9 +5,9 @@ import android.content.Context
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
+import com.example.models_impl.BuildConfig
 import com.example.tracker.models.gps.LocationSource
 import com.example.tracker.models.locations.Location
-import com.example.models_impl.BuildConfig
 import com.example.tracker.utils.PermissionsUtil
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

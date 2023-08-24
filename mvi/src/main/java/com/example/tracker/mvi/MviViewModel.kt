@@ -27,7 +27,7 @@ abstract class MviViewModel<V, STATE : AbstractState<V, STATE>> : ViewModel(),
     @Suppress("UNCHECKED_CAST")
     protected fun getState() = stateHolder.value as STATE?
 
-    protected fun setEffect(action: ScreenState<V>){
+    protected fun setEffect(action: ScreenState<V>) {
         effectHolder.value = action
     }
 

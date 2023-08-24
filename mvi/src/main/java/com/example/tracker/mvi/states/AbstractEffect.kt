@@ -1,10 +1,10 @@
 package com.example.tracker.mvi.states
 
-abstract class AbstractEffect<T>: ScreenState<T> {
+abstract class AbstractEffect<T> : ScreenState<T> {
     var isHandled = false
 
     override fun visit(screen: T) {
-        if(!isHandled){
+        if (!isHandled) {
             handle(screen)
             isHandled = true
         }

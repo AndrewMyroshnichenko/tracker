@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor (
+class LoginViewModel @Inject constructor(
     private val authNetwork: Auth
 ) : MviViewModel<LoginContract.View, LoginState>(), LoginContract.ViewModel {
 
@@ -46,8 +46,6 @@ class LoginViewModel @Inject constructor (
             }
         }
         setState(LoginState(loginError, passError))
-        Log.d("AAA","$loginError, $passError")
-        Log.d("AAA","${R.string.empty_error_message}")
         return loginError != R.string.empty_error_message || passError != R.string.empty_error_message
     }
 

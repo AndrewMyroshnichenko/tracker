@@ -12,4 +12,3 @@ class MapState(
         screen.showMapState(locations, isGetLocationsRunning)
     }
 }
-
