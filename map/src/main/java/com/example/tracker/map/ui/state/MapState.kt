@@ -8,7 +8,9 @@ class MapState(
     private val locations: List<Location>,
     private val isGetLocationsRunning: Boolean,
 ) : AbstractState<MapContract.View, MapState>() {
+
     override fun visit(screen: MapContract.View) {
         screen.showMapState(locations, isGetLocationsRunning)
     }
+
 }
