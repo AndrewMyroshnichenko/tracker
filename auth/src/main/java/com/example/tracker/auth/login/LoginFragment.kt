@@ -137,4 +137,5 @@ class LoginFragment :
         bind?.tvForgotPassword?.visibility = View.GONE
         bind?.tvSingInUp?.visibility = View.GONE
     }
+
 }

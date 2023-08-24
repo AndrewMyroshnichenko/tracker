@@ -1,6 +1,5 @@
 package com.example.tracker.auth.login
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
 import com.example.auth.R
@@ -107,4 +106,5 @@ class LoginViewModel @Inject constructor(
     private fun arePasswordsMatch(firstPass: String, secondPass: String): Boolean {
         return firstPass == secondPass
     }
+
 }

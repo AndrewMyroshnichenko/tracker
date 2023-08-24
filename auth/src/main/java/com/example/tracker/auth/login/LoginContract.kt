@@ -31,4 +31,5 @@ class LoginContract {
         fun proceedAuthToMainScreen()
 
     }
+
 }

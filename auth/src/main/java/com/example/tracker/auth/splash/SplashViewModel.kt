@@ -22,7 +22,6 @@ class SplashViewModel @Inject constructor(
         throwable.printStackTrace()
     }
 
-
     override fun onStateChanged(event: Lifecycle.Event) {
         super.onStateChanged(event)
         if (event == Lifecycle.Event.ON_CREATE) {
@@ -36,4 +35,5 @@ class SplashViewModel @Inject constructor(
             }
         }
     }
+
 }
