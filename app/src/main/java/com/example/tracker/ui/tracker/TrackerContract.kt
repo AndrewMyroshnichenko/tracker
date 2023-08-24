@@ -1,6 +1,6 @@
 package com.example.tracker.ui.tracker
 
-import com.example.mvi.fragments.FragmentContract
+import com.example.tracker.mvi.fragments.FragmentContract
 
 class TrackerContract {
 

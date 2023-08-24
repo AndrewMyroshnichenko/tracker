@@ -45,6 +45,7 @@ android {
 dependencies {
 
     // Modules
+    implementation project(':utils')
     implementation project(':models')
 
     // Base dependencies

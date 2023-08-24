@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_activity_main"
         app:layout_constraintVertical_bias="1.0"
-        tools:context="com.example.map.ui.MapActivity" />
+        tools:context="com.example.map.com.example.tracker.map.ui.MapActivity" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_activity_main"

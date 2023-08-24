@@ -43,6 +43,7 @@ dependencies {
     implementation project(':mvi')
     implementation project(':auth')
     implementation project(':data')
+    implementation project(':utils')
     implementation project(':models')
     implementation project(':models_impl')
 
