@@ -56,4 +56,5 @@ class LocationsRepositoryImp(
         mapDao.deleteAllLocations()
         cache.clear()
     }
+
 }

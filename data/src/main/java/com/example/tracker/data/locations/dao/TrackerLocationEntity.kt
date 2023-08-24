@@ -31,4 +31,5 @@ data class TrackerLocationEntity(
             longitude = location.longitude
         )
     }
+
 }

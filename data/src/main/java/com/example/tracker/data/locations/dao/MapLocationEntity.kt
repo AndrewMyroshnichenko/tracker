@@ -31,4 +31,5 @@ class MapLocationEntity(
             longitude = location.longitude
         )
     }
+
 }
