@@ -34,11 +34,11 @@ class MapViewModel @Inject constructor(
     override fun getFilteredLocations(startDate: Long, endDate: Long) {
         viewModelScope.launch(exceptionHandler) {
             setState(MapState(listOf(), true))
-            val list  = locationsRepository.getMapLocations(startDate, endDate)
-            if (list.isEmpty()){
+            val list = locationsRepository.getMapLocations(startDate, endDate)
+            if (list.isEmpty()) {
                 setEffect(MapEffect.ShowMessage(R.string.any_locations))
                 setState(MapState(listOf(), false))
-            }else{
+            } else {
                 setState(MapState(list, false))
             }
         }
@@ -56,8 +56,7 @@ class MapViewModel @Inject constructor(
         return System.currentTimeMillis() - MILLISECONDS_PER_DAY
     }
 
-    companion object{
+    companion object {
         const val MILLISECONDS_PER_DAY = 86_400_000L
     }
-
 }

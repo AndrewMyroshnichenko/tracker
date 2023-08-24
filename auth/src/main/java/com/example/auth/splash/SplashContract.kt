@@ -6,7 +6,7 @@ class SplashContract {
 
     interface ViewModel : FragmentContract.ViewModel<View>
 
-    interface View : FragmentContract.View{
+    interface View : FragmentContract.View {
         fun proceedToAuthScreen()
         fun proceedToMainScreen()
     }

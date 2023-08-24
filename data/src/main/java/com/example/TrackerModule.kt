@@ -59,11 +59,7 @@ class TrackerModule {
         prefs: com.example.models.prefs.TrackerPrefs
     ): LocationController {
         return LocationServiceController(
-            location = locationSource,
-            gpsStateCache = model,
-            locationRepository = locationRepository,
-            uploadWorkScheduler = uploadWorkScheduler,
-            prefs = prefs
+            locationSource, model, locationRepository, uploadWorkScheduler, prefs
         )
     }
 
@@ -92,13 +88,7 @@ class TrackerModule {
         cache: LocationsCache,
         auth: Auth
     ): LocationsRepository {
-        return LocationsRepositoryImp(
-            trackerDao,
-            mapDao,
-            network,
-            auth,
-            cache
-        )
+        return LocationsRepositoryImp(trackerDao, mapDao, network, auth, cache)
     }
 
     @Provides

@@ -11,7 +11,7 @@ open class MapEffect : AbstractEffect<MapContract.View>() {
         }
     }
 
-    class ShowMessage(private val messageId : Int) : MapEffect() {
+    class ShowMessage(private val messageId: Int) : MapEffect() {
         override fun handle(screen: MapContract.View) {
             screen.showMessage(messageId)
         }

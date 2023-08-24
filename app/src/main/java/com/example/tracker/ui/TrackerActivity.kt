@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.tracker.R
-import com.example.tracker.databinding.ActivityTrackerBinding
 import com.example.auth.login.LoginContract
 import com.example.auth.splash.SplashContract
+import com.example.tracker.R
+import com.example.tracker.databinding.ActivityTrackerBinding
 import com.example.tracker.ui.tracker.TrackerContract
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -54,8 +54,11 @@ class DefaultLocationSource(
             }
 
             locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER, 1000L, 1.0F,//BuildConfig.PERIOD, BuildConfig.SENSITIVITY,
-                locationListener, Looper.getMainLooper()
+                LocationManager.GPS_PROVIDER,
+                1000L,
+                1.0F,//BuildConfig.PERIOD, BuildConfig.SENSITIVITY,
+                locationListener,
+                Looper.getMainLooper()
             )
 
             awaitClose {

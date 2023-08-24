@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Base.Theme.Tracker" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@color/main</item>
         <item name="fontFamily">@font/poppins</item>

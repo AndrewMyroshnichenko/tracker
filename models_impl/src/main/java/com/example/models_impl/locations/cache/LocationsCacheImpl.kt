@@ -9,7 +9,9 @@ class LocationsCacheImpl(private val prefs: MapPrefs) :
     private var loadedRanges: MutableList<Pair<Long, Long>>? = null
     private var locationsMap = mutableMapOf<Pair<Long, Long>, List<Location>>()
 
-    override suspend fun getLocations(startDate: Long, endDate: Long): com.example.models.locations.cache.LocationsSet {
+    override suspend fun getLocations(
+        startDate: Long, endDate: Long
+    ): com.example.models.locations.cache.LocationsSet {
         if (loadedRanges?.isEmpty() == true) {
             // if ranges are initialized and there is nothing
             return com.example.models.locations.cache.LocationsSet(Collections.emptyList(), false)

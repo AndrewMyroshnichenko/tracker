@@ -51,11 +51,12 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     }
 
     override fun showMapState(locationsList: List<Location>, isGetLocationsRunning: Boolean) {
-        if (isGetLocationsRunning){
+        if (isGetLocationsRunning) {
             bind?.mapBar?.visibility = View.VISIBLE
-        }else{
+        } else {
             bind?.mapBar?.visibility = View.INVISIBLE
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
+            val mapFragment =
+                childFragmentManager.findFragmentById(R.id.map_view) as SupportMapFragment
             mapFragment.getMapAsync { googleMap ->
                 renderMarks(
                     googleMap,
@@ -104,11 +105,9 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
             val bounds = boundsBuilder.build()
             mMap.animateCamera(
                 CameraUpdateFactory.newLatLngBounds(
-                    bounds,
-                    resources.getDimensionPixelSize(R.dimen.dp_10)
+                    bounds, resources.getDimensionPixelSize(R.dimen.dp_10)
                 )
             )
         }
     }
-
 }

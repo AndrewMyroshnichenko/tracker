@@ -4,7 +4,7 @@ import com.example.mvi.fragments.FragmentContract
 
 class TrackerContract {
 
-    interface ViewModel : FragmentContract.ViewModel<View>{
+    interface ViewModel : FragmentContract.ViewModel<View> {
 
         fun singOut()
 
@@ -14,7 +14,7 @@ class TrackerContract {
 
     }
 
-    interface View : FragmentContract.View{
+    interface View : FragmentContract.View {
 
         fun showTrackerState(serviceRunning: Boolean, isGpsEnable: Boolean, locationsCounter: Int)
 

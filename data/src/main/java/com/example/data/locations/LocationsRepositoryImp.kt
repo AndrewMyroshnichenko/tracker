@@ -32,7 +32,10 @@ class LocationsRepositoryImp(
         }
     }
 
-    override suspend fun getMapLocations(startDate: Long, endDate: Long): List<com.example.models.locations.Location> {
+    override suspend fun getMapLocations(
+        startDate: Long,
+        endDate: Long
+    ): List<com.example.models.locations.Location> {
         val result = cache.getLocations(startDate, endDate)
         if (result.locations.isNotEmpty()) {
             return result.locations

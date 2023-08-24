@@ -3,8 +3,8 @@ package com.example.tracker.ui.tracker
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.models.LocationsRepository
-import com.example.models.bg.work.WorkScheduler
 import com.example.models.auth.Auth
+import com.example.models.bg.work.WorkScheduler
 import com.example.models.bus.StatusManager
 import com.example.mvi.MviViewModel
 import com.example.tracker.ui.tracker.state.TrackerEffect

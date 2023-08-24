@@ -6,12 +6,11 @@ interface LocationsRepository {
 
     suspend fun syncTrackerLocations()
 
-    suspend fun getMapLocations(startDate: Long, endDate: Long): List<com.example.models.locations.Location>
+    suspend fun getMapLocations(
+        startDate: Long, endDate: Long
+    ): List<com.example.models.locations.Location>
 
     suspend fun getTrackerLocations(): List<com.example.models.locations.Location>
 
     suspend fun clearLocations()
-
-
-
 }

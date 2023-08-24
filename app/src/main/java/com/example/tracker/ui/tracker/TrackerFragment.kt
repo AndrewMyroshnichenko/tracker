@@ -15,13 +15,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
+import com.example.models_impl.utils.PermissionsUtil
+import com.example.mvi.fragments.HostedFragment
 import com.example.tracker.R
 import com.example.tracker.bg.LocationService
 import com.example.tracker.databinding.FragmentTrackerBinding
-import com.example.mvi.fragments.HostedFragment
 import com.example.tracker.ui.signout.SignOutFragment
 import com.example.tracker.ui.tracker.state.TrackerState
-import com.example.models_impl.utils.PermissionsUtil
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -65,7 +65,7 @@ class TrackerFragment :
         childFragmentManager.setFragmentResultListener(
             SignOutFragment.SIGN_OUT_REQUEST_KEY, this, this
         )
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             requireActivity().moveTaskToBack(true)
         }
     }

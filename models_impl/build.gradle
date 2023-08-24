@@ -25,7 +25,7 @@ android {
             buildConfigField("Float", "SENSITIVITY", "60.0f")
             buildConfigField("Long", "PERIOD", "600000L")
         }
-        debug{
+        debug {
             buildConfigField("Float", "SENSITIVITY", "10.0f")
             buildConfigField("Long", "PERIOD", "5000L")
         }
