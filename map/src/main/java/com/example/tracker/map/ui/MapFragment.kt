@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.example.tracker.map.R
 import com.example.tracker.map.databinding.FragmentMapBinding
@@ -88,27 +89,40 @@ class MapFragment : HostedFragment<MapContract.View, MapContract.ViewModel, MapC
     }
 
     private fun renderMarks(mMap: GoogleMap, list: List<LatLng>) {
-        mMap.clear()
-        mMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .addAll(list)
-                .color(R.color.way_color)
-        )
 
-        if (list.isNotEmpty()) {
-            val boundsBuilder = LatLngBounds.Builder()
-            for (point in list) {
-                boundsBuilder.include(point)
-            }
-            val bounds = boundsBuilder.build()
-            mMap.animateCamera(
-                CameraUpdateFactory.newLatLngBounds(
-                    bounds,
-                    resources.getDimensionPixelSize(R.dimen.dp_10)
-                )
-            )
+        if (list.isEmpty()) {
+            return
         }
+
+        val polylineOptions = PolylineOptions()
+            .clickable(true)
+            .addAll(list)
+            .color(ContextCompat.getColor(requireContext(), R.color.way_color))
+
+        mMap.clear()
+        mMap.addPolyline(polylineOptions)
+
+        val boundsBuilder = LatLngBounds.Builder()
+        var initialPoint: LatLng? = null
+
+        for (point in list) {
+            boundsBuilder.include(point)
+            if (initialPoint == null) {
+                initialPoint = point
+            }
+        }
+
+        val bounds = boundsBuilder.build()
+
+        val padding = resources.getDimensionPixelSize(R.dimen.dp_10)
+        val cameraUpdate = if (initialPoint != null) {
+            CameraUpdateFactory.newLatLngBounds(bounds.including(initialPoint), padding)
+        } else {
+            CameraUpdateFactory.newLatLngZoom(list.first(), 13f)
+        }
+
+        mMap.animateCamera(cameraUpdate)
+
     }
 
 }
